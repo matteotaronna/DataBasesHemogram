@@ -1,6 +1,6 @@
 package hemogram.db.patient;
 
 public class SQLCreatePatient {
-	//jhgfrdededfrfrffrffrfr
+	//jhgfrdededfrfrffrffrfr estoy hasta los cojones
 
 }
