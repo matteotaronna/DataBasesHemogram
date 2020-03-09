@@ -76,13 +76,12 @@ public class SQLInsertBasic
 			String hospital = reader.readLine();
 			System.out.print("Speciality: ");
 			String speciality = reader.readLine();
-			//
 	
 
 			// Insert new record
 			Statement stmt = c.createStatement();
-			String sql = "INSERT INTO patients (name, surname, dni, dobDate) "
-						+ "VALUES ('" + name + "', '" + surname	+ "', '" + dni + "', '" + dobDate + "')";
+			String sql = "INSERT INTO patients (name, surname, hospital, speciality) "
+						+ "VALUES ('" + name + "', '" + surname	+ "', '" + hospital + "', '" + speciality + "')";
 			stmt.executeUpdate(sql);
 			stmt.close();
 			System.out.println("Records inserted.");
