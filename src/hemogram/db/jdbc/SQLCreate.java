@@ -6,7 +6,8 @@ import java.sql.Statement;
 
 public class SQLCreate {
 	
-	public static void main(String args[]) {
+	public static void sqlCreate() {
+		
 		try {
 			// Open database connection
 			Class.forName("org.sqlite.JDBC");
@@ -79,22 +80,7 @@ public class SQLCreate {
 			stmt7.close();
 			System.out.println("Tables created.");
 			// Create table: end
-			
-			// - Set initial values for the Primary Keys
-			// - Don't try to understand this until JPA is explained
-			// This is usually not needed, since the initial values
-			// are set when the first row is inserted, but since we
-			// are using JPA and JDBC in the same project, and JPA
-			// needs an initial value, we do this.
-			Statement stmtSeq = c.createStatement();
-			String sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('departments', 1)";
-			stmtSeq.executeUpdate(sqlSeq);
-			sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('employees', 1)";
-			stmtSeq.executeUpdate(sqlSeq);
-			sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('reports', 1)";
-			stmtSeq.executeUpdate(sqlSeq);
-			stmtSeq.close();
-			
+
 			// Close database connection
 			c.close();
 			System.out.println("Database connection closed.");
