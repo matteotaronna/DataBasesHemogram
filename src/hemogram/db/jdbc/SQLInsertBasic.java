@@ -76,6 +76,7 @@ public class SQLInsertBasic
 			String hospital = reader.readLine();
 			System.out.print("Speciality: ");
 			String speciality = reader.readLine();
+			//
 	
 
 			// Insert new record
