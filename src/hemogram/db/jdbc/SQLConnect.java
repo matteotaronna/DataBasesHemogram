@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 
 public class SQLConnect {
 	public static void main(String args[]) {
-		try {
+		try {//
 			// Open database connection
 			Class.forName("org.sqlite.JDBC");
 			Connection c = DriverManager.getConnection("jdbc:sqlite:./db/HemogramDB.db");
