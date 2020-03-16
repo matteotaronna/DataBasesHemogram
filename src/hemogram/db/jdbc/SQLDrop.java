@@ -6,7 +6,7 @@ import java.sql.Statement;
 
 public class SQLDrop {
 
-	public static void sqlDeletePatient() {
+	public static void sqlDeletePatients() {
 		try {
 			// Open database connection
 			Class.forName("org.sqlite.JDBC");
@@ -29,7 +29,7 @@ public class SQLDrop {
 			e.printStackTrace();
 		}
 	}
-	public static void sqlDeleteDoctor() {
+	public static void sqlDeleteDoctors() {
 		try {
 			// Open database connection
 			Class.forName("org.sqlite.JDBC");
@@ -52,7 +52,7 @@ public class SQLDrop {
 			e.printStackTrace();
 		}
 	}
-	public static void sqlDeleteAnalizer() {
+	public static void sqlDeleteAnalizers() {
 		try {
 			// Open database connection
 			Class.forName("org.sqlite.JDBC");
@@ -75,7 +75,7 @@ public class SQLDrop {
 			e.printStackTrace();
 		}
 	}
-	public static void sqlDeleteHemogram() {
+	public static void sqlDeleteHemograms() {
 		try {
 			// Open database connection
 			Class.forName("org.sqlite.JDBC");
@@ -98,7 +98,7 @@ public class SQLDrop {
 			e.printStackTrace();
 		}
 	}
-	public static void sqlDeleteFeature() {
+	public static void sqlDeleteFeatures() {
 		try {
 			// Open database connection
 			Class.forName("org.sqlite.JDBC");

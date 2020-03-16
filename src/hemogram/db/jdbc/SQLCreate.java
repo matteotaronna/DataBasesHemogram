@@ -16,24 +16,14 @@ public class SQLCreate {
 			System.out.println("Database connection opened.");
 			
 			// Create tables
-			Statement stmt1 = c.createStatement();
-			String sql1 = "CREATE TABLE patients "
-					   + "(id       INTEGER  PRIMARY KEY AUTOINCREMENT,"
-					   + " name     TEXT     NOT NULL, "
-					   + " surname  TEXT	 NOT NULL,"
-					   + " dob      DATE     CURRENT DATE,"
-					   + " dni      TEXT     NOT NULL)";
-			stmt1.executeUpdate(sql1);
-			stmt1.close();
 			Statement stmt2 = c.createStatement();
 			String sql2 = "CREATE TABLE doctors "
 					   + "(id         INTEGER  PRIMARY KEY AUTOINCREMENT,"
 					   + " name       TEXT     NOT NULL, "
 					   + " surname    TEXT     NOT NULL,"
-					   + " work_user  DATE	   NOT NULL  UNIQUE, "
+					   + " work_user  TEXT	   NOT NULL  UNIQUE, "
 					   + " hospital   TEXT     NOT NULL, "
-					   + " speciality TEXT     NOT NULL,"
-					   + " patient_id	INTEGER REFERENCES patients(id) ON UPDATE CASCADE ON DELETE SET NULL)";
+					   + " speciality TEXT     NOT NULL)";
 			stmt2.executeUpdate(sql2);
 			stmt2.close();
 			Statement stmt3 = c.createStatement();
@@ -42,17 +32,28 @@ public class SQLCreate {
 					   + " name       TEXT     NOT NULL, "
 					   + " surname    TEXT     NOT NULL, "
 					   + " work_user  TEXT     NOT NULL UNIQUE,"
-					   + " hospital   TEXT     NOT NULL,"
-					   + " patient_id INTEGER REFERENCES patients(id) ON UPDATE CASCADE ON DELETE SET NULL)";
+					   + " hospital   TEXT     NOT NULL)";
 			stmt3.executeUpdate(sql3);
 			stmt3.close();
+			Statement stmt1 = c.createStatement();
+			String sql1 = "CREATE TABLE patients "
+					   + "(id       INTEGER  PRIMARY KEY AUTOINCREMENT,"
+					   + " name     TEXT     NOT NULL, "
+					   + " surname  TEXT	 NOT NULL,"
+					   + " dob      DATE     CURRENT DATE,"
+					   + " dni      TEXT     NOT NULL"
+					   + " doctor_id INTEGER REFERENCES doctors(id) ON UPDATE CASCADE ON DELETE SET NULL"
+					   + " analizer_id INTEGER REFERENCES analizers(id) ON UPDATE CASCADE ON DELETE SET NULL)";
+			stmt1.executeUpdate(sql1);
+			stmt1.close();
 			Statement stmt4 = c.createStatement();
 			String sql4 = "CREATE TABLE hemograms "
 					   + "(id             INTEGER  PRIMARY KEY AUTOINCREMENT,"
 					   + " date_hemogram  TEXT    NOT NULL, "
 					   + " comments       TEXT     NOT NULL, "
 					   + " doctor_id INTEGER REFERENCES doctors(id) ON UPDATE CASCADE ON DELETE SET NULL, "
-					   + " patient_id INTEGER REFERENCES patients(id) ON UPDATE CASCADE ON DELETE SET NULL)";
+					   + " patient_id INTEGER REFERENCES patients(id) ON UPDATE CASCADE ON DELETE SET NULL,"
+					   + " analizer_id INTEGER REFERENCES analizers(id) ON UPDATE CASCADE ON DELETE SET NULL)";
 			stmt4.executeUpdate(sql4);
 			stmt4.close();
 			Statement stmt5 = c.createStatement();
