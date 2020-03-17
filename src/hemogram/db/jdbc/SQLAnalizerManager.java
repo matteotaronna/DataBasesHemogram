@@ -66,6 +66,30 @@ public class SQLAnalizerManager implements AnalizerManager
 		}
 		return newAnalizer;
 	}
+	
+	@Override
+	public int getAnalizerId (Analizer analizer)
+	{
+		
+		int analizerID=0;
+		try 
+		{
+			String sql = "SELECT * FROM analizers WHERE name = ? AND surname = ? AND work_user = ? AND hospital = ?";
+			PreparedStatement s = c.prepareStatement(sql);
+			s.setString(1, analizer.getName());
+			s.setString(2, analizer.getSurname());
+			s.setString(3, analizer.getWork_user());
+			s.setString(4, analizer.getHospital());
+			ResultSet rs = s.executeQuery();
+			rs.next();
+			analizerID = rs.getInt("id");
+			
+		} catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		return analizerID;
+	}
 
 	@Override
 	public List<Analizer> searchAnalizer(String name, String work_user) 

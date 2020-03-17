@@ -25,6 +25,14 @@ public class Analizer implements Serializable{
 		this.hospital = hospital;
 	}
 
+	public Analizer(String name, String surname, String work_user, String hospital) {
+		super();
+		this.name = name;
+		this.surname = surname;
+		this.work_user = work_user;
+		this.hospital = hospital;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 import hemogram.db.interfaces.*;
 import hemogram.db.jdbc.*;
+import hemogram.db.pojos.*;
 
 public class Menu 
 {
@@ -17,7 +18,7 @@ public class Menu
 	private static BufferedReader reader;
 	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	
-	public void initialMenu()
+	public static void  nain(String args[])
 	{
 		try
 		{
@@ -32,8 +33,9 @@ public class Menu
 			
 			//starts program
 			System.out.println("Who are you?");
-			System.out.println("1. Doctor");
-			System.out.println("2. Owner");
+			System.out.println("1. Analizer");
+			System.out.println("2. Doctor");
+			System.out.println("3. Patient");
 			int option = Integer.parseInt(reader.readLine());
 					
 			switch(option)
@@ -56,15 +58,66 @@ public class Menu
 		}
 	}
 	
-	public void analizerMenu()
+	private static void analizerMenu()
+	{
+		try
+		{
+			System.out.println("1. New Analizer");
+			System.out.println("2. Already signed up");
+			
+			int option = Integer.parseInt(reader.readLine());
+					
+			switch(option)
+			{
+				case 1:
+					Analizer analizer = addAnalizer();
+					//now we need to get the analizer id to link it to the patient
+					int analizerID = analizerManager.getAnalizerId(analizer);
+					break;
+				case 2:
+					signUpAnalizer();
+					break;
+				default:
+					break;
+			}
+		}catch(Exception e)
+		{
+				e.printStackTrace();
+		}
+		
+	}
+	
+	private static Analizer addAnalizer() throws Exception
+	{
+		System.out.println("FILL IN YOUR INFO");
+		System.out.print("Name: ");
+		String analizerName = reader.readLine();
+		System.out.print("Surname: ");
+		String analizerSurname = reader.readLine();
+		System.out.print("Work User: ");
+		String analizerWorkUser = reader.readLine();
+		System.out.print("Hospital: ");
+		String analizerHospital = reader.readLine();
+		Analizer newAnalizer = new Analizer(analizerName, analizerSurname, analizerWorkUser, analizerHospital);
+		analizerManager.admit(newAnalizer);
+		return newAnalizer;
+	}
+	private static Analizer signUpAnalizer() throws Exception
+	{
+		System.out.print("Name: ");
+		String analizerName = reader.readLine();
+		System.out.print("Surname: ");
+		String analizerSurname = reader.readLine();
+		System.out.print("Work User: ");
+		String analizerWorkUser = reader.readLine();
+		return null;
+	}
+	
+	private static void doctorMenu()
 	{
 		
 	}
-	public void doctorMenu()
-	{
-		
-	}
-	public void patientMenu()
+	private static void patientMenu()
 	{
 		
 	}
