@@ -110,6 +110,7 @@ public class Menu
 		String analizerSurname = reader.readLine();
 		System.out.print("Work User: ");
 		String analizerWorkUser = reader.readLine();
+		
 		return null;
 	}
 	
