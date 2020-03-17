@@ -26,6 +26,16 @@ public class Doctor implements Serializable{
 		this.hospital = hospital;
 		this.speciality = speciality;
 	}
+	
+
+	public Doctor(String name, String surname, String work_user, String hospital, String speciality) {
+		super();
+		this.name = name;
+		this.surname = surname;
+		this.work_user = work_user;
+		this.hospital = hospital;
+		this.speciality = speciality;
+	}
 
 	@Override
 	public int hashCode() {
