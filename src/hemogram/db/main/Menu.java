@@ -76,6 +76,7 @@ public class Menu
 					break;
 				case 2:
 					signUpAnalizer();
+					//get analizer id
 					break;
 				default:
 					break;
@@ -110,7 +111,6 @@ public class Menu
 		String analizerSurname = reader.readLine();
 		System.out.print("Work User: ");
 		String analizerWorkUser = reader.readLine();
-		
 		return null;
 	}
 	
