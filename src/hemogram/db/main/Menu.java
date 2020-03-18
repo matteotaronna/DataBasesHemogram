@@ -99,7 +99,7 @@ public class Menu
 		System.out.print("Hospital: ");
 		String analizerHospital = reader.readLine();
 		Analizer newAnalizer = new Analizer(analizerName, analizerSurname, analizerWorkUser, analizerHospital);
-		analizerManager.admit(newAnalizer);
+		analizerManager.insertAnalizer(newAnalizer);
 		return newAnalizer;
 	}
 	private static Analizer signUpAnalizer() throws Exception

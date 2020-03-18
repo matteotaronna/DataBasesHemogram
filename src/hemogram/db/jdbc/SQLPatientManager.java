@@ -21,7 +21,7 @@ public class SQLPatientManager implements PatientManager
 	
 	//INSERT
 	@Override
-	public void admit(Patient patient) 
+	public void insertPatient (Patient patient) 
 	{
 		try
 		{
@@ -43,7 +43,6 @@ public class SQLPatientManager implements PatientManager
 		{
 			e.printStackTrace();
 		}
-
 	}
 
 	//SELECT
@@ -76,7 +75,7 @@ public class SQLPatientManager implements PatientManager
 	}
 
 	@Override
-	public List<Patient> searchPatient(String name, String dni) {
+	public List<Patient> searchPatient(String name) {
 		// TODO Auto-generated method stub
 		return null;
 	}

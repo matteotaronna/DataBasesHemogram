@@ -19,7 +19,7 @@ public class SQLAnalizerManager implements AnalizerManager
 
 	//INSERT
 	@Override
-	public void admit(Analizer analizer) 
+	public void insertAnalizer (Analizer analizer) 
 	{
 		try 
 		{	

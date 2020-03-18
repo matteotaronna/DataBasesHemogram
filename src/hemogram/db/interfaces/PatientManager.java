@@ -6,7 +6,7 @@ import hemogram.db.pojos.Patient;
 
 public interface PatientManager 
 {
-	public void admit (Patient patient);
+	public void insertPatient (Patient patient);
 	public Patient getPatient (int patientId);
-	public List<Patient> searchPatient (String name, String dni);
+	public List<Patient> searchPatient (String name);
 }

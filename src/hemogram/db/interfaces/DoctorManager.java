@@ -6,7 +6,7 @@ import hemogram.db.pojos.Doctor;
 
 public interface DoctorManager 
 {
-	public void admit (Doctor doctor);
+	public void insertDoctor (Doctor doctor);
 	public Doctor getDoctor (int doctorId);
 	public int getDoctorId (Doctor doctor);
 	public List<Doctor> searchDoctor (String name, String work_user);

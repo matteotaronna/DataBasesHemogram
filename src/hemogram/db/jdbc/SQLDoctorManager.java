@@ -19,7 +19,7 @@ public class SQLDoctorManager implements DoctorManager
 
 	//INSERT
 	@Override
-	public void admit(Doctor doctor) 
+	public void insertDoctor (Doctor doctor) 
 	{
 		try
 		{
