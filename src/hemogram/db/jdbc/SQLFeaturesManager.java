@@ -17,7 +17,7 @@ public class SQLFeaturesManager implements FeaturesManager
 	}
 
 	@Override
-	public void admit(Features features) {
+	public void insertFeatures(Features features) {
 		// TODO Auto-generated method stub
 
 	}
