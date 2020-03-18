@@ -72,7 +72,6 @@ public class SQLAnalizerManager implements AnalizerManager
 	@Override
 	public int getAnalizerId (Analizer analizer)
 	{
-		
 		int analizerID=0;
 		try 
 		{
@@ -91,6 +90,33 @@ public class SQLAnalizerManager implements AnalizerManager
 			e.printStackTrace();
 		}
 		return analizerID;
+	}
+	
+	@Override
+	public Analizer signUpAnalizer (String name, String work_user)
+	{
+		Analizer newAnalizer = null;
+		try 
+		{
+			String sql = "SELECT * FROM analizers WHERE name = ? AND work_user = ?";
+			PreparedStatement s = c.prepareStatement(sql);
+			s.setString(1, name);
+			s.setString(2, work_user);
+			ResultSet rs = s.executeQuery();
+			rs.next();
+				int id = rs.getInt("id");
+				String Aname = rs.getString("name");
+				String surname = rs.getString("surname");
+				String Awork_user = rs.getString("work_user");
+				String hospital = rs.getString("hospital");
+				newAnalizer = new Analizer(id, Aname, surname, Awork_user, hospital);
+				System.out.println(newAnalizer);
+			
+		} catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		return newAnalizer;
 	}
 
 	@Override

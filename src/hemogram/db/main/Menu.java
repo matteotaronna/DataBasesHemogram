@@ -13,6 +13,7 @@ public class Menu
 	public static AnalizerManager analizerManager;
 	public static DoctorManager doctorManager;
 	public static PatientManager patientManager;
+	public static FeaturesManager featuresManager;
 	private static BufferedReader reader;
 	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	
@@ -25,6 +26,8 @@ public class Menu
 			dbManager.connect();
 			analizerManager = dbManager.getAnalizerManager();
 			patientManager = dbManager.getPatientManager();
+			doctorManager = dbManager.getDoctorManager();
+			featuresManager = dbManager.getFeaturesManager();
 			
 			//Create tables
 			dbManager.createTables();
@@ -58,7 +61,7 @@ public class Menu
 	
 	private static void analizerMenu()
 	{
-		int analizerId = 0;
+		int analizerId;
 		try
 		{
 			System.out.println("1. New Analizer");
@@ -74,8 +77,9 @@ public class Menu
 					analizerId = analizerManager.getAnalizerId(analizer);
 					break;
 				case 2:
-					signUpAnalizer();
-					//get analizer id
+					Analizer analizer2 = signUpAnalizer();
+					//now we need to get the analizer id to link it to the patient
+					analizerId = analizerManager.getAnalizerId(analizer2);
 					break;
 				default:
 					break;
@@ -106,11 +110,10 @@ public class Menu
 	{
 		System.out.print("Name: ");
 		String analizerName = reader.readLine();
-		System.out.print("Surname: ");
-		String analizerSurname = reader.readLine();
 		System.out.print("Work User: ");
 		String analizerWorkUser = reader.readLine();
-		return null;
+		Analizer newAnalizer = analizerManager.signUpAnalizer(analizerName, analizerWorkUser);
+		return newAnalizer;
 	}
 	
 	private static void doctorMenu()

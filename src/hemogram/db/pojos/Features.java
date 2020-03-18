@@ -8,16 +8,26 @@ public class Features implements Serializable
 	
 	private Integer id;
 	private String name;
-	private float maximum;
-	private float minimum;
+	private double minimum;
+	private double maximum;
 	
-	public Features(String name, float maximum, float minimum) 
+	
+	public Features(String name, double minimum, double maximum) 
 	{
 		super();
 		this.name = name;
-		this.maximum = maximum;
 		this.minimum = minimum;
+		this.maximum = maximum;
 	}
+
+	public Features(Integer id, String name, double minimum, double maximum) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.minimum = minimum;
+		this.maximum = maximum;
+	}
+
 
 	public Integer getId() {
 		return id;
@@ -33,14 +43,14 @@ public class Features implements Serializable
 		this.name = name;
 	}
 
-	public float getMaximum() {
+	public double getMaximum() {
 		return maximum;
 	}
 	public void setMaximum(float maximum) {
 		this.maximum = maximum;
 	}
 
-	public float getMinimum() {
+	public double getMinimum() {
 		return minimum;
 	}
 	public void setMinimum(float minimum) {

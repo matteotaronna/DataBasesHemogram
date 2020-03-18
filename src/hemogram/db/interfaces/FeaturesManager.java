@@ -8,6 +8,6 @@ public interface FeaturesManager
 {
 	public void insertFeatures(Features features);
 	public Features getFeature (int featureId);
-	//public int getFeatureId (Features features);
-	public List<Features> searchFeature (String name);
+	public Features getFeatureByName (String featureName);
+	public List<Features> listFeatures ();
 }

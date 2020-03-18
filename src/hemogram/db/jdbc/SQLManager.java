@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import hemogram.db.interfaces.*;
+import hemogram.db.pojos.*;
 
 
 public class SQLManager implements DBManager 
@@ -138,10 +139,31 @@ public class SQLManager implements DBManager
 					   + " hemogram_id   INTEGER  REFERENCES hemogram(id) ON UPDATE CASCADE ON DELETE SET NULL,"
 					   + " PRIMARY KEY (analizer_id,hemogram_id))";
 			
-			//AQÍ LLAMAMOS A LA FUNCIÓN CREAR FEATURE TODAS LAS VECES COMO FEATURES VAYAMOS A CREER
-			
 			stmt7.executeUpdate(sql7);
 			stmt7.close();
+			
+			//SET FEATURES
+			Features leukocytes = new Features ("leukocytes",4.8,10.8);
+			features.insertFeatures(leukocytes);
+			Features erythrocytes = new Features ("erythrocytes",4.20,5.40);
+			features.insertFeatures(erythrocytes);
+			Features hemoglobin = new Features ("hemoglobin",12,16);
+			features.insertFeatures(hemoglobin);
+			Features hematocrit = new Features ("hematocrit",37,47);
+			features.insertFeatures(hematocrit);
+			Features platelets = new Features ("platelets",130,400);
+			features.insertFeatures(platelets);
+			Features cholesterol = new Features ("cholesterol",0,200);
+			features.insertFeatures(cholesterol);
+			Features cholesterolHDL = new Features ("cholesterolHDL",40,60);
+			features.insertFeatures(cholesterolHDL);
+			Features triglycerides = new Features ("triglycerides",10,200);
+			features.insertFeatures(triglycerides);
+			Features cholesterolLDL = new Features ("cholesterolLDL",0,100);
+			features.insertFeatures(cholesterolLDL);
+			Features glycemia = new Features ("glycemia",70,110);
+			features.insertFeatures(glycemia);
+			
 			System.out.println("Tables created.");
 			// Create table: end
 
