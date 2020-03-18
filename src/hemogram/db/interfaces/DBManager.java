@@ -11,4 +11,5 @@ public interface DBManager
 	public AnalizerManager getAnalizerManager();
 	public PatientManager getPatientManager();
 	public DoctorManager getDoctorManager();
+	public FeaturesManager getFeaturesManager();
 }

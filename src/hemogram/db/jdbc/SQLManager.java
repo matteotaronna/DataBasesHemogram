@@ -5,10 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import hemogram.db.interfaces.AnalizerManager;
-import hemogram.db.interfaces.DBManager;
-import hemogram.db.interfaces.DoctorManager;
-import hemogram.db.interfaces.PatientManager;
+import hemogram.db.interfaces.*;
+
 
 public class SQLManager implements DBManager 
 {
@@ -16,6 +14,7 @@ public class SQLManager implements DBManager
 	private AnalizerManager analizer;
 	private PatientManager patient;
 	private DoctorManager doctor;
+	private FeaturesManager features;
 	//hemogram ...
 	
 	public SQLManager()
@@ -34,8 +33,9 @@ public class SQLManager implements DBManager
 			c.createStatement().execute("PRAGMA foreign_keys=ON");
 			
 			//Create the atributes managers.
-			analizer =new SQLAnalizerManager(c);
-			patient =new SQLPatientManager(c);
+			analizer = new SQLAnalizerManager(c);
+			patient = new SQLPatientManager(c);
+			features = new SQLFeaturesManager(c);
 			//doctor =new SQLDoctorManager(c);
 			//also hemogram, etc
 			
@@ -137,6 +137,9 @@ public class SQLManager implements DBManager
 					   + "(analizer_id     INTEGER  REFERENCES analizer(id) ON UPDATE CASCADE ON DELETE SET NULL,"
 					   + " hemogram_id   INTEGER  REFERENCES hemogram(id) ON UPDATE CASCADE ON DELETE SET NULL,"
 					   + " PRIMARY KEY (analizer_id,hemogram_id))";
+			
+			//AQÍ LLAMAMOS A LA FUNCIÓN CREAR FEATURE TODAS LAS VECES COMO FEATURES VAYAMOS A CREER
+			
 			stmt7.executeUpdate(sql7);
 			stmt7.close();
 			System.out.println("Tables created.");
@@ -166,5 +169,9 @@ public class SQLManager implements DBManager
 	public DoctorManager getDoctorManager()
 	{
 		return doctor;
+	}
+	public FeaturesManager getFeaturesManager()
+	{
+		return features;
 	}
 }
