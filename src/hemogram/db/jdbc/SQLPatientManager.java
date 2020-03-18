@@ -1,17 +1,11 @@
 package hemogram.db.jdbc;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.time.LocalDate;
 import java.util.List;
-
 import hemogram.db.interfaces.PatientManager;
-import hemogram.db.pojos.Analizer;
 import hemogram.db.pojos.Patient;
 
 public class SQLPatientManager implements PatientManager 
@@ -24,7 +18,8 @@ public class SQLPatientManager implements PatientManager
 	{
 		this.c = c;
 	}
-
+	
+	//INSERT
 	@Override
 	public void admit(Patient patient) 
 	{
@@ -51,6 +46,7 @@ public class SQLPatientManager implements PatientManager
 
 	}
 
+	//SELECT
 	@Override
 	public Patient getPatient(int patientId) 
 	{

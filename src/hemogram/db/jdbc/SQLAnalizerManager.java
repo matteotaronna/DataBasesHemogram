@@ -3,7 +3,6 @@ package hemogram.db.jdbc;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.List;
 
 import hemogram.db.interfaces.AnalizerManager;
@@ -18,6 +17,7 @@ public class SQLAnalizerManager implements AnalizerManager
 		this.c = c;
 	}
 
+	//INSERT
 	@Override
 	public void admit(Analizer analizer) 
 	{
@@ -41,6 +41,7 @@ public class SQLAnalizerManager implements AnalizerManager
 		}
 	}
 
+	//SELECT
 	@Override
 	public Analizer getAnalizer(int analizerId) 
 	{
@@ -66,6 +67,7 @@ public class SQLAnalizerManager implements AnalizerManager
 		}
 		return newAnalizer;
 	}
+	
 	
 	@Override
 	public int getAnalizerId (Analizer analizer)

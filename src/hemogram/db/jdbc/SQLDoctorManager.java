@@ -1,15 +1,11 @@
 package hemogram.db.jdbc;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 
 import hemogram.db.interfaces.DoctorManager;
-import hemogram.db.pojos.Analizer;
 import hemogram.db.pojos.Doctor;
 
 public class SQLDoctorManager implements DoctorManager 
@@ -21,6 +17,7 @@ public class SQLDoctorManager implements DoctorManager
 		this.c = c;
 	}
 
+	//INSERT
 	@Override
 	public void admit(Doctor doctor) 
 	{
@@ -44,6 +41,7 @@ public class SQLDoctorManager implements DoctorManager
 		}
 	}
 
+	//SELECT
 	@Override
 	public Doctor getDoctor(int doctorId) 
 	{
@@ -71,6 +69,30 @@ public class SQLDoctorManager implements DoctorManager
 		return newDoctor;
 	}
 
+	public int getDoctorId (Doctor doctor)
+	{
+		
+		int doctorID=0;
+		try 
+		{
+			String sql = "SELECT * FROM doctors WHERE name = ? AND surname = ? AND work_user = ? AND hospital = ? AND speciality";
+			PreparedStatement s = c.prepareStatement(sql);
+			s.setString(1, doctor.getName());
+			s.setString(2, doctor.getSurname());
+			s.setString(3, doctor.getWork_user());
+			s.setString(4, doctor.getHospital());
+			ResultSet rs = s.executeQuery();
+			rs.next();
+			doctorID = rs.getInt("id");
+			
+		} catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		return doctorID;
+	}
+
+	//
 	@Override
 	public List<Doctor> searchDoctor(String name, String work_user) 
 	{

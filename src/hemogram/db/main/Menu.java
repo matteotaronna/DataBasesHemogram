@@ -1,7 +1,6 @@
 package hemogram.db.main;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
 import hemogram.db.interfaces.*;
@@ -14,11 +13,10 @@ public class Menu
 	public static AnalizerManager analizerManager;
 	public static DoctorManager doctorManager;
 	public static PatientManager patientManager;
-	
 	private static BufferedReader reader;
 	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	
-	public static void  nain(String args[])
+	public static void  main(String args[])
 	{
 		try
 		{
@@ -60,6 +58,7 @@ public class Menu
 	
 	private static void analizerMenu()
 	{
+		int analizerId = 0;
 		try
 		{
 			System.out.println("1. New Analizer");
@@ -72,7 +71,7 @@ public class Menu
 				case 1:
 					Analizer analizer = addAnalizer();
 					//now we need to get the analizer id to link it to the patient
-					int analizerID = analizerManager.getAnalizerId(analizer);
+					analizerId = analizerManager.getAnalizerId(analizer);
 					break;
 				case 2:
 					signUpAnalizer();
@@ -113,7 +112,6 @@ public class Menu
 		String analizerWorkUser = reader.readLine();
 		return null;
 	}
-	//hola
 	
 	private static void doctorMenu()
 	{
