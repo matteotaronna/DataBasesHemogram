@@ -51,6 +51,7 @@ public class Menu
 					patientMenu();
 					break;
 				default:
+					dbManager.disconnect();
 					break;
 			}
 		}catch(Exception e)
