@@ -37,7 +37,7 @@ public class SQLManager implements DBManager
 			analizer = new SQLAnalizerManager(c);
 			patient = new SQLPatientManager(c);
 			features = new SQLFeaturesManager(c);
-			//doctor =new SQLDoctorManager(c);
+			doctor = new SQLDoctorManager(c);
 			//also hemogram, etc
 			
 		} catch (Exception e) 
