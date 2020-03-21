@@ -95,8 +95,7 @@ public class SQLManager implements DBManager
 					   + " surname  TEXT	 NOT NULL,"
 					   + " dob      DATE     CURRENT DATE,"
 					   + " dni      TEXT     NOT NULL"
-					   + " doctor_id INTEGER REFERENCES doctors(id) ON UPDATE CASCADE ON DELETE SET NULL"
-					   + " analizer_id INTEGER REFERENCES analizers(id) ON UPDATE CASCADE ON DELETE SET NULL)";
+					   + " doctor_id INTEGER REFERENCES doctors(id) ON UPDATE CASCADE ON DELETE SET NULL)";
 			stmt1.executeUpdate(sql1);
 			stmt1.close();
 			
@@ -131,16 +130,6 @@ public class SQLManager implements DBManager
 					   + " hemogram_id INTEGER REFERENCES hemograms(id) ON UPDATE CASCADE ON DELETE SET NULL)";
 			stmt6.executeUpdate(sql6);
 			stmt6.close();
-			
-			//RELATIONS
-			Statement stmt7 = c.createStatement();
-			String sql7 = "CREATE TABLE relations "
-					   + "(analizer_id     INTEGER  REFERENCES analizer(id) ON UPDATE CASCADE ON DELETE SET NULL,"
-					   + " hemogram_id   INTEGER  REFERENCES hemogram(id) ON UPDATE CASCADE ON DELETE SET NULL,"
-					   + " PRIMARY KEY (analizer_id,hemogram_id))";
-			
-			stmt7.executeUpdate(sql7);
-			stmt7.close();
 			
 			//SET FEATURES
 			Feature leukocytes = new Feature ("leukocytes",4.8,10.8);

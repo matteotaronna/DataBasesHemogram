@@ -73,7 +73,6 @@ public class Menu
 		{
 			while(true)
 			{
-				int analizerId;
 				Analizer analizer;
 				System.out.println("1. New Analizer");
 				System.out.println("2. Already signed up");
@@ -85,15 +84,13 @@ public class Menu
 				{
 					case 1:
 						analizer = addAnalizer();
-						//now we need to get the analizer id to link it to the patient
-						analizerId = analizerManager.getAnalizerId(analizer);
-						analizerSubmenu(analizerId);
+						//we need to pass the analizer to then link the id to the hemogram
+						analizerSubmenu(analizer);
 						break;
 					case 2:
 						analizer = signUpAnalizer();
-						//now we need to get the analizer id to link it to the patient
-						analizerId = analizerManager.getAnalizerId(analizer);
-						analizerSubmenu(analizerId);
+						//we need to pass the analizer to then link the id to the hemogram
+						analizerSubmenu(analizer);
 						break;
 					case 3:
 						return;
@@ -130,7 +127,7 @@ public class Menu
 		Analizer newAnalizer = analizerManager.signUpAnalizer(analizerName, analizerWorkUser);
 		return newAnalizer;
 	}
-	private static void analizerSubmenu(int analizerId)
+	private static void analizerSubmenu(Analizer analizer)
 	{
 		try
 		{
@@ -151,6 +148,7 @@ public class Menu
 						
 						break;
 					case 3:
+						
 						return;
 					default:
 						break;

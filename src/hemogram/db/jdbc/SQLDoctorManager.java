@@ -99,5 +99,4 @@ public class SQLDoctorManager implements DoctorManager
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }
