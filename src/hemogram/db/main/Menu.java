@@ -62,9 +62,10 @@ public class Menu
 	
 	private static void analizerMenu()
 	{
-		int analizerId;
 		try
 		{
+			int analizerId;
+			Analizer analizer;
 			System.out.println("1. New Analizer");
 			System.out.println("2. Already signed up");
 			
@@ -73,14 +74,14 @@ public class Menu
 			switch(option)
 			{
 				case 1:
-					Analizer analizer = addAnalizer();
+					analizer = addAnalizer();
 					//now we need to get the analizer id to link it to the patient
 					analizerId = analizerManager.getAnalizerId(analizer);
 					break;
 				case 2:
-					Analizer analizer2 = signUpAnalizer();
+					analizer = signUpAnalizer();
 					//now we need to get the analizer id to link it to the patient
-					analizerId = analizerManager.getAnalizerId(analizer2);
+					analizerId = analizerManager.getAnalizerId(analizer);
 					break;
 				default:
 					break;
@@ -116,6 +117,34 @@ public class Menu
 		Analizer newAnalizer = analizerManager.signUpAnalizer(analizerName, analizerWorkUser);
 		return newAnalizer;
 	}
+	private static void analizerSubmenu(int analizerId)
+	{
+		try
+		{
+			Analizer analizer;
+			System.out.println("1. New patient");
+			System.out.println("2. Search for a patient");
+			
+			int option = Integer.parseInt(reader.readLine());
+					
+			switch(option)
+			{
+				case 1:
+					
+					break;
+				case 2:
+					
+					break;
+				default:
+					break;
+			}
+		}catch(Exception e)
+		{
+				e.printStackTrace();
+		}
+	}
+	
+	
 	
 	private static void doctorMenu()
 	{
