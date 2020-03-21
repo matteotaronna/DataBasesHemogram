@@ -143,25 +143,25 @@ public class SQLManager implements DBManager
 			stmt7.close();
 			
 			//SET FEATURES
-			Features leukocytes = new Features ("leukocytes",4.8,10.8);
+			Feature leukocytes = new Feature ("leukocytes",4.8,10.8);
 			features.insertFeatures(leukocytes);
-			Features erythrocytes = new Features ("erythrocytes",4.20,5.40);
+			Feature erythrocytes = new Feature ("erythrocytes",4.20,5.40);
 			features.insertFeatures(erythrocytes);
-			Features hemoglobin = new Features ("hemoglobin",12,16);
+			Feature hemoglobin = new Feature ("hemoglobin",12,16);
 			features.insertFeatures(hemoglobin);
-			Features hematocrit = new Features ("hematocrit",37,47);
+			Feature hematocrit = new Feature ("hematocrit",37,47);
 			features.insertFeatures(hematocrit);
-			Features platelets = new Features ("platelets",130,400);
+			Feature platelets = new Feature ("platelets",130,400);
 			features.insertFeatures(platelets);
-			Features cholesterol = new Features ("cholesterol",0,200);
+			Feature cholesterol = new Feature ("cholesterol",0,200);
 			features.insertFeatures(cholesterol);
-			Features cholesterolHDL = new Features ("cholesterolHDL",40,60);
+			Feature cholesterolHDL = new Feature ("cholesterolHDL",40,60);
 			features.insertFeatures(cholesterolHDL);
-			Features triglycerides = new Features ("triglycerides",10,200);
+			Feature triglycerides = new Feature ("triglycerides",10,200);
 			features.insertFeatures(triglycerides);
-			Features cholesterolLDL = new Features ("cholesterolLDL",0,100);
+			Feature cholesterolLDL = new Feature ("cholesterolLDL",0,100);
 			features.insertFeatures(cholesterolLDL);
-			Features glycemia = new Features ("glycemia",70,110);
+			Feature glycemia = new Feature ("glycemia",70,110);
 			features.insertFeatures(glycemia);
 			
 			System.out.println("Tables created.");

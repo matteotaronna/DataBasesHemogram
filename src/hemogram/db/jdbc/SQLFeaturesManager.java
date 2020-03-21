@@ -19,7 +19,7 @@ public class SQLFeaturesManager implements FeaturesManager
 	}
 
 	@Override
-	public void insertFeatures(Features features) 
+	public void insertFeatures(Feature features) 
 	{
 		try
 		{
@@ -41,9 +41,9 @@ public class SQLFeaturesManager implements FeaturesManager
 	}
 
 	@Override
-	public Features getFeature(int featureId) 
+	public Feature getFeature(int featureId) 
 	{
-		Features newFeature = null;
+		Feature newFeature = null;
 		try 
 		{
 			String sql = "SELECT * FROM features WHERE id = ?";
@@ -55,7 +55,7 @@ public class SQLFeaturesManager implements FeaturesManager
 				String name = rs.getString("name");
 				float minimum = rs.getFloat("minimum");
 				float maximum = rs.getFloat("maximum");
-				newFeature = new Features(id, name, minimum, maximum);
+				newFeature = new Feature(id, name, minimum, maximum);
 				System.out.println(newFeature);
 			
 		} catch (Exception e) 
@@ -66,9 +66,9 @@ public class SQLFeaturesManager implements FeaturesManager
 	}
 	
 	@Override
-	public Features getFeatureByName(String featureName) 
+	public Feature getFeatureByName(String featureName) 
 	{
-		Features newFeature = null;
+		Feature newFeature = null;
 		try 
 		{
 			String sql = "SELECT * FROM features WHERE name = ?";
@@ -80,7 +80,7 @@ public class SQLFeaturesManager implements FeaturesManager
 				String name = rs.getString("name");
 				float minimum = rs.getFloat("minimum");
 				float maximum = rs.getFloat("maximum");
-				newFeature = new Features(id, name, minimum, maximum);
+				newFeature = new Feature(id, name, minimum, maximum);
 				System.out.println(newFeature);
 			
 		} catch (Exception e) 
@@ -91,10 +91,10 @@ public class SQLFeaturesManager implements FeaturesManager
 	}
 
 	@Override
-	public List<Features> listFeatures() 
+	public List<Feature> listFeatures() 
 	{
 		//create an empty list of dogs
-				List<Features> featuresList = new ArrayList<Features>();
+				List<Feature> featuresList = new ArrayList<Feature>();
 				//search for all the dogs that fit the name
 				try 
 				{
@@ -107,7 +107,7 @@ public class SQLFeaturesManager implements FeaturesManager
 						String name = rs.getString("name");
 						double minimum = rs.getDouble("minimum");
 						double maximum = rs.getDouble("maximum");
-						Features newFeature = new Features(id,name,minimum,maximum);
+						Feature newFeature = new Feature(id,name,minimum,maximum);
 						//add dog to the list
 						featuresList.add(newFeature);
 					}

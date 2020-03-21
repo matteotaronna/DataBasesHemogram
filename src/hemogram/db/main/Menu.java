@@ -21,38 +21,45 @@ public class Menu
 	{
 		try
 		{
-			//create and connect with the database
-			dbManager = new SQLManager();
-			dbManager.connect();
-			analizerManager = dbManager.getAnalizerManager();
-			patientManager = dbManager.getPatientManager();
-			doctorManager = dbManager.getDoctorManager();
-			featuresManager = dbManager.getFeaturesManager();
-			
-			//Create tables
-			dbManager.createTables();
-			
-			//starts program
-			System.out.println("Who are you?");
-			System.out.println("1. Analizer");
-			System.out.println("2. Doctor");
-			System.out.println("3. Patient");
-			int option = Integer.parseInt(reader.readLine());
-					
-			switch(option)
+			while(true)
 			{
-				case 1:
-					analizerMenu();
-					break;
-				case 2:
-					doctorMenu();
-					break;
-				case 3:
-					patientMenu();
-					break;
-				default:
-					dbManager.disconnect();
-					break;
+				//create and connect with the database
+				dbManager = new SQLManager();
+				dbManager.connect();
+				analizerManager = dbManager.getAnalizerManager();
+				patientManager = dbManager.getPatientManager();
+				doctorManager = dbManager.getDoctorManager();
+				featuresManager = dbManager.getFeaturesManager();
+				
+				//Create tables
+				dbManager.createTables();
+				
+				//starts program
+				System.out.println("Who are you?");
+				System.out.println("1. Analizer");
+				System.out.println("2. Doctor");
+				System.out.println("3. Patient");
+				System.out.println("0. Exit");
+				
+				int option = Integer.parseInt(reader.readLine());
+						
+				switch(option)
+				{
+					case 1:
+						analizerMenu();
+						break;
+					case 2:
+						doctorMenu();
+						break;
+					case 3:
+						patientMenu();
+						System.exit(0);
+					case 0: 
+						dbManager.disconnect();
+						break;
+					default:
+						break;
+				}
 			}
 		}catch(Exception e)
 		{
@@ -64,35 +71,41 @@ public class Menu
 	{
 		try
 		{
-			int analizerId;
-			Analizer analizer;
-			System.out.println("1. New Analizer");
-			System.out.println("2. Already signed up");
-			
-			int option = Integer.parseInt(reader.readLine());
-					
-			switch(option)
+			while(true)
 			{
-				case 1:
-					analizer = addAnalizer();
-					//now we need to get the analizer id to link it to the patient
-					analizerId = analizerManager.getAnalizerId(analizer);
-					break;
-				case 2:
-					analizer = signUpAnalizer();
-					//now we need to get the analizer id to link it to the patient
-					analizerId = analizerManager.getAnalizerId(analizer);
-					break;
-				default:
-					break;
+				int analizerId;
+				Analizer analizer;
+				System.out.println("1. New Analizer");
+				System.out.println("2. Already signed up");
+				System.out.println("3. Go back");
+				
+				int option = Integer.parseInt(reader.readLine());
+						
+				switch(option)
+				{
+					case 1:
+						analizer = addAnalizer();
+						//now we need to get the analizer id to link it to the patient
+						analizerId = analizerManager.getAnalizerId(analizer);
+						analizerSubmenu(analizerId);
+						break;
+					case 2:
+						analizer = signUpAnalizer();
+						//now we need to get the analizer id to link it to the patient
+						analizerId = analizerManager.getAnalizerId(analizer);
+						analizerSubmenu(analizerId);
+						break;
+					case 3:
+						return;
+					default:
+						break;
+				}
 			}
 		}catch(Exception e)
 		{
 				e.printStackTrace();
 		}
-		
 	}
-	
 	private static Analizer addAnalizer() throws Exception
 	{
 		System.out.println("FILL IN YOUR INFO");
@@ -121,22 +134,27 @@ public class Menu
 	{
 		try
 		{
-			Analizer analizer;
-			System.out.println("1. New patient");
-			System.out.println("2. Search for a patient");
-			
-			int option = Integer.parseInt(reader.readLine());
-					
-			switch(option)
+			while(true)
 			{
-				case 1:
-					
-					break;
-				case 2:
-					
-					break;
-				default:
-					break;
+				System.out.println("1. New patient");
+				System.out.println("2. Search for a patient");
+				System.out.println("3. Go back");
+				
+				int option = Integer.parseInt(reader.readLine());
+						
+				switch(option)
+				{
+					case 1:
+						
+						break;
+					case 2:
+						
+						break;
+					case 3:
+						return;
+					default:
+						break;
+				}
 			}
 		}catch(Exception e)
 		{
@@ -150,6 +168,8 @@ public class Menu
 	{
 		
 	}
+	
+	
 	private static void patientMenu()
 	{
 		

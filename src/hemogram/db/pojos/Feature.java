@@ -2,7 +2,7 @@ package hemogram.db.pojos;
 
 import java.io.Serializable;
 
-public class Features implements Serializable
+public class Feature implements Serializable
 {
 	private static final long serialVersionUID = 3698476214030959794L;
 	
@@ -12,7 +12,7 @@ public class Features implements Serializable
 	private double maximum;
 	
 	
-	public Features(String name, double minimum, double maximum) 
+	public Feature(String name, double minimum, double maximum) 
 	{
 		super();
 		this.name = name;
@@ -20,7 +20,7 @@ public class Features implements Serializable
 		this.maximum = maximum;
 	}
 
-	public Features(Integer id, String name, double minimum, double maximum) {
+	public Feature(Integer id, String name, double minimum, double maximum) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -73,7 +73,7 @@ public class Features implements Serializable
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Features other = (Features) obj;
+		Feature other = (Feature) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
