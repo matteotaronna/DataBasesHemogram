@@ -149,10 +149,9 @@ public class Menu
 						
 						break;
 					case 2:
-						
+						patient=searchPatient();
 						break;
 					case 3:
-						
 						return;
 					default:
 						break;
@@ -164,6 +163,16 @@ public class Menu
 		}
 	}
 	
+	
+	
+	
+	private static Patient searchPatient() throws Exception
+	{
+		System.out.print("Patient DNI: ");
+		String dni = reader.readLine();
+		Patient newPatient = patientManager.searchPatient(dni);
+		return newPatient;
+	}
 	
 	
 	private static void doctorMenu()
