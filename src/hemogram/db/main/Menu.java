@@ -151,10 +151,9 @@ public class Menu
 						patient = addPatient(); 
 						break;
 					case 2:
-						patient=searchPatient();
+						patient = searchPatient();
 						break;
 					case 3:
-						//
 						return;
 					default:
 						break;
