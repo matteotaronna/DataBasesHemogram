@@ -8,5 +8,6 @@ public interface PatientManager
 {
 	public void insertPatient (Patient patient);
 	public Patient getPatient (int patientId);
-	public List<Patient> searchPatient (String name);
+	public Patient searchPatient (String dni);
+	public List<Patient> listPatients (int doctorId);
 }

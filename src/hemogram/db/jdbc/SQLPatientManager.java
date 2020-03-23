@@ -62,7 +62,34 @@ public class SQLPatientManager implements PatientManager
 				Date dob = rs.getDate("dob");
 				String dni = rs.getString("dni");
 				int doctor_id = rs.getInt("doctor_id");
-				newPatient = new Patient(id, name, surname, dob, dni,doctor_id);
+				newPatient = new Patient(id, name, surname, dob, dni, doctor_id);
+				System.out.println(newPatient);
+			
+		} catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		return newPatient;
+	}
+	
+	@Override
+	public Patient searchPatient(String dni) 
+	{
+		Patient newPatient = null;
+		try 
+		{
+			String sql = "SELECT * FROM patients WHERE dni = ?";
+			PreparedStatement s = c.prepareStatement(sql);
+			s.setString(1, dni);
+			ResultSet rs = s.executeQuery();
+			rs.next();
+				int id = rs.getInt("id");
+				String name = rs.getString("name");
+				String surname = rs.getString("surname");
+				Date dob = rs.getDate("dob");
+				String newDni = rs.getString("dni");
+				int doctor_id = rs.getInt("doctor_id");
+				newPatient = new Patient(id, name, surname, dob, newDni, doctor_id);
 				System.out.println(newPatient);
 			
 		} catch (Exception e) 
@@ -73,7 +100,7 @@ public class SQLPatientManager implements PatientManager
 	}
 
 	@Override
-	public List<Patient> searchPatient(String name) {
+	public List<Patient> listPatients(int doctorId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
