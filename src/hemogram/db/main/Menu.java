@@ -154,6 +154,7 @@ public class Menu
 						patient = searchPatient();
 						break;
 					case 3:
+						//
 						return;
 					default:
 						break;
