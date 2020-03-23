@@ -16,6 +16,8 @@ public class SQLManager implements DBManager
 	private PatientManager patient;
 	private DoctorManager doctor;
 	private FeaturesManager features;
+	private FeatureValueManager featureValue;
+	private HemogramManager hemogram;
 	//hemogram ...
 	
 	public SQLManager()
@@ -38,7 +40,8 @@ public class SQLManager implements DBManager
 			patient = new SQLPatientManager(c);
 			features = new SQLFeaturesManager(c);
 			doctor = new SQLDoctorManager(c);
-			//also hemogram, etc
+			featureValue = new SQLFeatureValueManager(c);
+			hemogram = new SQLHemogramManager(c);
 			
 		} catch (Exception e) 
 		{
@@ -181,8 +184,19 @@ public class SQLManager implements DBManager
 	{
 		return doctor;
 	}
+	@Override
 	public FeaturesManager getFeaturesManager()
 	{
 		return features;
+	}
+	@Override
+	public FeatureValueManager getFeatureValueManager()
+	{
+		return featureValue;
+	}
+	@Override
+	public HemogramManager getHemogramManager()
+	{
+		return hemogram;
 	}
 }

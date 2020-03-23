@@ -12,4 +12,6 @@ public interface DBManager
 	public PatientManager getPatientManager();
 	public DoctorManager getDoctorManager();
 	public FeaturesManager getFeaturesManager();
+	public FeatureValueManager getFeatureValueManager();
+	public HemogramManager getHemogramManager();
 }
