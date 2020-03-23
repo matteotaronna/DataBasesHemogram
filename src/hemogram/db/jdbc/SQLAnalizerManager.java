@@ -3,7 +3,6 @@ package hemogram.db.jdbc;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
 
 import hemogram.db.interfaces.AnalizerManager;
 import hemogram.db.pojos.Analizer;
@@ -118,12 +117,4 @@ public class SQLAnalizerManager implements AnalizerManager
 		}
 		return newAnalizer;
 	}
-
-	@Override
-	public List<Analizer> searchAnalizer(String name, String work_user) 
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
