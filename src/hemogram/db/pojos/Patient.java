@@ -3,6 +3,7 @@ package hemogram.db.pojos;
 import java.io.Serializable;
 import java.sql.Date;
 
+
 public class Patient implements Serializable
 {
 	private static final long serialVersionUID = -3478632845146919461L;
@@ -27,6 +28,15 @@ public class Patient implements Serializable
 		this.dni = dni;
 		this.doctor_id = doctor_id;
 	}
+	
+	public Patient(String name, String surname, Date dob, String dni) {
+		super();
+		this.name = name;
+		this.surname = surname;
+		this.dob = dob;
+		this.dni = dni;
+	}
+
 	public Patient(String name, String surname, Date dob, String dni, Integer doctor_id) {
 		super();
 		this.name = name;

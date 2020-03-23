@@ -2,8 +2,9 @@ package hemogram.db.main;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 import hemogram.db.interfaces.*;
 import hemogram.db.jdbc.*;
 import hemogram.db.pojos.*;
@@ -137,6 +138,7 @@ public class Menu
 		{
 			while(true)
 			{
+				Patient patient;
 				System.out.println("1. New patient");
 				System.out.println("2. Search for a patient");
 				System.out.println("3. Go back");
@@ -146,7 +148,7 @@ public class Menu
 				switch(option)
 				{
 					case 1:
-						
+						patient = addPatient(); 
 						break;
 					case 2:
 						
@@ -164,7 +166,23 @@ public class Menu
 		}
 	}
 	
-	
+	private static Patient addPatient() throws Exception
+	{
+		System.out.println("FILL IN YOUR INFO");
+		System.out.print("Name: ");
+		String patientName = reader.readLine();
+		System.out.print("Surname: ");
+		String patientSurname = reader.readLine();
+		System.out.print("DNI: ");
+		String DNI = reader.readLine();
+		System.out.print("Date of Birth (yyyy-MM-dd): ");
+		String dob = reader.readLine();
+		LocalDate dobDate = LocalDate.parse(dob, formatter);
+		Date dobDateP = Date.valueOf(dobDate);
+		Patient newPatient = new Patient(patientName, patientSurname, dobDateP, DNI);
+		patientManager.insertPatient(newPatient);
+		return newPatient;
+	}
 	
 	private static void doctorMenu()
 	{
