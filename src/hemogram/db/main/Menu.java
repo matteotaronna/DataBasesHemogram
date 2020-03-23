@@ -16,6 +16,8 @@ public class Menu
 	public static DoctorManager doctorManager;
 	public static PatientManager patientManager;
 	public static FeaturesManager featuresManager;
+	public static HemogramManager hemogramManager;
+	public static FeatureValueManager featureValueManager;
 	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)); 
 	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	
@@ -32,6 +34,8 @@ public class Menu
 				patientManager = dbManager.getPatientManager();
 				doctorManager = dbManager.getDoctorManager();
 				featuresManager = dbManager.getFeaturesManager();
+				hemogramManager = dbManager.getHemogramManager();
+				featureValueManager = dbManager.getFeatureValueManager();
 				
 				//Create tables
 				dbManager.createTables();
