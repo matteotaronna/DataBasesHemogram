@@ -1,6 +1,7 @@
 package hemogram.db.main;
 
 import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.time.format.DateTimeFormatter;
 
 import hemogram.db.interfaces.*;
@@ -14,7 +15,7 @@ public class Menu
 	public static DoctorManager doctorManager;
 	public static PatientManager patientManager;
 	public static FeaturesManager featuresManager;
-	private static BufferedReader reader;
+	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)); 
 	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	
 	public static void  main(String args[])
@@ -53,9 +54,9 @@ public class Menu
 						break;
 					case 3:
 						patientMenu();
-						System.exit(0);
 					case 0: 
 						dbManager.disconnect();
+						System.exit(0);
 						break;
 					default:
 						break;
@@ -103,6 +104,7 @@ public class Menu
 				e.printStackTrace();
 		}
 	}
+	
 	private static Analizer addAnalizer() throws Exception
 	{
 		System.out.println("FILL IN YOUR INFO");
@@ -118,6 +120,7 @@ public class Menu
 		analizerManager.insertAnalizer(newAnalizer);
 		return newAnalizer;
 	}
+	
 	private static Analizer signUpAnalizer() throws Exception
 	{
 		System.out.print("Name: ");
@@ -127,6 +130,7 @@ public class Menu
 		Analizer newAnalizer = analizerManager.signUpAnalizer(analizerName, analizerWorkUser);
 		return newAnalizer;
 	}
+	
 	private static void analizerSubmenu(Analizer analizer)
 	{
 		try
