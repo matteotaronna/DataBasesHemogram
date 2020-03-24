@@ -68,7 +68,7 @@ public class SQLAnalizerManager implements AnalizerManager
 	}
 	
 	@Override
-	public Analizer signUpAnalizer (String name, String work_user)
+	public Analizer logInAnalizer (String name, String work_user)
 	{
 		Analizer newAnalizer = null;
 		try 

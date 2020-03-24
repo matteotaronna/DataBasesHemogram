@@ -8,6 +8,6 @@ public interface DoctorManager
 {
 	public void insertDoctor (Doctor doctor);
 	public Doctor getDoctor (int doctorId);
-	public int getDoctorId (Doctor doctor);
-	public List<Doctor> searchDoctor (String name, String work_user);
+	public Doctor logInDoctor(String name, String work_user);
+	public List<Doctor> listDoctors ();
 }

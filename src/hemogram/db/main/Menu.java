@@ -94,7 +94,7 @@ public class Menu
 						analizerSubmenu(analizer);
 						break;
 					case 2:
-						analizer = signUpAnalizer();
+						analizer = logInAnalizer();
 						//we need to pass the analizer to then link the id to the hemogram
 						analizerSubmenu(analizer);
 						break;
@@ -126,13 +126,13 @@ public class Menu
 		return newAnalizer;
 	}
 	
-	private static Analizer signUpAnalizer() throws Exception
+	private static Analizer logInAnalizer() throws Exception
 	{
 		System.out.print("Name: ");
 		String analizerName = reader.readLine();
 		System.out.print("Work User: ");
 		String analizerWorkUser = reader.readLine();
-		Analizer newAnalizer = analizerManager.signUpAnalizer(analizerName, analizerWorkUser);
+		Analizer newAnalizer = analizerManager.logInAnalizer(analizerName, analizerWorkUser);
 		return newAnalizer;
 	}
 	
