@@ -97,7 +97,7 @@ public class SQLManager implements DBManager
 					   + " name     TEXT     NOT NULL, "
 					   + " surname  TEXT	 NOT NULL,"
 					   + " dob      DATE     CURRENT DATE,"
-					   + " dni      TEXT     NOT NULL"
+					   + " dni      TEXT     NOT NULL,"
 					   + " doctor_id INTEGER REFERENCES doctors(id) ON UPDATE CASCADE ON DELETE SET NULL)";
 			stmt1.executeUpdate(sql1);
 			stmt1.close();
