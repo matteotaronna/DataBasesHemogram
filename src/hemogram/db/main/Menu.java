@@ -183,7 +183,7 @@ public class Menu
 		LocalDate dobDate = LocalDate.parse(dob, formatter);
 		Date dobDateP = Date.valueOf(dobDate);
 		Patient newPatient = new Patient(patientName, patientSurname, dobDateP, DNI);
-		patientManager.insertPatient(newPatient);
+		patientManager.signUpPatient(newPatient);
 		return newPatient;
 	}
 	
