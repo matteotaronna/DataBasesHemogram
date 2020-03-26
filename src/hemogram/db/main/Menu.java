@@ -79,7 +79,8 @@ public class Menu
 		{
 			while(true)
 			{
-				Analizer analizer;
+				Analizer analizer = null;
+				int analizerId = 0;
 				System.out.println("1. New Analizer");
 				System.out.println("2. Already signed up");
 				System.out.println("3. Go back");
@@ -90,13 +91,17 @@ public class Menu
 				{
 					case 1:
 						analizer = addAnalizer();
-						//we need to pass the analizer to then link the id to the hemogram
-						analizerSubmenu(analizer);
+						analizerId = analizerManager.getAnalizerId(analizer);
+						//System.out.println(analizerId);
+						//we need to pass the analizerId to then link it to the hemogram
+						analizerSubmenu(analizerId);
 						break;
 					case 2:
 						analizer = logInAnalizer();
-						//we need to pass the analizer to then link the id to the hemogram
-						analizerSubmenu(analizer);
+						analizerId = analizer.getId();
+						//System.out.println(analizerId);
+						//we need to pass the analizer id to then link the id to the hemogram
+						analizerSubmenu(analizerId);
 						break;
 					case 3:
 						return;
@@ -136,13 +141,14 @@ public class Menu
 		return newAnalizer;
 	}
 	
-	private static void analizerSubmenu(Analizer analizer)
+	private static void analizerSubmenu(int analizerId)
 	{
 		try
 		{
 			while(true)
 			{
-				Patient patient;
+				Patient patient = null;
+				int patientId = 0;
 				System.out.println("1. New patient");
 				System.out.println("2. Search for a patient");
 				System.out.println("3. Go back");
@@ -152,10 +158,14 @@ public class Menu
 				switch(option)
 				{
 					case 1:
-						patient = addPatient(); 
+						patient = addPatient();
+						patientId = patientManager.getPatientId(patient);
+						//we need to pass the patientId to then link it to the hemogram
 						break;
 					case 2:
 						patient = searchPatient();
+						patientId = patient.getId();
+						//we need to pass the patientId to then link it to the hemogram
 						break;
 					case 3:
 						return;

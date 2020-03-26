@@ -10,5 +10,6 @@ public interface PatientManager
 	public void signUpPatient (Patient patient); 
 	public Patient getPatient (int patientId);
 	public Patient searchPatient (String dni);
+	public int getPatientId (Patient patient);
 	public List<Patient> listPatients (int doctorId);
 }
