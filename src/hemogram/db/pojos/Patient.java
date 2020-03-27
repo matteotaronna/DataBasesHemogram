@@ -13,20 +13,18 @@ public class Patient implements Serializable
 	private String surname;
 	private Date dob;
 	private String dni;
-	private Integer doctor_id;
 	
 	public Patient() {
 		super();
 	}
 	
-	public Patient(Integer id, String name, String surname, Date dob, String dni, Integer doctor_id) {
+	public Patient(Integer id, String name, String surname, Date dob, String dni) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
 		this.dob = dob;
 		this.dni = dni;
-		this.doctor_id = doctor_id;
 	}
 	
 	public Patient(String name, String surname, Date dob, String dni) {
@@ -36,15 +34,7 @@ public class Patient implements Serializable
 		this.dob = dob;
 		this.dni = dni;
 	}
-
-	public Patient(String name, String surname, Date dob, String dni, Integer doctor_id) {
-		super();
-		this.name = name;
-		this.surname = surname;
-		this.dob = dob;
-		this.dni = dni;
-		this.doctor_id = doctor_id;
-	}
+	
 
 	public Integer getId() {
 		return id;
@@ -79,14 +69,6 @@ public class Patient implements Serializable
 	}
 	public void setDni(String dni) {
 		this.dni = dni;
-	}
-	
-
-	public Integer getDoctor_id() {
-		return doctor_id;
-	}
-	public void setDoctor_id(Integer doctor_id) {
-		this.doctor_id = doctor_id;
 	}
 
 	@Override

@@ -26,14 +26,13 @@ public class SQLPatientManager implements PatientManager
 		try
 		{
 			// Insert new record
-			String sql = "INSERT INTO patients (name, surname, dob, dni, doctor_id) "
+			String sql = "INSERT INTO patients (name, surname, dob, dni) "
 						+ "VALUES (?,?,?,?,?,?)";
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setString(1, patient.getName());
 			prep.setString(2, patient.getSurname());
 			prep.setDate(3, patient.getDob());
 			prep.setString(4, patient.getDni());
-			prep.setInt(5, patient.getDoctor_id());
 			System.out.println("Records inserted.");
 			prep.executeUpdate();
 			prep.close();
@@ -85,8 +84,7 @@ public class SQLPatientManager implements PatientManager
 				String surname = rs.getString("surname");
 				Date dob = rs.getDate("dob");
 				String dni = rs.getString("dni");
-				int doctor_id = rs.getInt("doctor_id");
-				newPatient = new Patient(id, name, surname, dob, dni, doctor_id);
+				newPatient = new Patient(id, name, surname, dob, dni);
 				System.out.println(newPatient);
 			
 		} catch (Exception e) 
@@ -112,8 +110,7 @@ public class SQLPatientManager implements PatientManager
 				String surname = rs.getString("surname");
 				Date dob = rs.getDate("dob");
 				String newDni = rs.getString("dni");
-				int doctor_id = rs.getInt("doctor_id");
-				newPatient = new Patient(id, name, surname, dob, newDni, doctor_id);
+				newPatient = new Patient(id, name, surname, dob, newDni);
 				System.out.println(newPatient);
 			
 		} catch (Exception e) 

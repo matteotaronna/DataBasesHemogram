@@ -41,6 +41,7 @@ public class Menu
 				dbManager.createTables();
 				
 				//starts program
+				//THE DOCTOR SHOULD BE CREATED BEFORE CREATING THE HEMOGRAM
 				System.out.println("Who are you?");
 				System.out.println("1. Analizer");
 				System.out.println("2. Doctor");

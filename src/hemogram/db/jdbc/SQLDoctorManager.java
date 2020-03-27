@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.util.List;
 
 import hemogram.db.interfaces.DoctorManager;
-import hemogram.db.pojos.Analizer;
 import hemogram.db.pojos.Doctor;
 
 public class SQLDoctorManager implements DoctorManager 
