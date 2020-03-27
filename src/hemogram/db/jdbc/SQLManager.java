@@ -101,6 +101,13 @@ public class SQLManager implements DBManager
 			stmt1.executeUpdate(sql1);
 			stmt1.close();
 			
+			//DOCTOR PATIENTS TABLE
+			Statement stmt7 = c.createStatement();
+			String sql7 = "CREATE patientsDoctors"+"(patientId INTEGER REFERENCES patients(id),"
+						+"doctorId INTEGER REFERENCES doctors(id),"+"PRIMARY KEY (patientId,doctorId))";
+			stmt7.executeUpdate(sql7);
+			stmt7.close();
+			
 			//HEMOGRAMS
 			Statement stmt4 = c.createStatement();
 			String sql4 = "CREATE TABLE hemograms "
