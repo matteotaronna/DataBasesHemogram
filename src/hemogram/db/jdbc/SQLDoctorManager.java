@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.List;
 
 import hemogram.db.interfaces.DoctorManager;
+import hemogram.db.pojos.Analizer;
 import hemogram.db.pojos.Doctor;
 
 public class SQLDoctorManager implements DoctorManager 
@@ -98,5 +99,31 @@ public class SQLDoctorManager implements DoctorManager
 	{
 		// TODO Auto-generated method stub
 		return null;
+	}
+	public Doctor signUpDoctor (String name, String work_user)
+	{
+		Doctor newDoctor = null;
+		try 
+		{
+			String sql = "SELECT * FROM doctors WHERE name = ? AND work_user = ?";
+			PreparedStatement s = c.prepareStatement(sql);
+			s.setString(1, name);
+			s.setString(2, work_user);
+			ResultSet rs = s.executeQuery();
+			rs.next();
+				int id = rs.getInt("id");
+				String Dname = rs.getString("name");
+				String surname = rs.getString("surname");
+				String Dwork_user = rs.getString("work_user");
+				String hospital = rs.getString("hospital");
+				String speciality =rs.getString("speciality");
+				newDoctor = new Doctor(id, Dname, surname, Dwork_user, hospital, speciality);
+				System.out.println(newDoctor);
+		
+		} catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		return newDoctor;
 	}
 }

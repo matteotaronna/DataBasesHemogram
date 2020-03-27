@@ -199,12 +199,107 @@ public class Menu
 	
 	private static void doctorMenu()
 	{
-		
+		try
+		{
+			while(true)
+			{
+				Doctor doctor;
+				System.out.println("1. New Doctor");
+				System.out.println("2. Already signed up");
+				System.out.println("3. Go back");
+				
+				int option = Integer.parseInt(reader.readLine());
+						
+				switch(option)
+				{
+					case 1:
+						doctor = addDoctor();
+						//we need to pass the doctor to then link the id to the hemogram
+						doctorSubmenu(doctor);
+						break;
+					case 2:
+						doctor = signUpDoctor();
+						//we need to pass the analizer to then link the id to the hemogram
+						doctorSubmenu(doctor);
+						break;
+					case 3:
+						return;
+					default:
+						break;
+				}
+			}
+		}catch(Exception e)
+		{
+				e.printStackTrace();
+		}
 	}
+	
+	private static Doctor addDoctor() throws Exception
+	{
+		System.out.println("FILL IN YOUR INFO");
+		System.out.print("Name: ");
+		String doctorName = reader.readLine();
+		System.out.print("Surname: ");
+		String doctorSurname = reader.readLine();
+		System.out.print("Hospital: ");
+		String hospital = reader.readLine();
+		System.out.print("Speciality: ");
+		String speciality = reader.readLine();
+		System.out.println("Work_user: ");
+		String doctorwork_user= reader.readLine();
+		Doctor newDoctor = new Doctor (doctorName, doctorSurname, doctorwork_user, hospital, speciality);
+		doctorManager.insertDoctor(newDoctor);
+		return newDoctor;
+	}
+	private static Doctor signUpDoctor() throws Exception
+	{
+		System.out.print("Name: ");
+		String doctorName = reader.readLine();
+		System.out.print("Work User: ");
+		String doctorwork_user = reader.readLine();
+		Doctor newDoctor = doctorManager.signUpDoctor(doctorName, doctorwork_user);
+		return newDoctor;
+	}
+	private static void doctorSubmenu(Doctor doctor)
+	{
+		try
+		{
+			while(true)
+			{
+				Patient patient;
+				System.out.println("Enter the DNI of the patient");
+				String patientDNI = reader.readLine();
+				patient=patientManager.searchPatient(patientDNI);
+				if(patient!=null)
+				{
+					//no se muy bien si es asi como lo busca :( ACABAR!!!
+				}
+			}
+		}catch(Exception e)
+		{
+				e.printStackTrace();
+		}
+	}
+	
 	
 	
 	private static void patientMenu()
 	{
-		
+		try
+		{
+			while(true)
+			{
+				Patient patient;
+				System.out.println("Introduce your name");
+				String patientname= reader.readLine();
+				System.out.println("Introduce your DNI");
+				String patientDNI =reader.readLine();
+				
+				
+			}
+		}catch(Exception e)
+		{
+				e.printStackTrace();
+		}
 	}
 }
