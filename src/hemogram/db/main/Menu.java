@@ -98,11 +98,20 @@ public class Menu
 						analizerSubmenu(analizerId);
 						break;
 					case 2:
-						analizer = logInAnalizer();
-						analizerId = analizer.getId();
+						if(analizer==null)
+						{
+							System.out.println("Try again, the name or work-user doesn't exist");
+							analizer=logInAnalizer();
+						}
+						else
+						{
+							analizerId = analizer.getId();
+							analizerSubmenu(analizerId);
+						}
+						
 						//System.out.println(analizerId);
 						//we need to pass the analizer id to then link the id to the hemogram
-						analizerSubmenu(analizerId);
+						
 						break;
 					case 3:
 						return;
@@ -163,6 +172,9 @@ public class Menu
 						patientId = patientManager.getPatientId(patient);
 						//we need to pass the patientId to then link it to the hemogram
 						//create hemogram
+						//listar doctores
+						//escoger el doctor que sea (si no existe, no se crea y le decimos que avise al paciente)
+						//
 						break;
 					case 2:
 						patient = searchPatient();
