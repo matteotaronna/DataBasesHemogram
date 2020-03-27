@@ -79,7 +79,8 @@ public class Menu
 		{
 			while(true)
 			{
-				Analizer analizer;
+				Analizer analizer = null;
+				int analizerId = 0;
 				System.out.println("1. New Analizer");
 				System.out.println("2. Already signed up");
 				System.out.println("3. Go back");
@@ -90,13 +91,17 @@ public class Menu
 				{
 					case 1:
 						analizer = addAnalizer();
-						//we need to pass the analizer to then link the id to the hemogram
-						analizerSubmenu(analizer);
+						analizerId = analizerManager.getAnalizerId(analizer);
+						//System.out.println(analizerId);
+						//we need to pass the analizerId to then link it to the hemogram
+						analizerSubmenu(analizerId);
 						break;
 					case 2:
-						analizer = signUpAnalizer();
-						//we need to pass the analizer to then link the id to the hemogram
-						analizerSubmenu(analizer);
+						analizer = logInAnalizer();
+						analizerId = analizer.getId();
+						//System.out.println(analizerId);
+						//we need to pass the analizer id to then link the id to the hemogram
+						analizerSubmenu(analizerId);
 						break;
 					case 3:
 						return;
@@ -126,23 +131,24 @@ public class Menu
 		return newAnalizer;
 	}
 	
-	private static Analizer signUpAnalizer() throws Exception
+	private static Analizer logInAnalizer() throws Exception
 	{
 		System.out.print("Name: ");
 		String analizerName = reader.readLine();
 		System.out.print("Work User: ");
 		String analizerWorkUser = reader.readLine();
-		Analizer newAnalizer = analizerManager.signUpAnalizer(analizerName, analizerWorkUser);
+		Analizer newAnalizer = analizerManager.logInAnalizer(analizerName, analizerWorkUser);
 		return newAnalizer;
 	}
 	
-	private static void analizerSubmenu(Analizer analizer)
+	private static void analizerSubmenu(int analizerId)
 	{
 		try
 		{
 			while(true)
 			{
-				Patient patient;
+				Patient patient = null;
+				int patientId = 0;
 				System.out.println("1. New patient");
 				System.out.println("2. Search for a patient");
 				System.out.println("3. Go back");
@@ -152,10 +158,14 @@ public class Menu
 				switch(option)
 				{
 					case 1:
-						patient = addPatient(); 
+						patient = addPatient();
+						patientId = patientManager.getPatientId(patient);
+						//we need to pass the patientId to then link it to the hemogram
 						break;
 					case 2:
 						patient = searchPatient();
+						patientId = patient.getId();
+						//we need to pass the patientId to then link it to the hemogram
 						break;
 					case 3:
 						return;
@@ -183,7 +193,7 @@ public class Menu
 		LocalDate dobDate = LocalDate.parse(dob, formatter);
 		Date dobDateP = Date.valueOf(dobDate);
 		Patient newPatient = new Patient(patientName, patientSurname, dobDateP, DNI);
-		patientManager.insertPatient(newPatient);
+		patientManager.signUpPatient(newPatient);
 		return newPatient;
 	}
 	
@@ -218,7 +228,7 @@ public class Menu
 						doctorSubmenu(doctor);
 						break;
 					case 2:
-						doctor = signUpDoctor();
+						doctor = logInDoctor();
 						//we need to pass the analizer to then link the id to the hemogram
 						doctorSubmenu(doctor);
 						break;
@@ -251,13 +261,13 @@ public class Menu
 		doctorManager.insertDoctor(newDoctor);
 		return newDoctor;
 	}
-	private static Doctor signUpDoctor() throws Exception
+	private static Doctor logInDoctor() throws Exception
 	{
 		System.out.print("Name: ");
 		String doctorName = reader.readLine();
 		System.out.print("Work User: ");
 		String doctorwork_user = reader.readLine();
-		Doctor newDoctor = doctorManager.signUpDoctor(doctorName, doctorwork_user);
+		Doctor newDoctor = doctorManager.logInDoctor(doctorName, doctorwork_user);
 		return newDoctor;
 	}
 	private static void doctorSubmenu(Doctor doctor)

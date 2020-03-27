@@ -70,37 +70,14 @@ public class SQLDoctorManager implements DoctorManager
 		return newDoctor;
 	}
 
-	public int getDoctorId (Doctor doctor)
-	{
-		
-		int doctorID=0;
-		try 
-		{
-			String sql = "SELECT * FROM doctors WHERE name = ? AND surname = ? AND work_user = ? AND hospital = ? AND speciality";
-			PreparedStatement s = c.prepareStatement(sql);
-			s.setString(1, doctor.getName());
-			s.setString(2, doctor.getSurname());
-			s.setString(3, doctor.getWork_user());
-			s.setString(4, doctor.getHospital());
-			ResultSet rs = s.executeQuery();
-			rs.next();
-			doctorID = rs.getInt("id");
-			
-		} catch (Exception e) 
-		{
-			e.printStackTrace();
-		}
-		return doctorID;
-	}
 
-	//
 	@Override
-	public List<Doctor> searchDoctor(String name, String work_user) 
+	public List<Doctor> listDoctors() 
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public Doctor signUpDoctor (String name, String work_user)
+	public Doctor logInDoctor (String name, String work_user)
 	{
 		Doctor newDoctor = null;
 		try 

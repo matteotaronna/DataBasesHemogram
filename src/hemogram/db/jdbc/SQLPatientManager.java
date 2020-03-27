@@ -43,6 +43,30 @@ public class SQLPatientManager implements PatientManager
 			e.printStackTrace();
 		}
 	}
+	
+	//method to sign up patient without inserting doctor id
+	@Override
+	public void signUpPatient (Patient patient) 
+	{
+		try
+		{
+			// Insert new record
+			String sql = "INSERT INTO patients (name, surname, dob, dni) "
+						+ "VALUES (?,?,?,?)";
+			PreparedStatement prep = c.prepareStatement(sql);
+			prep.setString(1, patient.getName());
+			prep.setString(2, patient.getSurname());
+			prep.setDate(3, patient.getDob());
+			prep.setString(4, patient.getDni());
+			System.out.println("Records inserted.");
+			prep.executeUpdate();
+			prep.close();
+		
+		}catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+	}
 
 	//SELECT
 	@Override
@@ -97,6 +121,29 @@ public class SQLPatientManager implements PatientManager
 			e.printStackTrace();
 		}
 		return newPatient;
+	}
+	
+	@Override
+	public int getPatientId (Patient patient)
+	{
+		int patientId = 0;
+		try 
+		{
+			String sql = "SELECT * FROM patients WHERE name = ? AND surname = ? AND dob = ? AND dni = ?";
+			PreparedStatement s = c.prepareStatement(sql);
+			s.setString(1, patient.getName());
+			s.setString(2, patient.getSurname());
+			s.setDate(3, patient.getDob());
+			s.setString(4, patient.getDni());
+			ResultSet rs = s.executeQuery();
+			rs.next();
+				 patientId = rs.getInt("id");
+			
+		} catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		return patientId;
 	}
 
 	@Override
