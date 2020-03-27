@@ -161,11 +161,13 @@ public class Menu
 						patient = addPatient();
 						patientId = patientManager.getPatientId(patient);
 						//we need to pass the patientId to then link it to the hemogram
+						//create hemogram
 						break;
 					case 2:
 						patient = searchPatient();
 						patientId = patient.getId();
 						//we need to pass the patientId to then link it to the hemogram
+						//create hemogram
 						break;
 					case 3:
 						return;
@@ -206,6 +208,12 @@ public class Menu
 		return newPatient;
 	}
 	
+	private static void createHemogram(int patientId, int analizerId)
+	{
+		//listar doctores
+		//analizer elige al doctor
+		
+	}
 	
 	private static void doctorMenu()
 	{
@@ -214,6 +222,7 @@ public class Menu
 			while(true)
 			{
 				Doctor doctor;
+				int doctorId= 0;
 				System.out.println("1. New Doctor");
 				System.out.println("2. Already signed up");
 				System.out.println("3. Go back");
@@ -224,11 +233,13 @@ public class Menu
 				{
 					case 1:
 						doctor = addDoctor();
+						//get doctor id
 						//we need to pass the doctor to then link the id to the hemogram
 						doctorSubmenu(doctor);
 						break;
 					case 2:
 						doctor = logInDoctor();
+						// get doctor id
 						//we need to pass the analizer to then link the id to the hemogram
 						doctorSubmenu(doctor);
 						break;
@@ -282,6 +293,7 @@ public class Menu
 				patient=patientManager.searchPatient(patientDNI);
 				if(patient!=null)
 				{
+					//get doctor id 
 					//no se muy bien si es asi como lo busca :( ACABAR!!!
 				}
 			}
