@@ -23,14 +23,14 @@ public class SQLDoctorManager implements DoctorManager
 	{
 		try
 		{
-			String sql = "INSERT INTO doctors (name, surname, work_user, hospital, speciality) "
+			String sql = "INSERT INTO doctors (name, surname, work_user, hospital, specialty) "
 						+ "VALUES (?,?,?,?,?)";
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setString(1, doctor.getName());
 			prep.setString(2, doctor.getSurname());
 			prep.setString(3, doctor.getWork_user());
 			prep.setString(4, doctor.getHospital());
-			prep.setString(5, doctor.getSpeciality());
+			prep.setString(5, doctor.getSpecialty());
 			prep.executeUpdate();
 			prep.close();
 			System.out.println("Records inserted.");
@@ -58,8 +58,8 @@ public class SQLDoctorManager implements DoctorManager
 				String surname = rs.getString("surname");
 				String work_user = rs.getString("work_user");
 				String hospital = rs.getString("hospital");
-				String speciality = rs.getString("speciality");
-				newDoctor = new Doctor(id, name, surname, work_user, hospital,speciality);
+				String specialty = rs.getString("specialty");
+				newDoctor = new Doctor(id, name, surname, work_user, hospital,specialty);
 				System.out.println(newDoctor);
 			
 		} catch (Exception e) 
@@ -92,8 +92,8 @@ public class SQLDoctorManager implements DoctorManager
 				String surname = rs.getString("surname");
 				String Dwork_user = rs.getString("work_user");
 				String hospital = rs.getString("hospital");
-				String speciality =rs.getString("speciality");
-				newDoctor = new Doctor(id, Dname, surname, Dwork_user, hospital, speciality);
+				String specialty =rs.getString("specialty");
+				newDoctor = new Doctor(id, Dname, surname, Dwork_user, hospital, specialty);
 				System.out.println(newDoctor);
 		
 		} catch (Exception e) 

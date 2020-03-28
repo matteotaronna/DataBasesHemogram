@@ -13,30 +13,30 @@ public class Hemogram implements Serializable
 	private String comments;
 	private Integer patient_id;
 	private Integer doctor_id;
-	private Integer analizer_id;
+	private Integer analyzer_id;
 	
 	public Hemogram() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Hemogram(Integer id, Date dob, String comments, Integer patient_id, Integer doctor_id, Integer analizer_id) {
+	public Hemogram(Integer id, Date dob, String comments, Integer patient_id, Integer doctor_id, Integer analyzer_id) {
 		super();
 		this.id = id;
 		this.dob = dob;
 		this.comments = comments;
 		this.patient_id = patient_id;
 		this.doctor_id = doctor_id;
-		this.analizer_id = analizer_id;
+		this.analyzer_id = analyzer_id;
 	}
 
-	public Hemogram(Date dob, String comments, Integer patient_id, Integer doctor_id, Integer analizer_id) {
+	public Hemogram(Date dob, String comments, Integer patient_id, Integer doctor_id, Integer analyzer_id) {
 		super();
 		this.dob = dob;
 		this.comments = comments;
 		this.patient_id = patient_id;
 		this.doctor_id = doctor_id;
-		this.analizer_id = analizer_id;
+		this.analyzer_id = analyzer_id;
 	}
 
 	@Override
@@ -67,7 +67,7 @@ public class Hemogram implements Serializable
 	@Override
 	public String toString() {
 		return "Hemogram [id=" + id + ", dob=" + dob + ", comments=" + comments + ", patient_id=" + patient_id
-				+ ", doctor_id=" + doctor_id + ", analizer_id=" + analizer_id + "]";
+				+ ", doctor_id=" + doctor_id + ", analizer_id=" + analyzer_id + "]";
 	}
 
 	public Integer getId() {
@@ -110,11 +110,11 @@ public class Hemogram implements Serializable
 		this.doctor_id = doctor_id;
 	}
 
-	public Integer getAnalizer_id() {
-		return analizer_id;
+	public Integer getAnalyzer_id() {
+		return analyzer_id;
 	}
 
 	public void setAnalizer_id(Integer analizer_id) {
-		this.analizer_id = analizer_id;
+		this.analyzer_id = analizer_id;
 	}
 }

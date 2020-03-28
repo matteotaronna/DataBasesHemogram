@@ -8,7 +8,7 @@ public interface DBManager
 	public void disconnect();
 	public void createTables();
 	
-	public AnalizerManager getAnalizerManager();
+	public AnalyzerManager getAnalyzerManager();
 	public PatientManager getPatientManager();
 	public DoctorManager getDoctorManager();
 	public FeaturesManager getFeaturesManager();

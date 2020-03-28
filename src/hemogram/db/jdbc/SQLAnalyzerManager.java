@@ -4,31 +4,31 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import hemogram.db.interfaces.AnalizerManager;
-import hemogram.db.pojos.Analizer;
+import hemogram.db.interfaces.AnalyzerManager;
+import hemogram.db.pojos.Analyzer;
 
-public class SQLAnalizerManager implements AnalizerManager 
+public class SQLAnalyzerManager implements AnalyzerManager 
 {
 	private Connection c;
 
-	public SQLAnalizerManager(Connection c) 
+	public SQLAnalyzerManager(Connection c) 
 	{
 		this.c = c;
 	}
 
 	//INSERT
 	@Override
-	public void insertAnalizer (Analizer analizer) 
+	public void insertAnalyzer (Analyzer analyzer) 
 	{
 		try 
 		{	
-			String sql = "INSERT INTO analizers (name, surname, work_user, hospital) "
+			String sql = "INSERT INTO analyzers (name, surname, work_user, hospital) "
 					+ "VALUES (?,?,?,?)";
 			PreparedStatement prep = c.prepareStatement(sql);
-			prep.setString(1, analizer.getName());
-			prep.setString(2, analizer.getSurname());
-			prep.setString(3, analizer.getWork_user());
-			prep.setString(4, analizer.getHospital());
+			prep.setString(1, analyzer.getName());
+			prep.setString(2, analyzer.getSurname());
+			prep.setString(3, analyzer.getWork_user());
+			prep.setString(4, analyzer.getHospital());
 			prep.executeUpdate();
 			prep.close();
 			
@@ -42,14 +42,14 @@ public class SQLAnalizerManager implements AnalizerManager
 
 	//SELECT
 	@Override
-	public Analizer getAnalizer(int analizerId) 
+	public Analyzer getAnalyzer(int analyzerId) 
 	{
-		Analizer newAnalizer = null;
+		Analyzer newAnalyzer = null;
 		try 
 		{
-			String sql = "SELECT * FROM analizers WHERE id = ?";
+			String sql = "SELECT * FROM analyzers WHERE id = ?";
 			PreparedStatement s = c.prepareStatement(sql);
-			s.setInt(1, analizerId);
+			s.setInt(1, analyzerId);
 			ResultSet rs = s.executeQuery();
 			rs.next();
 				int id = rs.getInt("id");
@@ -57,23 +57,23 @@ public class SQLAnalizerManager implements AnalizerManager
 				String surname = rs.getString("surname");
 				String work_user = rs.getString("work_user");
 				String hospital = rs.getString("hospital");
-				newAnalizer = new Analizer(id, name, surname, work_user, hospital);
-				System.out.println(newAnalizer);
+				newAnalyzer = new Analyzer(id, name, surname, work_user, hospital);
+				System.out.println(newAnalyzer);
 			
 		} catch (Exception e) 
 		{
 			e.printStackTrace();
 		}
-		return newAnalizer;
+		return newAnalyzer;
 	}
 	
 	@Override
-	public Analizer logInAnalizer (String name, String work_user)
+	public Analyzer logInAnalyzer (String name, String work_user)
 	{
-		Analizer newAnalizer = null;
+		Analyzer newAnalyzer = null;
 		try 
 		{
-			String sql = "SELECT * FROM analizers WHERE name = ? AND work_user = ?";
+			String sql = "SELECT * FROM analyzers WHERE name = ? AND work_user = ?";
 			PreparedStatement s = c.prepareStatement(sql);
 			s.setString(1, name);
 			s.setString(2, work_user);
@@ -84,36 +84,36 @@ public class SQLAnalizerManager implements AnalizerManager
 				String surname = rs.getString("surname");
 				String Awork_user = rs.getString("work_user");
 				String hospital = rs.getString("hospital");
-				newAnalizer = new Analizer(id, Aname, surname, Awork_user, hospital);
-				System.out.println(newAnalizer);
+				newAnalyzer = new Analyzer(id, Aname, surname, Awork_user, hospital);
+				System.out.println(newAnalyzer);
 			
 		} catch (Exception e) 
 		{
 			e.printStackTrace();
 		}
-		return newAnalizer;
+		return newAnalyzer;
 	}
 	
 	@Override
-	public int getAnalizerId (Analizer analizer)
+	public int getAnalyzerId (Analyzer analyzer)
 	{
-		int analizerId = 0;
+		int analyzerId = 0;
 		try 
 		{
-			String sql = "SELECT * FROM analizers WHERE name = ? AND surname = ? AND work_user = ? AND hospital = ?";
+			String sql = "SELECT * FROM analyzers WHERE name = ? AND surname = ? AND work_user = ? AND hospital = ?";
 			PreparedStatement s = c.prepareStatement(sql);
-			s.setString(1, analizer.getName());
-			s.setString(2, analizer.getSurname());
-			s.setString(3, analizer.getWork_user());
-			s.setString(4, analizer.getHospital());
+			s.setString(1, analyzer.getName());
+			s.setString(2, analyzer.getSurname());
+			s.setString(3, analyzer.getWork_user());
+			s.setString(4, analyzer.getHospital());
 			ResultSet rs = s.executeQuery();
 			rs.next();
-				 analizerId = rs.getInt("id");
+				 analyzerId = rs.getInt("id");
 			
 		} catch (Exception e) 
 		{
 			e.printStackTrace();
 		}
-		return analizerId;
+		return analyzerId;
 	}
 }

@@ -12,7 +12,7 @@ import hemogram.db.pojos.*;
 public class Menu 
 {
 	public static DBManager dbManager;
-	public static AnalizerManager analizerManager;
+	public static AnalyzerManager analyzerManager;
 	public static DoctorManager doctorManager;
 	public static PatientManager patientManager;
 	public static FeaturesManager featuresManager;
@@ -30,7 +30,7 @@ public class Menu
 				//create and connect with the database
 				dbManager = new SQLManager();
 				dbManager.connect();
-				analizerManager = dbManager.getAnalizerManager();
+				analyzerManager = dbManager.getAnalyzerManager();
 				patientManager = dbManager.getPatientManager();
 				doctorManager = dbManager.getDoctorManager();
 				featuresManager = dbManager.getFeaturesManager();
@@ -43,7 +43,7 @@ public class Menu
 				//starts program
 				//THE DOCTOR SHOULD BE CREATED BEFORE CREATING THE HEMOGRAM
 				System.out.println("Who are you?");
-				System.out.println("1. Analizer");
+				System.out.println("1. Analyzer");
 				System.out.println("2. Doctor");
 				System.out.println("3. Patient");
 				System.out.println("0. Exit");
@@ -53,7 +53,7 @@ public class Menu
 				switch(option)
 				{
 					case 1:
-						analizerMenu();
+						analyzerMenu();
 						break;
 					case 2:
 						doctorMenu();
@@ -74,14 +74,14 @@ public class Menu
 		}
 	}
 	
-	private static void analizerMenu()
+	private static void analyzerMenu()
 	{
 		try
 		{
 			while(true)
 			{
-				Analizer analizer = null;
-				int analizerId = 0;
+				Analyzer analyzer = null;
+				int analyzerId = 0;
 				System.out.println("1. New Analizer");
 				System.out.println("2. Already signed up");
 				System.out.println("3. Go back");
@@ -91,26 +91,26 @@ public class Menu
 				switch(option)
 				{
 					case 1:
-						analizer = addAnalizer();
-						analizerId = analizerManager.getAnalizerId(analizer);
+						analyzer = addAnalyzer();
+						analyzerId = analyzerManager.getAnalyzerId(analyzer);
 						//System.out.println(analizerId);
 						//we need to pass the analizerId to then link it to the hemogram
-						analizerSubmenu(analizerId);
+						analyzerSubmenu(analyzerId);
 						break;
 					case 2:
-						if(analizer==null)
+						if(analyzer==null)
 						{
 							System.out.println("Try again, the name or work-user doesn't exist");
-							analizer=logInAnalizer();
+							analyzer=logInAnalyzer();
 						}
 						else
 						{
-							analizerId = analizer.getId();
-							analizerSubmenu(analizerId);
+							analyzerId = analyzer.getId();
+							analyzerSubmenu(analyzerId);
 						}
 						
 						//System.out.println(analizerId);
-						//we need to pass the analizer id to then link the id to the hemogram
+						//we need to pass the analyzer id to then link the id to the hemogram
 						
 						break;
 					case 3:
@@ -125,33 +125,33 @@ public class Menu
 		}
 	}
 	
-	private static Analizer addAnalizer() throws Exception
+	private static Analyzer addAnalyzer() throws Exception
 	{
 		System.out.println("FILL IN YOUR INFO");
 		System.out.print("Name: ");
-		String analizerName = reader.readLine();
+		String analyzerName = reader.readLine();
 		System.out.print("Surname: ");
-		String analizerSurname = reader.readLine();
+		String analyzerSurname = reader.readLine();
 		System.out.print("Work User: ");
-		String analizerWorkUser = reader.readLine();
+		String analyzerWorkUser = reader.readLine();
 		System.out.print("Hospital: ");
-		String analizerHospital = reader.readLine();
-		Analizer newAnalizer = new Analizer(analizerName, analizerSurname, analizerWorkUser, analizerHospital);
-		analizerManager.insertAnalizer(newAnalizer);
-		return newAnalizer;
+		String analyzerHospital = reader.readLine();
+		Analyzer newAnalyzer = new Analyzer(analyzerName, analyzerSurname, analyzerWorkUser, analyzerHospital);
+		analyzerManager.insertAnalyzer(newAnalyzer);
+		return newAnalyzer;
 	}
 	
-	private static Analizer logInAnalizer() throws Exception
+	private static Analyzer logInAnalyzer() throws Exception
 	{
 		System.out.print("Name: ");
-		String analizerName = reader.readLine();
+		String analyzerName = reader.readLine();
 		System.out.print("Work User: ");
-		String analizerWorkUser = reader.readLine();
-		Analizer newAnalizer = analizerManager.logInAnalizer(analizerName, analizerWorkUser);
-		return newAnalizer;
+		String analyzerWorkUser = reader.readLine();
+		Analyzer newAnalyzer = analyzerManager.logInAnalyzer(analyzerName, analyzerWorkUser);
+		return newAnalyzer;
 	}
 	
-	private static void analizerSubmenu(int analizerId)
+	private static void analyzerSubmenu(int analyzerId)
 	{
 		try
 		{
@@ -277,11 +277,11 @@ public class Menu
 		String doctorSurname = reader.readLine();
 		System.out.print("Hospital: ");
 		String hospital = reader.readLine();
-		System.out.print("Speciality: ");
-		String speciality = reader.readLine();
+		System.out.print("Specialty: ");
+		String specialty = reader.readLine();
 		System.out.println("Work_user: ");
 		String doctorwork_user= reader.readLine();
-		Doctor newDoctor = new Doctor (doctorName, doctorSurname, doctorwork_user, hospital, speciality);
+		Doctor newDoctor = new Doctor (doctorName, doctorSurname, doctorwork_user, hospital, specialty);
 		doctorManager.insertDoctor(newDoctor);
 		return newDoctor;
 	}

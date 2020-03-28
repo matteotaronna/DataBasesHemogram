@@ -25,14 +25,14 @@ public class SQLHemogramManager implements HemogramManager{
 	{
 		try 
 		{	
-			String sql = "INSERT INTO hemogram (date_hemogram, comments, doctor_id, patient_id, analizer_id) "
+			String sql = "INSERT INTO hemogram (date_hemogram, comments, doctor_id, patient_id, analyzer_id) "
 					+ "VALUES (?,?,?,?,?)";
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setDate(1, hemogram.getDob());
 			prep.setString(2, hemogram.getComments());
 			prep.setInt(3, hemogram.getDoctor_id());
 			prep.setInt(4, hemogram.getPatient_id());
-			prep.setInt(5, hemogram.getAnalizer_id());
+			prep.setInt(5, hemogram.getAnalyzer_id());
 			prep.executeUpdate();
 			prep.close();
 			
@@ -61,8 +61,8 @@ public class SQLHemogramManager implements HemogramManager{
 					String comments = rs.getString("comments");
 					int doctor_id = rs.getInt("doctor_id");
 					int patient_id = rs.getInt("patient_id");
-					int analizer_id = rs.getInt("analizer_id");
-					newHemogram = new Hemogram(id, dob, comments, doctor_id, patient_id, analizer_id);
+					int analyzer_id = rs.getInt("analyzer_id");
+					newHemogram = new Hemogram(id, dob, comments, doctor_id, patient_id, analyzer_id);
 					System.out.println(newHemogram);
 				
 			} catch (Exception e) 
@@ -87,8 +87,8 @@ public class SQLHemogramManager implements HemogramManager{
 					String comments = rs.getString("comments");
 					int doctor_id = rs.getInt("doctor_id");
 					int patient_id = rs.getInt("patient_id");
-					int analizer_id = rs.getInt("analizer_id");
-					Hemogram newHemogram = new Hemogram(id, dob, comments, doctor_id, patient_id, analizer_id);
+					int analyzer_id = rs.getInt("analyzer_id");
+					Hemogram newHemogram = new Hemogram(id, dob, comments, doctor_id, patient_id, analyzer_id);
 					hemogramList.add(newHemogram);
 				
 			} catch (Exception e) 

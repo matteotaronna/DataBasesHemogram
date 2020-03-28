@@ -12,7 +12,7 @@ import hemogram.db.pojos.*;
 public class SQLManager implements DBManager 
 {
 	private Connection c;
-	private AnalizerManager analizer;
+	private AnalyzerManager analizer;
 	private PatientManager patient;
 	private DoctorManager doctor;
 	private FeaturesManager features;
@@ -36,7 +36,7 @@ public class SQLManager implements DBManager
 			c.createStatement().execute("PRAGMA foreign_keys=ON");
 			
 			//Create the atributes managers.
-			analizer = new SQLAnalizerManager(c);
+			analizer = new SQLAnalyzerManager(c);
 			patient = new SQLPatientManager(c);
 			features = new SQLFeaturesManager(c);
 			doctor = new SQLDoctorManager(c);
@@ -75,13 +75,13 @@ public class SQLManager implements DBManager
 					   + " surname    TEXT     NOT NULL,"
 					   + " work_user  TEXT	   NOT NULL  UNIQUE, "
 					   + " hospital   TEXT     NOT NULL, "
-					   + " speciality TEXT     NOT NULL)";
+					   + " specialty TEXT     NOT NULL)";
 			stmt2.executeUpdate(sql2);
 			stmt2.close();
 			
 			//ANALIZERS
 			Statement stmt3 = c.createStatement();
-			String sql3 = "CREATE TABLE analizers "
+			String sql3 = "CREATE TABLE analyzers "
 					   + "(id         INTEGER  PRIMARY KEY AUTOINCREMENT,"
 					   + " name       TEXT     NOT NULL, "
 					   + " surname    TEXT     NOT NULL, "
@@ -116,7 +116,7 @@ public class SQLManager implements DBManager
 					   + " comments       TEXT     NOT NULL, "
 					   + " doctor_id INTEGER REFERENCES doctors(id) ON UPDATE CASCADE ON DELETE SET NULL, "
 					   + " patient_id INTEGER REFERENCES patients(id) ON UPDATE CASCADE ON DELETE SET NULL,"
-					   + " analizer_id INTEGER REFERENCES analizers(id) ON UPDATE CASCADE ON DELETE SET NULL)";
+					   + " analyzer_id INTEGER REFERENCES analizers(id) ON UPDATE CASCADE ON DELETE SET NULL)";
 			stmt4.executeUpdate(sql4);
 			stmt4.close();
 			
@@ -176,7 +176,7 @@ public class SQLManager implements DBManager
 	}
 	
 	@Override
-	public AnalizerManager getAnalizerManager()
+	public AnalyzerManager getAnalyzerManager()
 	{
 		return analizer;
 	}

@@ -2,7 +2,7 @@ package hemogram.db.pojos;
 
 import java.io.Serializable;
 
-public class Analizer implements Serializable{
+public class Analyzer implements Serializable{
 
 	private static final long serialVersionUID = 2533734397872268521L;
 	
@@ -12,11 +12,11 @@ public class Analizer implements Serializable{
 	private String work_user;
 	private String hospital;
 	
-	public Analizer() {
+	public Analyzer() {
 		super();
 	}
 
-	public Analizer(Integer id, String name, String surname, String work_user, String hospital) {
+	public Analyzer(Integer id, String name, String surname, String work_user, String hospital) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -25,7 +25,7 @@ public class Analizer implements Serializable{
 		this.hospital = hospital;
 	}
 
-	public Analizer(String name, String surname, String work_user, String hospital) {
+	public Analyzer(String name, String surname, String work_user, String hospital) {
 		super();
 		this.name = name;
 		this.surname = surname;
@@ -49,7 +49,7 @@ public class Analizer implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Analizer other = (Analizer) obj;
+		Analyzer other = (Analyzer) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -60,7 +60,7 @@ public class Analizer implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Analizer [id=" + id + ", name=" + name + ", surname=" + surname + ", work_user=" + work_user
+		return "Analyzer [id=" + id + ", name=" + name + ", surname=" + surname + ", work_user=" + work_user
 				+ ", hospital=" + hospital + "]";
 	}
 

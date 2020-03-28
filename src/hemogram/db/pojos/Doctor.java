@@ -11,7 +11,7 @@ public class Doctor implements Serializable{
 	private String surname;
 	private String work_user;
 	private String hospital;
-	private String speciality;
+	private String specialty;
 	
 	public Doctor() {
 		super();
@@ -24,7 +24,7 @@ public class Doctor implements Serializable{
 		this.surname = surname;
 		this.work_user = work_user;
 		this.hospital = hospital;
-		this.speciality = speciality;
+		this.specialty = speciality;
 	}
 	
 
@@ -34,7 +34,7 @@ public class Doctor implements Serializable{
 		this.surname = surname;
 		this.work_user = work_user;
 		this.hospital = hospital;
-		this.speciality = speciality;
+		this.specialty = speciality;
 	}
 
 	@Override
@@ -65,7 +65,7 @@ public class Doctor implements Serializable{
 	@Override
 	public String toString() {
 		return "Doctors [id=" + id + ", name=" + name + ", surname=" + surname + ", work_user=" + work_user
-				+ ", hospital=" + hospital + ", speciality=" + speciality + "]";
+				+ ", hospital=" + hospital + ", speciality=" + specialty + "]";
 	}
 
 	public Integer getId() {
@@ -108,12 +108,12 @@ public class Doctor implements Serializable{
 		this.hospital = hospital;
 	}
 
-	public String getSpeciality() {
-		return speciality;
+	public String getSpecialty() {
+		return specialty;
 	}
 
-	public void setSpeciality(String speciality) {
-		this.speciality = speciality;
+	public void setSpecialty(String speciality) {
+		this.specialty = speciality;
 	}	
 
 }
