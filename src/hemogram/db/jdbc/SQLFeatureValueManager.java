@@ -2,7 +2,6 @@ package hemogram.db.jdbc;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.util.List;
 
 import hemogram.db.interfaces.FeatureValueManager;
 import hemogram.db.pojos.*;
@@ -49,11 +48,4 @@ public class SQLFeatureValueManager implements FeatureValueManager
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public List<Feature> listFeatures() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

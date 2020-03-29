@@ -72,16 +72,18 @@ public class SQLHemogramManager implements HemogramManager{
 			return newHemogram;
 		}
 		
-		public List<Hemogram> listHemogram(int patientId){
+		public List<Hemogram> listHemogram(int patientId, int doctorId){
 			
 			hemogramList = null;
 			try 
 			{
-				String sql = "SELECT * FROM hemograms WHERE patient_id = ?";
+				String sql = "SELECT * FROM hemograms WHERE patient_id = ? AND doctor_id = ?";
 				PreparedStatement s = c.prepareStatement(sql);
 				s.setInt(1, patientId);
+				s.setInt(2, doctorId);
 				ResultSet rs = s.executeQuery();
-				rs.next();
+				while(rs.next()==true)
+				{
 					int id = rs.getInt("id");
 					Date dob = rs.getDate("date_hemogram");
 					String comments = rs.getString("comments");
@@ -90,6 +92,7 @@ public class SQLHemogramManager implements HemogramManager{
 					int analyzer_id = rs.getInt("analyzer_id");
 					Hemogram newHemogram = new Hemogram(id, dob, comments, doctor_id, patient_id, analyzer_id);
 					hemogramList.add(newHemogram);
+				}
 				
 			} catch (Exception e) 
 			{
