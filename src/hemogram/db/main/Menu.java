@@ -80,7 +80,6 @@ public class Menu
 		//analizer elige al doctor
 		
 	}
-	
 	private static void patientMenu()
 	{
 		try

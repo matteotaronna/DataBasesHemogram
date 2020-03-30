@@ -22,7 +22,7 @@ public class MenuAnalyzer {
 			{
 				Analyzer analyzer = null;
 				int analyzerId = 0;
-				System.out.println("1. New Analizer");
+				System.out.println("1. New Analyzer");
 				System.out.println("2. Already signed up");
 				System.out.println("3. Go back");
 				
