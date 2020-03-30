@@ -12,13 +12,12 @@ import hemogram.db.pojos.*;
 public class SQLManager implements DBManager 
 {
 	private Connection c;
-	private AnalyzerManager analizer;
+	private AnalyzerManager analyzer;
 	private PatientManager patient;
 	private DoctorManager doctor;
 	private FeaturesManager features;
 	private FeatureValueManager featureValue;
 	private HemogramManager hemogram;
-	//hemogram ...
 	
 	public SQLManager()
 	{
@@ -36,12 +35,12 @@ public class SQLManager implements DBManager
 			c.createStatement().execute("PRAGMA foreign_keys=ON");
 			
 			//Create the atributes managers.
-			analizer = new SQLAnalyzerManager(c);
+			analyzer = new SQLAnalyzerManager(c);
 			patient = new SQLPatientManager(c);
 			features = new SQLFeaturesManager(c);
 			doctor = new SQLDoctorManager(c);
 			featureValue = new SQLFeatureValueManager(c);
-			hemogram = new SQLHemogramManager(c);
+			hemogram = new SQLHemogramManager(c, doctor, patient, analyzer);
 			
 		} catch (Exception e) 
 		{
@@ -178,7 +177,7 @@ public class SQLManager implements DBManager
 	@Override
 	public AnalyzerManager getAnalyzerManager()
 	{
-		return analizer;
+		return analyzer;
 	}
 	@Override
 	public PatientManager getPatientManager()

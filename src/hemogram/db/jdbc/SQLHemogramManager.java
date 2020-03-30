@@ -6,7 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 
+import hemogram.db.interfaces.AnalyzerManager;
+import hemogram.db.interfaces.DoctorManager;
 import hemogram.db.interfaces.HemogramManager;
+import hemogram.db.interfaces.PatientManager;
 import hemogram.db.pojos.Doctor;
 import hemogram.db.pojos.Hemogram;
 import hemogram.db.pojos.Patient;
@@ -14,11 +17,17 @@ import hemogram.db.pojos.Patient;
 public class SQLHemogramManager implements HemogramManager{
 
 	private Connection c;
+	private DoctorManager doctor;
+	private PatientManager patient;
+	private AnalyzerManager analyzer;
 	private List<Hemogram> hemogramList;
 
-	public SQLHemogramManager(Connection c) 
+	public SQLHemogramManager(Connection c, DoctorManager doctor, PatientManager patient, AnalyzerManager analyzer) 
 	{
 		this.c = c;
+		this.doctor = doctor;
+		this.patient = patient;
+		this.analyzer = analyzer;
 	}
 
 	//INSERT
@@ -62,7 +71,7 @@ public class SQLHemogramManager implements HemogramManager{
 					Date dob = rs.getDate("date_hemogram");
 					String comments = rs.getString("comments");
 					int doctor_id = rs.getInt("doctor_id");
-					Doctor doctor = SQLDoctorManager.getDoctor(doctor_id);
+					Doctor doctor = .getDoctor(doctor_id);
 					int patient_id = rs.getInt("patient_id");
 					Patient patient = SQLPatientManager.getPatient(patient_id);
 					int analyzer_id = rs.getInt("analyzer_id");
