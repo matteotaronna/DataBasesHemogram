@@ -73,13 +73,6 @@ public class Menu
 		}
 	}
 	
-	
-	private static void createHemogram(int patientId, int analizerId)
-	{
-		//listar doctores
-		//analizer elige al doctor
-		
-	}
 	private static void patientMenu()
 	{
 		try

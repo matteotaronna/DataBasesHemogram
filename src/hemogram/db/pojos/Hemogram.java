@@ -39,6 +39,15 @@ public class Hemogram implements Serializable
 		this.doctor = doctor;
 		this.analyzer = analyzer;
 	}
+	
+
+	public Hemogram(Date dob, Patient patient, Doctor doctor, Analyzer analyzer) {
+		super();
+		this.dob = dob;
+		this.patient = patient;
+		this.doctor = doctor;
+		this.analyzer = analyzer;
+	}
 
 	@Override
 	public int hashCode() {

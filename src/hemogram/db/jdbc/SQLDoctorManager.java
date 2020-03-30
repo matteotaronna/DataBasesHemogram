@@ -74,6 +74,7 @@ public class SQLDoctorManager implements DoctorManager
 	public List<Doctor> listDoctors() 
 	{
 		// TODO Auto-generated method stub
+		//Join to select the doctors that matches the patient id
 		return null;
 	}
 	public Doctor logInDoctor (String name, String work_user)
@@ -86,7 +87,8 @@ public class SQLDoctorManager implements DoctorManager
 			s.setString(1, name);
 			s.setString(2, work_user);
 			ResultSet rs = s.executeQuery();
-			rs.next();
+			while(rs.next()==true)
+			{
 				int id = rs.getInt("id");
 				String Dname = rs.getString("name");
 				String surname = rs.getString("surname");
@@ -95,6 +97,7 @@ public class SQLDoctorManager implements DoctorManager
 				String specialty =rs.getString("specialty");
 				newDoctor = new Doctor(id, Dname, surname, Dwork_user, hospital, specialty);
 				System.out.println(newDoctor);
+			}
 		
 		} catch (Exception e) 
 		{

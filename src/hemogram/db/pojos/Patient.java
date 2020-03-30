@@ -2,6 +2,7 @@ package hemogram.db.pojos;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 
 public class Patient implements Serializable
@@ -13,6 +14,7 @@ public class Patient implements Serializable
 	private String surname;
 	private Date dob;
 	private String dni;
+	private List<Doctor> doctor;
 	
 	public Patient() {
 		super();
@@ -35,6 +37,17 @@ public class Patient implements Serializable
 		this.dni = dni;
 	}
 	
+	
+
+	public Patient(Integer id, String name, String surname, Date dob, String dni, List<Doctor> doctor) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.surname = surname;
+		this.dob = dob;
+		this.dni = dni;
+		this.doctor = doctor;
+	}
 
 	public Integer getId() {
 		return id;
@@ -70,6 +83,14 @@ public class Patient implements Serializable
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
+	
+	public List<Doctor> getDoctor() {
+		return doctor;
+	}
+
+	public void setDoctor(List<Doctor> doctor) {
+		this.doctor = doctor;
+	}
 
 	@Override
 	public int hashCode() {
@@ -95,7 +116,7 @@ public class Patient implements Serializable
 			return false;
 		return true;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Patient [id=" + id + ", name=" + name + ", surname=" + surname + ", dob=" + dob + ", dni=" + dni + "]";

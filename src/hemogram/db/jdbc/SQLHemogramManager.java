@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import hemogram.db.interfaces.AnalyzerManager;
@@ -21,7 +22,6 @@ public class SQLHemogramManager implements HemogramManager{
 	private DoctorManager doctorM;
 	private PatientManager patientM;
 	private AnalyzerManager analyzerM;
-	private List<Hemogram> hemogramList;
 
 	public SQLHemogramManager(Connection c, DoctorManager doctor, PatientManager patient, AnalyzerManager analyzer) 
 	{
@@ -33,18 +33,18 @@ public class SQLHemogramManager implements HemogramManager{
 
 	//INSERT
 	@Override
-	public void insertHemogram (Hemogram hemogram) 
+	public void insertHemogram (Date hemogramDate, int patientId, int analyzerId, int doctorId) 
 	{
 		try 
 		{	
 			String sql = "INSERT INTO hemogram (date_hemogram, comments, doctor_id, patient_id, analyzer_id) "
 					+ "VALUES (?,?,?,?,?)";
 			PreparedStatement prep = c.prepareStatement(sql);
-			prep.setDate(1, hemogram.getDob());
-			prep.setString(2, hemogram.getComments());
-			prep.setInt(3, hemogram.getDoctor().getId());
-			prep.setInt(4, hemogram.getPatient().getId());
-			prep.setInt(5, hemogram.getAnalyzer().getId());
+			prep.setDate(1, hemogramDate);
+			prep.setString(2, null);
+			prep.setInt(3, patientId);
+			prep.setInt(4, analyzerId);
+			prep.setInt(5, doctorId);
 			prep.executeUpdate();
 			prep.close();
 			
@@ -89,7 +89,7 @@ public class SQLHemogramManager implements HemogramManager{
 		
 		public List<Hemogram> listHemogramPatient (int patientId){
 			
-			hemogramList = null;
+			List<Hemogram> hemogramList = new ArrayList<Hemogram>();
 			try 
 			{
 				String sql = "SELECT * FROM hemograms WHERE patient_id = ?";
@@ -119,7 +119,7 @@ public class SQLHemogramManager implements HemogramManager{
 		}
 		
 		public List<Hemogram> listHemogramDoctor (int patientId, int doctorId){
-			hemogramList = null;
+			List<Hemogram> hemogramList = new ArrayList<Hemogram>();
 			try 
 			{
 				String sql = "SELECT * FROM hemograms WHERE patient_id = ? AND doctor_id = ?";

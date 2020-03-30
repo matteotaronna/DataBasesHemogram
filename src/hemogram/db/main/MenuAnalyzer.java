@@ -1,12 +1,14 @@
 package hemogram.db.main;
 
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import hemogram.db.pojos.Analyzer;
-import hemogram.db.pojos.Patient;
+import java.util.List;
+
+import hemogram.db.pojos.*;
 
 public class MenuAnalyzer {
 	
@@ -91,6 +93,9 @@ public class MenuAnalyzer {
 		Analyzer newAnalyzer = Menu.analyzerManager.logInAnalyzer(analyzerName, analyzerWorkUser);
 		return newAnalyzer;
 	}
+	
+	
+	
 
 	public static void analyzerSubmenu(int analyzerId)
 	{
@@ -99,7 +104,9 @@ public class MenuAnalyzer {
 			while(true)
 			{
 				Patient patient = null;
+				Doctor doctor = null;
 				int patientId = 0;
+				int doctorId = 0;
 				System.out.println("1. New patient");
 				System.out.println("2. Search for a patient");
 				System.out.println("3. Go back");
@@ -113,16 +120,36 @@ public class MenuAnalyzer {
 						patientId = Menu.patientManager.getPatientId(patient);
 						//we need to pass the patientId to then link it to the hemogram
 						//create hemogram
-						//listar doctores
-						//escoger el doctor que sea (si no existe, no se crea y le decimos que avise al paciente)
-						//
-						break;
+						doctor = searchDoctor();
+						if (doctor!=null)
+						{
+							doctorId=doctor.getId();
+							createHemogram(analyzerId,patientId,doctorId);
+							break;
+						}
+						else
+						{
+							System.out.println("THE DOCTOR SHOULD BE REGISTER, WAIT TILL HE REGISTERS!");
+							return;
+						}
+						//create hemogram
 					case 2:
 						patient = searchPatient();
 						patientId = patient.getId();
 						//we need to pass the patientId to then link it to the hemogram
+						doctor = searchDoctor();
+						if (doctor!=null)
+						{
+							doctorId=doctor.getId();
+							createHemogram(analyzerId,patientId,doctorId);
+							break;
+						}
+						else
+						{
+							System.out.println("\nTHE DOCTOR SHOULD BE REGISTERED, WAIT UNTILL HE REGISTERS!\n");
+							return;
+						}
 						//create hemogram
-						break;
 					case 3:
 						return;
 					default:
@@ -153,13 +180,38 @@ public class MenuAnalyzer {
 		return newPatient;
 	}
 	
-	
 	public static Patient searchPatient() throws Exception
 	{
 		System.out.print("Patient DNI: ");
 		String dni = reader.readLine();
 		Patient newPatient = Menu.patientManager.searchPatient(dni);
 		return newPatient;
+	}
+	
+	public static Doctor searchDoctor() throws Exception
+	{
+		List<Doctor> doctors = Menu.doctorManager.listDoctors();
+		System.out.println(doctors);
+		System.out.print("Insert the doctor id (if there isn't the doctor put 0): ");
+		int doctorId = Integer.parseInt(reader.readLine());
+		if(doctorId!=0)
+		{
+			return Menu.doctorManager.getDoctor(doctorId);
+			
+		}else return null;
+	}
+	
+	public static void createHemogram (int analyzerId, int patientId, int doctorId) throws Exception
+	{
+		System.out.print("Insert the date of the hemogram (yyyy-MM-dd): ");
+		String date = reader.readLine();
+		LocalDate dateL = LocalDate.parse(date, formatter);
+		Date hemogramDate = Date.valueOf(dateL);
+		Menu.hemogramManager.insertHemogram(hemogramDate, patientId, analyzerId, doctorId);
+		
+		//inert values
+		
+		
 	}
 }
 
