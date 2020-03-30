@@ -71,7 +71,7 @@ public class SQLHemogramManager implements HemogramManager{
 					Date dob = rs.getDate("date_hemogram");
 					String comments = rs.getString("comments");
 					int doctor_id = rs.getInt("doctor_id");
-					Doctor doctor = .getDoctor(doctor_id);
+					Doctor doctor = doctor.getDoctor(doctor_id);
 					int patient_id = rs.getInt("patient_id");
 					Patient patient = SQLPatientManager.getPatient(patient_id);
 					int analyzer_id = rs.getInt("analyzer_id");
