@@ -10,16 +10,16 @@ public class FeatureValue implements Serializable
 	private double value;
 	private Feature feature;
 	private Hemogram hemogram;
+	private boolean healthy;
 	
-	/*private boolean isHealthy(double max, double min, double value) {
-		boolean ishealth;
-	}*/
+	
+	
 	
 	public FeatureValue() 
 	{
 		super();
 	}
-	public FeatureValue(Integer id, double value, Feature feature, Hemogram hemogram) //change integers for objects
+	public FeatureValue(Integer id, double value, Feature feature, Hemogram hemogram)
 	{
 		super();
 		this.id = id;
@@ -44,14 +44,23 @@ public class FeatureValue implements Serializable
 	public Feature getFeature_id() {
 		return feature;
 	}
-	public void setFeature_id(Integer feature_id) {
+	public void setFeature_id(Feature feature) {
 		this.feature = feature;
 	}
 	public Hemogram getHemogram_id() {
 		return hemogram;
 	}
-	public void setHemogram_id(Integer hemogram_id) {
+	public void setHemogram_id(Hemogram hemogram) {
 		this.hemogram = hemogram;
+	}
+
+	public boolean Healthy() {
+		return healthy;
+	}
+
+	private void setHealthy(boolean healthy)
+	{ 
+		this.healthy=healthy;
 	}
 	
 	
