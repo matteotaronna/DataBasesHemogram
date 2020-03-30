@@ -207,7 +207,8 @@ public class MenuAnalyzer {
 		String date = reader.readLine();
 		LocalDate dateL = LocalDate.parse(date, formatter);
 		Date hemogramDate = Date.valueOf(dateL);
-		Menu.hemogramManager.insertHemogram(hemogramDate, patientId, analyzerId, doctorId);
+		System.out.println("\n\nanalyzerID: "+analyzerId+", patientId: "+patientId+", doctorId: "+doctorId+", date: "+hemogramDate);
+		Menu.hemogramManager.insertHemogram(hemogramDate, doctorId, patientId, analyzerId);
 		
 		//inert values
 		

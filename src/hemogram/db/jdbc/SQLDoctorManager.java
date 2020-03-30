@@ -3,6 +3,9 @@ package hemogram.db.jdbc;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import hemogram.db.interfaces.DoctorManager;
@@ -73,9 +76,28 @@ public class SQLDoctorManager implements DoctorManager
 	@Override
 	public List<Doctor> listDoctors() 
 	{
-		// TODO Auto-generated method stub
-		//Join to select the doctors that matches the patient id
-		return null;
+		List<Doctor> doctors = new ArrayList<Doctor>();
+		try 
+		{
+			Statement stmt = c.createStatement();
+			String sql = "SELECT * FROM doctors";
+			ResultSet rs =  stmt.executeQuery(sql);
+			while(rs.next())
+			{
+				int id = rs.getInt("id");
+				String name = rs.getString("name");
+				String surname = rs.getString("surname");
+				String work_user = rs.getString("work_user");
+				String hospital = rs.getString("hospital");
+				String specialty = rs.getString("specialty");
+				Doctor doctor = new Doctor(id, name, surname, work_user, hospital,specialty);
+				doctors.add(doctor);
+			}
+		} catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return doctors;
 	}
 	public Doctor logInDoctor (String name, String work_user)
 	{

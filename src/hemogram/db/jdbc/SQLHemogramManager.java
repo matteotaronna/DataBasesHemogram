@@ -37,14 +37,13 @@ public class SQLHemogramManager implements HemogramManager{
 	{
 		try 
 		{	
-			String sql = "INSERT INTO hemogram (date_hemogram, comments, doctor_id, patient_id, analyzer_id) "
-					+ "VALUES (?,?,?,?,?)";
+			String sql = "INSERT INTO hemograms (date_hemogram, doctor_id, patient_id, analyzer_id) "
+					+ "VALUES (?,?,?,?)";
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setDate(1, hemogramDate);
-			prep.setString(2, null);
-			prep.setInt(3, patientId);
-			prep.setInt(4, analyzerId);
-			prep.setInt(5, doctorId);
+			prep.setInt(2, 1);
+			prep.setInt(3, 1);
+			prep.setInt(4, 1);
 			prep.executeUpdate();
 			prep.close();
 			
