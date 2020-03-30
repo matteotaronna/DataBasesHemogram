@@ -10,6 +10,7 @@ import hemogram.db.interfaces.AnalyzerManager;
 import hemogram.db.interfaces.DoctorManager;
 import hemogram.db.interfaces.HemogramManager;
 import hemogram.db.interfaces.PatientManager;
+import hemogram.db.pojos.Analyzer;
 import hemogram.db.pojos.Doctor;
 import hemogram.db.pojos.Hemogram;
 import hemogram.db.pojos.Patient;
@@ -17,17 +18,17 @@ import hemogram.db.pojos.Patient;
 public class SQLHemogramManager implements HemogramManager{
 
 	private Connection c;
-	private DoctorManager doctor;
-	private PatientManager patient;
-	private AnalyzerManager analyzer;
+	private DoctorManager doctorM;
+	private PatientManager patientM;
+	private AnalyzerManager analyzerM;
 	private List<Hemogram> hemogramList;
 
 	public SQLHemogramManager(Connection c, DoctorManager doctor, PatientManager patient, AnalyzerManager analyzer) 
 	{
 		this.c = c;
-		this.doctor = doctor;
-		this.patient = patient;
-		this.analyzer = analyzer;
+		this.doctorM = doctor;
+		this.patientM = patient;
+		this.analyzerM = analyzer;
 	}
 
 	//INSERT
@@ -71,12 +72,12 @@ public class SQLHemogramManager implements HemogramManager{
 					Date dob = rs.getDate("date_hemogram");
 					String comments = rs.getString("comments");
 					int doctor_id = rs.getInt("doctor_id");
-					Doctor doctor = doctor.getDoctor(doctor_id);
+					Doctor doctor = doctorM.getDoctor(doctor_id);
 					int patient_id = rs.getInt("patient_id");
-					Patient patient = SQLPatientManager.getPatient(patient_id);
+					Patient patient = patientM.getPatient(patient_id);
 					int analyzer_id = rs.getInt("analyzer_id");
-					Analyzer analyzer = SQLPatientManager.getPatient(analyzer_id);
-					newHemogram = new Hemogram(id, dob, comments, doctor, patient, analyzer);
+					Analyzer analyzer = analyzerM.getAnalyzer(analyzer_id);
+					newHemogram = new Hemogram(id, dob, comments, patient,doctor, analyzer);
 					System.out.println(newHemogram);
 				
 			} catch (Exception e) 
@@ -101,9 +102,12 @@ public class SQLHemogramManager implements HemogramManager{
 					Date dob = rs.getDate("date_hemogram");
 					String comments = rs.getString("comments");
 					int doctor_id = rs.getInt("doctor_id");
+					Doctor doctor = doctorM.getDoctor(doctor_id);
 					int patient_id = rs.getInt("patient_id");
+					Patient patient = patientM.getPatient(patient_id);
 					int analyzer_id = rs.getInt("analyzer_id");
-					Hemogram newHemogram = new Hemogram(id, dob, comments, doctor_id, patient_id, analyzer_id);
+					Analyzer analyzer = analyzerM.getAnalyzer(analyzer_id);
+					Hemogram newHemogram = new Hemogram(id, dob, comments, patient,doctor, analyzer);
 					hemogramList.add(newHemogram);
 				}
 				
@@ -115,7 +119,6 @@ public class SQLHemogramManager implements HemogramManager{
 		}
 		
 		public List<Hemogram> listHemogramDoctor (int patientId, int doctorId){
-			
 			hemogramList = null;
 			try 
 			{
@@ -130,9 +133,12 @@ public class SQLHemogramManager implements HemogramManager{
 					Date dob = rs.getDate("date_hemogram");
 					String comments = rs.getString("comments");
 					int doctor_id = rs.getInt("doctor_id");
+					Doctor doctor = doctorM.getDoctor(doctor_id);
 					int patient_id = rs.getInt("patient_id");
+					Patient patient = patientM.getPatient(patient_id);
 					int analyzer_id = rs.getInt("analyzer_id");
-					Hemogram newHemogram = new Hemogram(id, dob, comments, doctor_id, patient_id, analyzer_id);
+					Analyzer analyzer = analyzerM.getAnalyzer(analyzer_id);
+					Hemogram newHemogram = new Hemogram(id, dob, comments, patient,doctor, analyzer);
 					hemogramList.add(newHemogram);
 				}
 				
@@ -143,4 +149,3 @@ public class SQLHemogramManager implements HemogramManager{
 			return hemogramList;
 		}
 		}
-

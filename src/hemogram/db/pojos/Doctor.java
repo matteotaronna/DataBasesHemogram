@@ -1,6 +1,7 @@
 package hemogram.db.pojos;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Doctor implements Serializable{
 
@@ -12,6 +13,7 @@ public class Doctor implements Serializable{
 	private String work_user;
 	private String hospital;
 	private String specialty;
+	private List<Patient> patients;
 	
 	public Doctor() {
 		super();
@@ -35,6 +37,18 @@ public class Doctor implements Serializable{
 		this.work_user = work_user;
 		this.hospital = hospital;
 		this.specialty = speciality;
+	}
+
+	public Doctor(Integer id, String name, String surname, String work_user, String hospital, String specialty,
+			List<Patient> patients) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.surname = surname;
+		this.work_user = work_user;
+		this.hospital = hospital;
+		this.specialty = specialty;
+		this.patients = patients;
 	}
 
 	@Override
@@ -114,6 +128,15 @@ public class Doctor implements Serializable{
 
 	public void setSpecialty(String speciality) {
 		this.specialty = speciality;
+	}
+
+	public List<Patient> getPatients() {
+		return patients;
+	}
+
+	public void setPatients(List<Patient> patients) {
+		this.patients = patients;
 	}	
 
+	
 }

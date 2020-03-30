@@ -25,8 +25,8 @@ public class SQLFeatureValueManager implements FeatureValueManager
 						+ "VALUES (?,?,?,?)";
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setDouble(1, featureValue.getValue());
-			prep.setInt(2, featureValue.getFeature_id());
-			prep.setInt(3, featureValue.getHemogram_id());
+			prep.setInt(2, featureValue.getFeature().getId());
+			prep.setInt(3, featureValue.getHemogram().getId());
 			prep.executeUpdate();
 			prep.close();
 		

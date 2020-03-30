@@ -41,24 +41,23 @@ public class FeatureValue implements Serializable
 	public void setValue(double value) {
 		this.value = value;
 	}
-	public Feature getFeature_id() {
+	public Feature getFeature() {
 		return feature;
 	}
-	public void setFeature_id(Feature feature) {
+	public void setFeature(Feature feature) {
 		this.feature = feature;
 	}
-	public Hemogram getHemogram_id() {
+	public Hemogram getHemogram() {
 		return hemogram;
 	}
-	public void setHemogram_id(Hemogram hemogram) {
+	public void setHemogram(Hemogram hemogram) {
 		this.hemogram = hemogram;
 	}
 
 	public boolean Healthy() {
 		return healthy;
 	}
-
-	private void setHealthy(boolean healthy)
+	public void setHealthy(boolean healthy)
 	{ 
 		this.healthy=healthy;
 	}
