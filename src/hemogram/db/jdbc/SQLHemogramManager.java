@@ -7,7 +7,9 @@ import java.sql.ResultSet;
 import java.util.List;
 
 import hemogram.db.interfaces.HemogramManager;
+import hemogram.db.pojos.Doctor;
 import hemogram.db.pojos.Hemogram;
+import hemogram.db.pojos.Patient;
 
 public class SQLHemogramManager implements HemogramManager{
 
@@ -30,9 +32,9 @@ public class SQLHemogramManager implements HemogramManager{
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setDate(1, hemogram.getDob());
 			prep.setString(2, hemogram.getComments());
-			prep.setInt(3, hemogram.getDoctor_id());
-			prep.setInt(4, hemogram.getPatient_id());
-			prep.setInt(5, hemogram.getAnalyzer_id());
+			prep.setInt(3, hemogram.getDoctor().getId());
+			prep.setInt(4, hemogram.getPatient().getId());
+			prep.setInt(5, hemogram.getAnalyzer().getId());
 			prep.executeUpdate();
 			prep.close();
 			
@@ -60,9 +62,12 @@ public class SQLHemogramManager implements HemogramManager{
 					Date dob = rs.getDate("date_hemogram");
 					String comments = rs.getString("comments");
 					int doctor_id = rs.getInt("doctor_id");
+					Doctor doctor = SQLDoctorManager.getDoctor(doctor_id);
 					int patient_id = rs.getInt("patient_id");
+					Patient patient = SQLPatientManager.getPatient(patient_id);
 					int analyzer_id = rs.getInt("analyzer_id");
-					newHemogram = new Hemogram(id, dob, comments, doctor_id, patient_id, analyzer_id);
+					Analyzer analyzer = SQLPatientManager.getPatient(analyzer_id);
+					newHemogram = new Hemogram(id, dob, comments, doctor, patient, analyzer);
 					System.out.println(newHemogram);
 				
 			} catch (Exception e) 

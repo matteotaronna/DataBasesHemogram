@@ -11,32 +11,22 @@ public class Hemogram implements Serializable
 	private Integer id;
 	private Date dob;
 	private String comments;
-	private Integer patient_id;
-	private Integer doctor_id;
-	private Integer analyzer_id;
+	private Patient patient;
+	private Doctor doctor;
+	private Analyzer analyzer;
 	
 	public Hemogram() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Hemogram(Integer id, Date dob, String comments, Integer patient_id, Integer doctor_id, Integer analyzer_id) {
-		super();
-		this.id = id;
-		this.dob = dob;
-		this.comments = comments;
-		this.patient_id = patient_id;
-		this.doctor_id = doctor_id;
-		this.analyzer_id = analyzer_id;
-	}
-
-	public Hemogram(Date dob, String comments, Integer patient_id, Integer doctor_id, Integer analyzer_id) {
+	public Hemogram(Date dob, String comments, Patient patient, Doctor doctor, Analyzer analyzer) {
 		super();
 		this.dob = dob;
 		this.comments = comments;
-		this.patient_id = patient_id;
-		this.doctor_id = doctor_id;
-		this.analyzer_id = analyzer_id;
+		this.patient = patient;
+		this.doctor = doctor;
+		this.analyzer = analyzer;
 	}
 
 	@Override
@@ -66,8 +56,8 @@ public class Hemogram implements Serializable
 
 	@Override
 	public String toString() {
-		return "Hemogram [id=" + id + ", dob=" + dob + ", comments=" + comments + ", patient_id=" + patient_id
-				+ ", doctor_id=" + doctor_id + ", analizer_id=" + analyzer_id + "]";
+		return "Hemogram [id=" + id + ", dob=" + dob + ", comments=" + comments + ", patient=" + patient + ", doctor="
+				+ doctor + ", analyzer=" + analyzer + "]";
 	}
 
 	public Integer getId() {
@@ -94,27 +84,27 @@ public class Hemogram implements Serializable
 		this.comments = comments;
 	}
 
-	public Integer getPatient_id() {
-		return patient_id;
+	public Patient getPatient() {
+		return patient;
 	}
 
-	public void setPatient_id(Integer patient_id) {
-		this.patient_id = patient_id;
+	public void setPatient(Patient patient) {
+		this.patient = patient;
 	}
 
-	public Integer getDoctor_id() {
-		return doctor_id;
+	public Doctor getDoctor() {
+		return doctor;
 	}
 
-	public void setDoctor_id(Integer doctor_id) {
-		this.doctor_id = doctor_id;
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
 	}
 
-	public Integer getAnalyzer_id() {
-		return analyzer_id;
+	public Analyzer getAnalyzer() {
+		return analyzer;
 	}
 
-	public void setAnalizer_id(Integer analizer_id) {
-		this.analyzer_id = analizer_id;
+	public void setAnalyzer(Analyzer analyzer) {
+		this.analyzer = analyzer;
 	}
 }
