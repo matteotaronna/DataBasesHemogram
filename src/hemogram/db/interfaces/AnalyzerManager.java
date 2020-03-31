@@ -8,4 +8,5 @@ public interface AnalyzerManager
 	public Analyzer getAnalyzer (int analyzerId);
 	public Analyzer logInAnalyzer (String name, String work_user);
 	public int getAnalyzerId (Analyzer analyzer);
+	//join doctor with patient bc is the analyzer the one that creates the patient
 }

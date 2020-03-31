@@ -35,21 +35,21 @@ public class SQLHemogramManager implements HemogramManager{
 	@Override
 	public void insertHemogram (Date hemogramDate, int patientId, int analyzerId, int doctorId) 
 	{
-		try 
-		{	
+		try
+		{
+			// Insert new record
 			String sql = "INSERT INTO hemograms (date_hemogram, doctor_id, patient_id, analyzer_id) "
-					+ "VALUES (?,?,?,?)";
+						+ "VALUES (?,?,?,?)";
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setDate(1, hemogramDate);
-			prep.setInt(2, 1);
-			prep.setInt(3, 1);
-			prep.setInt(4, 1);
+			prep.setInt(2, patientId);
+			prep.setInt(3, analyzerId);
+			prep.setInt(4, doctorId);
+			System.out.println("Records inserted.");
 			prep.executeUpdate();
 			prep.close();
-			
-			System.out.println("Records inserted.");
-			
-		}catch(Exception e)
+		
+		}catch (Exception e) 
 		{
 			e.printStackTrace();
 		}

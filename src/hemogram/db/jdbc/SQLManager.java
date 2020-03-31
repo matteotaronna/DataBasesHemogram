@@ -111,7 +111,7 @@ public class SQLManager implements DBManager
 			Statement stmt4 = c.createStatement();
 			String sql4 = "CREATE TABLE hemograms "
 					   + "(id             INTEGER  PRIMARY KEY AUTOINCREMENT,"
-					   + " date_hemogram  TEXT    CURRENT DATE, "
+					   + " date_hemogram  DATE     CURRENT DATE, "
 					   + " comments       TEXT     NOT NULL, "
 					   + " doctor_id INTEGER REFERENCES doctors(id) ON UPDATE CASCADE ON DELETE SET NULL, "
 					   + " patient_id INTEGER REFERENCES patients(id) ON UPDATE CASCADE ON DELETE SET NULL,"

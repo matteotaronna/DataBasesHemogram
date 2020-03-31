@@ -27,7 +27,7 @@ public class SQLPatientManager implements PatientManager
 		{
 			// Insert new record
 			String sql = "INSERT INTO patients (name, surname, dob, dni) "
-						+ "VALUES (?,?,?,?,?,?)";
+						+ "VALUES (?,?,?,?)";
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setString(1, patient.getName());
 			prep.setString(2, patient.getSurname());

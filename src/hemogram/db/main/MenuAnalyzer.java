@@ -124,6 +124,7 @@ public class MenuAnalyzer {
 						if (doctor!=null)
 						{
 							doctorId=doctor.getId();
+							//join patient and doctor
 							createHemogram(analyzerId,patientId,doctorId);
 							break;
 						}
@@ -141,6 +142,7 @@ public class MenuAnalyzer {
 						if (doctor!=null)
 						{
 							doctorId=doctor.getId();
+							//join patient and doctor
 							createHemogram(analyzerId,patientId,doctorId);
 							break;
 						}
