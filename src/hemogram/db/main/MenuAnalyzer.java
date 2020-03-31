@@ -130,7 +130,7 @@ public class MenuAnalyzer {
 						}
 						else
 						{
-							System.out.println("THE DOCTOR SHOULD BE REGISTER, WAIT TILL HE REGISTERS!");
+							System.out.println("\nTHE DOCTOR SHOULD BE REGISTERED, WAIT UNTILL HE REGISTERS!\n");
 							return;
 						}
 						//create hemogram
