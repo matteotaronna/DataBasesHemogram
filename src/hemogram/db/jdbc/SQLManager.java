@@ -133,7 +133,8 @@ public class SQLManager implements DBManager
 			Statement stmt6 = c.createStatement();
 			String sql6 = "CREATE TABLE featureValues "
 					   + "(id         INTEGER  PRIMARY KEY AUTOINCREMENT,"
-					   + " value      REAL    NOT NULL, "
+					   + " value      REAL    NOT NULL,"
+					   + " health     BOOLEAN  NOT NULL,"
 					   + " feature_id INTEGER REFERENCES features(id) ON UPDATE CASCADE ON DELETE SET NULL,"
 					   + " hemogram_id INTEGER REFERENCES hemograms(id) ON UPDATE CASCADE ON DELETE SET NULL)";
 			stmt6.executeUpdate(sql6);
