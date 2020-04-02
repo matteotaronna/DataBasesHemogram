@@ -42,17 +42,16 @@ public class MenuAnalyzer {
 					case 2:
 						analyzer=logInAnalyzer();
 						do {
-						if(analyzer==null)
-						{
-							System.out.println("Try again, the name or work-user doesn't exist");
-							analyzer=logInAnalyzer();
-						}
-						else
-						{
-							analyzerId = analyzer.getId();
-							analyzerSubmenu(analyzerId);
-						}
-						} while (analyzer == null);
+							if(analyzer==null)
+							{
+								System.out.println("Try again, the name or work-user doesn't exist");
+								analyzer=logInAnalyzer();
+							}
+						}while (analyzer == null);
+						
+						analyzerId = analyzer.getId();
+						analyzerSubmenu(analyzerId);
+
 						//System.out.println(analizerId);
 						//we need to pass the analyzer id to then link the id to the hemogram
 						break;
@@ -136,6 +135,15 @@ public class MenuAnalyzer {
 						//create hemogram
 					case 2:
 						patient = searchPatient();
+						do
+						{
+							if(patient == null)
+							{
+								System.out.println("Try again, there isn't a patient with that DNI./n");
+								patient = searchPatient();
+							}
+						}while(patient == null);
+						
 						patientId = patient.getId();
 						//we need to pass the patientId to then link it to the hemogram
 						doctor = searchDoctor();
@@ -188,6 +196,7 @@ public class MenuAnalyzer {
 		String dni = reader.readLine();
 		Patient newPatient = Menu.patientManager.searchPatient(dni);
 		return newPatient;
+		//if he enters a wrong DNI we have to catch the exception 
 	}
 	
 	public static Doctor searchDoctor() throws Exception
@@ -201,6 +210,8 @@ public class MenuAnalyzer {
 			return Menu.doctorManager.getDoctor(doctorId);
 			
 		}else return null;
+		//link doctor with patient in the patients_doctors table
+		
 	}
 	
 	public static void createHemogram (int analyzerId, int patientId, int doctorId) throws Exception
@@ -209,7 +220,7 @@ public class MenuAnalyzer {
 		String date = reader.readLine();
 		LocalDate dateL = LocalDate.parse(date, formatter);
 		Date hemogramDate = Date.valueOf(dateL);
-		System.out.println("\n\nanalyzerID: "+analyzerId+", patientId: "+patientId+", doctorId: "+doctorId+", date: "+hemogramDate);
+		//System.out.println("\n\nanalyzerID: "+analyzerId+", patientId: "+patientId+", doctorId: "+doctorId+", date: "+hemogramDate);
 		Menu.hemogramManager.insertHemogram(hemogramDate, doctorId, patientId, analyzerId);
 		
 		//inert values

@@ -112,10 +112,10 @@ public class SQLManager implements DBManager
 			String sql4 = "CREATE TABLE hemograms "
 					   + "(id             INTEGER  PRIMARY KEY AUTOINCREMENT,"
 					   + " date_hemogram  DATE     CURRENT DATE, "
-					   + " comments       TEXT     NOT NULL, "
+					   + " comments       TEXT     , "
 					   + " doctor_id INTEGER REFERENCES doctors(id) ON UPDATE CASCADE ON DELETE SET NULL, "
 					   + " patient_id INTEGER REFERENCES patients(id) ON UPDATE CASCADE ON DELETE SET NULL,"
-					   + " analyzer_id INTEGER REFERENCES analizers(id) ON UPDATE CASCADE ON DELETE SET NULL)";
+					   + " analyzer_id INTEGER REFERENCES analyzers(id) ON UPDATE CASCADE ON DELETE SET NULL)";
 			stmt4.executeUpdate(sql4);
 			stmt4.close();
 			

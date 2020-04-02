@@ -89,7 +89,14 @@ public class SQLAnalyzerManager implements AnalyzerManager
 			
 		} catch (Exception e) 
 		{
-			e.printStackTrace();
+			if(e.getMessage().contains("ResultSet closed"))
+			{
+				newAnalyzer = null;
+			}
+			else
+			{
+				e.printStackTrace();
+			}
 		}
 		return newAnalyzer;
 	}

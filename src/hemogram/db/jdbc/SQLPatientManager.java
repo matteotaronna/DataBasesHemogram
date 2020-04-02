@@ -115,7 +115,14 @@ public class SQLPatientManager implements PatientManager
 			
 		} catch (Exception e) 
 		{
-			e.printStackTrace();
+			if(e.getMessage().contains("ResultSet closed"))
+			{
+				newPatient = null;
+			}
+			else
+			{
+				e.printStackTrace();
+			}
 		}
 		return newPatient;
 	}
