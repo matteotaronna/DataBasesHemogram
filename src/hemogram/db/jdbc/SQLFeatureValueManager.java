@@ -16,17 +16,18 @@ public class SQLFeatureValueManager implements FeatureValueManager
 	}
 
 	@Override
-	public void insertFeatureValue(FeatureValue featureValue) 
+	public void insertFeatureValue(double value, boolean healthy, int feature_id, int hemogram_id) 
 	{
 		try
 		{
 			// Insert new record
-			String sql = "INSERT INTO features (id, value, feature_id, hemogram_id) "
+			String sql = "INSERT INTO featureValues (value, healthy, feature_id, hemogram_id) "
 						+ "VALUES (?,?,?,?)";
 			PreparedStatement prep = c.prepareStatement(sql);
-			prep.setDouble(1, featureValue.getValue());
-			prep.setInt(2, featureValue.getFeature().getId());
-			prep.setInt(3, featureValue.getHemogram().getId());
+			prep.setDouble(1, value);
+			prep.setBoolean(2, healthy);
+			prep.setInt(3, feature_id);
+			prep.setInt(4, hemogram_id);
 			prep.executeUpdate();
 			prep.close();
 		

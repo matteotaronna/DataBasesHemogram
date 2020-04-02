@@ -2,6 +2,8 @@ package hemogram.db.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -134,7 +136,7 @@ public class SQLManager implements DBManager
 			String sql6 = "CREATE TABLE featureValues "
 					   + "(id         INTEGER  PRIMARY KEY AUTOINCREMENT,"
 					   + " value      REAL    NOT NULL,"
-					   + " health     BOOLEAN  NOT NULL,"
+					   + " healthy     BOOLEAN  NOT NULL,"
 					   + " feature_id INTEGER REFERENCES features(id) ON UPDATE CASCADE ON DELETE SET NULL,"
 					   + " hemogram_id INTEGER REFERENCES hemograms(id) ON UPDATE CASCADE ON DELETE SET NULL)";
 			stmt6.executeUpdate(sql6);
@@ -173,6 +175,20 @@ public class SQLManager implements DBManager
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	@Override
+	public int getLastId() {
+		int result = 0;
+		try {
+			String query = "SELECT last_insert_rowid() AS lastId";
+			PreparedStatement p = c.prepareStatement(query);
+			ResultSet rs = p.executeQuery();
+			result = rs.getInt("lastId");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 	
 	@Override

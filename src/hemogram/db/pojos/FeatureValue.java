@@ -27,6 +27,13 @@ public class FeatureValue implements Serializable
 		this.feature = feature;
 		this.hemogram = hemogram;
 	}
+	public FeatureValue(Integer id, double value, Feature feature)
+	{
+		super();
+		this.id = id;
+		this.value = value;
+		this.feature = feature;
+	}
 	
 	
 	public Integer getId() {
@@ -54,14 +61,11 @@ public class FeatureValue implements Serializable
 		this.hemogram = hemogram;
 	}
 
-	public boolean Healthy() {
+	public boolean getHealthy() {
 		return healthy;
 	}
 	public void setHealthy(boolean healthy)
 	{ 
 		this.healthy=healthy;
 	}
-	
-	
-
 }

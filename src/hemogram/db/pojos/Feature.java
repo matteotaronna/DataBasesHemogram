@@ -12,6 +12,11 @@ public class Feature implements Serializable
 	private double maximum;
 	
 	
+	
+	public Feature() {
+		super();
+	}
+
 	public Feature(String name, double minimum, double maximum) 
 	{
 		super();
