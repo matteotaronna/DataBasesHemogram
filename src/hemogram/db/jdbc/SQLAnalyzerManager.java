@@ -16,14 +16,13 @@ public class SQLAnalyzerManager implements AnalyzerManager
 		this.c = c;
 	}
 
-	//INSERT
+	// INSERT
 	@Override
-	public void insertAnalyzer (Analyzer analyzer) 
+	public void insertAnalyzer(Analyzer analyzer) 
 	{
 		try 
-		{	
-			String sql = "INSERT INTO analyzers (name, surname, work_user, hospital) "
-					+ "VALUES (?,?,?,?)";
+		{
+			String sql = "INSERT INTO analyzers (name, surname, work_user, hospital) " + "VALUES (?,?,?,?)";
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setString(1, analyzer.getName());
 			prep.setString(2, analyzer.getSurname());
@@ -31,16 +30,15 @@ public class SQLAnalyzerManager implements AnalyzerManager
 			prep.setString(4, analyzer.getHospital());
 			prep.executeUpdate();
 			prep.close();
-			
+
 			System.out.println("Records inserted.");
-			
-		}catch(Exception e)
-		{
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	//SELECT
+	// SELECT
 	@Override
 	public Analyzer getAnalyzer(int analyzerId) 
 	{
@@ -52,23 +50,22 @@ public class SQLAnalyzerManager implements AnalyzerManager
 			s.setInt(1, analyzerId);
 			ResultSet rs = s.executeQuery();
 			rs.next();
-				int id = rs.getInt("id");
-				String name = rs.getString("name");
-				String surname = rs.getString("surname");
-				String work_user = rs.getString("work_user");
-				String hospital = rs.getString("hospital");
-				newAnalyzer = new Analyzer(id, name, surname, work_user, hospital);
-				System.out.println(newAnalyzer);
-			
-		} catch (Exception e) 
-		{
+			int id = rs.getInt("id");
+			String name = rs.getString("name");
+			String surname = rs.getString("surname");
+			String work_user = rs.getString("work_user");
+			String hospital = rs.getString("hospital");
+			newAnalyzer = new Analyzer(id, name, surname, work_user, hospital);
+			System.out.println(newAnalyzer);
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return newAnalyzer;
 	}
-	
+
 	@Override
-	public Analyzer logInAnalyzer (String name, String work_user)
+	public Analyzer logInAnalyzer(String name, String work_user) 
 	{
 		Analyzer newAnalyzer = null;
 		try 
@@ -79,30 +76,26 @@ public class SQLAnalyzerManager implements AnalyzerManager
 			s.setString(2, work_user);
 			ResultSet rs = s.executeQuery();
 			rs.next();
-				int id = rs.getInt("id");
-				String Aname = rs.getString("name");
-				String surname = rs.getString("surname");
-				String Awork_user = rs.getString("work_user");
-				String hospital = rs.getString("hospital");
-				newAnalyzer = new Analyzer(id, Aname, surname, Awork_user, hospital);
-				System.out.println(newAnalyzer);
-			
-		} catch (Exception e) 
-		{
-			if(e.getMessage().contains("ResultSet closed"))
-			{
+			int id = rs.getInt("id");
+			String Aname = rs.getString("name");
+			String surname = rs.getString("surname");
+			String Awork_user = rs.getString("work_user");
+			String hospital = rs.getString("hospital");
+			newAnalyzer = new Analyzer(id, Aname, surname, Awork_user, hospital);
+			System.out.println(newAnalyzer);
+
+		} catch (Exception e) {
+			if (e.getMessage().contains("ResultSet closed")) {
 				newAnalyzer = null;
-			}
-			else
-			{
+			} else {
 				e.printStackTrace();
 			}
 		}
 		return newAnalyzer;
 	}
-	
+
 	@Override
-	public int getAnalyzerId (Analyzer analyzer)
+	public int getAnalyzerId(Analyzer analyzer) 
 	{
 		int analyzerId = 0;
 		try 
@@ -115,12 +108,31 @@ public class SQLAnalyzerManager implements AnalyzerManager
 			s.setString(4, analyzer.getHospital());
 			ResultSet rs = s.executeQuery();
 			rs.next();
-				 analyzerId = rs.getInt("id");
-			
-		} catch (Exception e) 
-		{
+			analyzerId = rs.getInt("id");
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return analyzerId;
+	}
+
+	@Override
+	public void linkPatientDoctor(int patientId, int doctorId) 
+	{
+		try {
+			String sql = "INSERT INTO patientsDoctors (patientId, doctorId) " + "VALUES (?,?);";
+			PreparedStatement prep = c.prepareStatement(sql);
+			prep.setInt(1, patientId);
+			prep.setInt(2, doctorId);
+			prep.executeUpdate();
+			prep.close();
+
+		} catch (Exception e) {
+			if (e.getMessage().contains("Abort due to constraint violation"));
+			else {
+				e.printStackTrace();
+			}
+		}
+
 	}
 }

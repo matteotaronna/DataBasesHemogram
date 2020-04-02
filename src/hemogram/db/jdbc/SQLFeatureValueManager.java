@@ -36,12 +36,6 @@ public class SQLFeatureValueManager implements FeatureValueManager
 			e.printStackTrace();
 		}
 	}
-	
-	@Override
-	public void insertHealthValue(Boolean health) 
-	{
-		// TODO
-	}
 
 	@Override
 	public FeatureValue getFeatureValue(int featureValueId) 
