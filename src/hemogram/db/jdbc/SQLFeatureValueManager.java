@@ -65,7 +65,7 @@ public SQLFeatureValueManager(Connection c, FeaturesManager feature, HemogramMan
 		try
 		{
 			// Insert new record
-			String sql = "SELECT * featureValues WHERE hemogram_id = ?";
+			String sql = "SELECT * FROM featureValues WHERE hemogram_id = ?";
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setInt(1, hemogramId);
 			ResultSet rs = prep.executeQuery();
