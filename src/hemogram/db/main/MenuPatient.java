@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hemogram.db.pojos.Analyzer;
+import hemogram.db.pojos.Feature;
 import hemogram.db.pojos.Hemogram;
 import hemogram.db.pojos.Patient;
 
@@ -23,9 +24,9 @@ public class MenuPatient {
 				Patient patient = null;
 				int patientId = 0;
 				List<Hemogram> hemogramList = new ArrayList<Hemogram>();
+				List<Feature> featuresList = new ArrayList<Feature>();
 				System.out.println("1. List all Hemograms");
-				System.out.println("2. Search Hemogram by Date");
-				System.out.println("3. Go back");
+				System.out.println("2. Go back");
 
 				int option = Integer.parseInt(reader.readLine());
 
@@ -50,25 +51,18 @@ public class MenuPatient {
 							System.out.println(hemogram);
 						}
 					}
+					System.out.println("Select the ID of the Hemogram you wan to see");
+					option = Integer.parseInt(reader.readLine());
+					if(option < hemogramList.size()) {
+						featuresList  = Menu.featuresManager.listFeatures();
+						for(int i = 0; i<10 ; i++) {
+						System.out.print(featuresList.get(i));
+						System.out.println( )
+						}
+					}
 					
 					break;
 				case 2:
-					analyzer = logInAnalyzer();
-					do {
-						if (analyzer == null) {
-							System.out.println("Try again, the name or work-user doesn't exist");
-							analyzer = logInAnalyzer();
-							//System.out.println("analyzerId: "+analyzer.getId());
-						}
-					} while (analyzer == null);
-
-					//analyzerId = analyzer.getId();
-					analyzerSubmenu(analyzer);
-
-					// System.out.println(analizerId);
-					// we need to pass the analyzer id to then link the id to the hemogram
-					break;
-				case 3:
 					return;
 				default:
 					break;
