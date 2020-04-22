@@ -43,11 +43,6 @@ public class FeatureValue implements Serializable
 		this.healthy = healthy;
 	}
 	
-	@Override
-	public String toString() {
-		return "FeatureValue [value=" + value + ", feature=" + feature + ", hemogram=" + hemogram + ", healthy="
-				+ healthy + "]";
-	}
 	public Integer getId() {
 		return id;
 	}
