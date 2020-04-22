@@ -67,18 +67,19 @@ public class SQLHemogramManager implements HemogramManager{
 				PreparedStatement s = c.prepareStatement(sql);
 				s.setInt(1, hemogramId);
 				ResultSet rs = s.executeQuery();
-				rs.next();
+				while(rs.next())
+				{
 					int id = rs.getInt("id");
 					Date dob = rs.getDate("date_hemogram");
 					String comments = rs.getString("comments");
-					int doctor_id = rs.getInt("doctor_id");
+					int doctor_id = rs.getInt("doctor_id");	
 					Doctor doctor = doctorM.getDoctor(doctor_id);
 					int patient_id = rs.getInt("patient_id");
 					Patient patient = patientM.getPatient(patient_id);
 					int analyzer_id = rs.getInt("analyzer_id");
 					Analyzer analyzer = analyzerM.getAnalyzer(analyzer_id);
 					newHemogram = new Hemogram(id, dob, comments, patient,doctor, analyzer);
-					System.out.println(newHemogram);
+				}
 				
 			} catch (Exception e) 
 			{

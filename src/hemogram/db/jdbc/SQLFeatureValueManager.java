@@ -3,6 +3,7 @@ package hemogram.db.jdbc;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 import hemogram.db.interfaces.FeatureValueManager;
 import hemogram.db.interfaces.FeaturesManager;
@@ -61,7 +62,7 @@ public SQLFeatureValueManager(Connection c, FeaturesManager feature, HemogramMan
 	@Override
 	public List<FeatureValue> getFeatureValuesByHemogram (int hemogramId)
 	{
-		List<FeatureValue> featuresValues=null;
+		List<FeatureValue> featuresValues=new ArrayList<FeatureValue>();
 		try
 		{
 			// Insert new record
@@ -78,7 +79,7 @@ public SQLFeatureValueManager(Connection c, FeaturesManager feature, HemogramMan
 				Feature feature = featuresManager.getFeature(featureId);
 				int hemogramID = rs.getInt("hemogram_id");
 				Hemogram hemogram = hemogramManager.getHemogram(hemogramID);
-				FeatureValue newFeatureValue = new FeatureValue( id,  value,  feature,  hemogram,  healthy);
+				FeatureValue newFeatureValue = new FeatureValue( id,  value,  feature, hemogram,  healthy);
 				featuresValues.add(newFeatureValue);
 			}
 			prep.close();
