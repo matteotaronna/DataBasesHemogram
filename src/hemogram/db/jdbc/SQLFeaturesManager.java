@@ -56,7 +56,6 @@ public class SQLFeaturesManager implements FeaturesManager
 				float minimum = rs.getFloat("minimum");
 				float maximum = rs.getFloat("maximum");
 				newFeature = new Feature(id, name, minimum, maximum);
-				System.out.println(newFeature);
 			
 		} catch (Exception e) 
 		{
@@ -81,7 +80,6 @@ public class SQLFeaturesManager implements FeaturesManager
 				float minimum = rs.getFloat("minimum");
 				float maximum = rs.getFloat("maximum");
 				newFeature = new Feature(id, name, minimum, maximum);
-				System.out.println(newFeature);
 			
 		} catch (Exception e) 
 		{

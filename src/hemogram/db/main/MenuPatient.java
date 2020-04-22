@@ -60,9 +60,9 @@ public class MenuPatient {
 						if(featureValueList != null) {
 						 for (FeatureValue featureValue : featureValueList)
 						  {
-							 System.out.print("Name: " + featureValue.getFeature().getName() + ", MIN: " + featureValue.getFeature().getMinimum() +
-									 ", MAX: " + featureValue.getFeature().getMaximum() + ", VALUE: " + featureValue.getValue() + ", HEALTHY: " + 
-									 featureValue.getHealthy());
+							 System.out.println("Name: " + featureValue.getFeature().getName() + ", VALUE: " + featureValue.getValue() + 
+									 ", HEALTHY: " + featureValue.getHealthy()+", [MIN: " + featureValue.getFeature().getMinimum() + 
+									 ", MAX: " + featureValue.getFeature().getMaximum()+"]");
 						  }
 						 
 					}
