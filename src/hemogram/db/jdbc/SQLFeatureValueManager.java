@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-
 import hemogram.db.interfaces.FeatureValueManager;
 import hemogram.db.interfaces.FeaturesManager;
 import hemogram.db.interfaces.HemogramManager;
@@ -16,7 +15,7 @@ public class SQLFeatureValueManager implements FeatureValueManager
 	private FeaturesManager featuresManager;
 	private HemogramManager hemogramManager;
 	
-	public SQLFeatureValueManager(Connection c, FeaturesManager feature, HemogramManager hemogram) 
+public SQLFeatureValueManager(Connection c, FeaturesManager feature, HemogramManager hemogram) 
 	{
 		this.c = c;
 		this.featuresManager = feature;
@@ -80,17 +79,6 @@ public class SQLFeatureValueManager implements FeatureValueManager
 				int hemogramID = rs.getInt("hemogram_id");
 				Hemogram hemogram = hemogramManager.getHemogram(hemogramID);
 				FeatureValue newFeatureValue = new FeatureValue( id,  value,  feature,  hemogram,  healthy);
-				//Integer id, double value, Feature feature, Hemogram hemogram, boolean healthy
-				/*
-				 * for (FeatureValue featureValue : featureValues)
-				 * {
-				 * 			name = featureValue.getFeature().getName()
-				 * 			min = featureValue.getFeature().getMinimum()
-				 * 			max = featureValue.getFeature().getMaximum()
-				 * 			value = featureValue.getValue()
-				 * 			healthy = featureValue.getHealthy()
-				 * }
-				 */
 				featuresValues.add(newFeatureValue);
 			}
 			prep.close();

@@ -8,6 +8,7 @@ import java.util.List;
 
 import hemogram.db.pojos.Analyzer;
 import hemogram.db.pojos.Feature;
+import hemogram.db.pojos.FeatureValue;
 import hemogram.db.pojos.Hemogram;
 import hemogram.db.pojos.Patient;
 
@@ -24,7 +25,7 @@ public class MenuPatient {
 				Patient patient = null;
 				int patientId = 0;
 				List<Hemogram> hemogramList = new ArrayList<Hemogram>();
-				List<Feature> featuresList = new ArrayList<Feature>();
+				List<FeatureValue> featureValueList = new ArrayList<FeatureValue>();
 				System.out.println("1. List all Hemograms");
 				System.out.println("2. Go back");
 
@@ -48,17 +49,23 @@ public class MenuPatient {
 					} else {
 						for (Hemogram hemogram : hemogramList) 
 						{
-							System.out.println(hemogram);
+							System.out.println("ID: " + hemogram.getId() + ", Date: " + hemogram.getDob() + ", Comments: " + hemogram.getComments());
 						}
 					}
 					System.out.println("Select the ID of the Hemogram you wan to see");
 					option = Integer.parseInt(reader.readLine());
-					if(option < hemogramList.size()) {
-						featuresList  = Menu.featuresManager.listFeatures();
-						for(int i = 0; i<10 ; i++) {
-						System.out.print(featuresList.get(i));
-						System.out.println( )
-						}
+					Hemogram hemogramPatient = Menu.hemogramManager.getHemogram(option);
+					if(patient.getId() == hemogramPatient.getPatient().getId()) {
+						featureValueList  = Menu.featureValueManager.getFeatureValuesByHemogram(option);
+						if(featureValueList != null) {
+						 for (FeatureValue featureValue : featureValueList)
+						  {
+							 System.out.print("Name: " + featureValue.getFeature().getName() + ", MIN: " + featureValue.getFeature().getMinimum() +
+									 ", MAX: " + featureValue.getFeature().getMaximum() + ", VALUE: " + featureValue.getValue() + ", HEALTHY: " + 
+									 featureValue.getHealthy());
+						  }
+						 
+					}
 					}
 					
 					break;
@@ -73,4 +80,3 @@ public class MenuPatient {
 		}
 	}
 	}
-}

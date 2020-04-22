@@ -85,7 +85,6 @@ public class SQLPatientManager implements PatientManager
 				Date dob = rs.getDate("dob");
 				String dni = rs.getString("dni");
 				newPatient = new Patient(id, name, surname, dob, dni);
-				System.out.println(newPatient);
 			
 		} catch (Exception e) 
 		{
@@ -111,7 +110,6 @@ public class SQLPatientManager implements PatientManager
 				Date dob = rs.getDate("dob");
 				String newDni = rs.getString("dni");
 				newPatient = new Patient(id, name, surname, dob, newDni);
-				System.out.println(newPatient);
 			
 		} catch (Exception e) 
 		{

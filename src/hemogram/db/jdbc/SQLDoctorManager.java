@@ -63,7 +63,6 @@ public class SQLDoctorManager implements DoctorManager
 				String hospital = rs.getString("hospital");
 				String specialty = rs.getString("specialty");
 				newDoctor = new Doctor(id, name, surname, work_user, hospital,specialty);
-				System.out.println(newDoctor);
 			
 		} catch (Exception e) 
 		{
@@ -118,7 +117,6 @@ public class SQLDoctorManager implements DoctorManager
 				String hospital = rs.getString("hospital");
 				String specialty =rs.getString("specialty");
 				newDoctor = new Doctor(id, Dname, surname, Dwork_user, hospital, specialty);
-				System.out.println(newDoctor);
 			}
 		
 		} catch (Exception e) 

@@ -41,7 +41,7 @@ public class SQLManager implements DBManager
 			patient = new SQLPatientManager(c);
 			features = new SQLFeaturesManager(c);
 			doctor = new SQLDoctorManager(c);
-			featureValue = new SQLFeatureValueManager(c);
+			featureValue = new SQLFeatureValueManager(c, features, hemogram);
 			hemogram = new SQLHemogramManager(c, doctor, patient, analyzer);
 			
 		} catch (Exception e) 
