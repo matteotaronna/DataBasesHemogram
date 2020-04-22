@@ -35,8 +35,6 @@ public class MenuAnalyzer
 					analyzer = addAnalyzer();
 					analyzerId = Menu.dbManager.getLastId();
 					analyzer.setId(analyzerId);
-					// System.out.println(analizerId);
-					// we need to pass the analizerId to then link it to the hemogram
 					analyzerSubmenu(analyzer);
 					break;
 				case 2:
@@ -45,15 +43,10 @@ public class MenuAnalyzer
 						if (analyzer == null) {
 							System.out.println("Try again, the name or work-user doesn't exist");
 							analyzer = logInAnalyzer();
-							//System.out.println("analyzerId: "+analyzer.getId());
 						}
 					} while (analyzer == null);
-
-					//analyzerId = analyzer.getId();
+					
 					analyzerSubmenu(analyzer);
-
-					// System.out.println(analizerId);
-					// we need to pass the analyzer id to then link the id to the hemogram
 					break;
 				case 3:
 					return;
@@ -114,23 +107,16 @@ public class MenuAnalyzer
 					patient = addPatient();
 					patientId = Menu.dbManager.getLastId();
 					patient.setId(patientId);
-					// System.out.println(patientId);
-					// we need to pass the patientId to then link it to the hemogram
-					// create hemogram
 					doctor = searchDoctor(patient);
 					if (doctor != null) {
-						doctorId = doctor.getId();
-						// join patient and doctor
 						createHemogram(analyzer, patient, doctor);
 						break;
 					} else {
 						System.out.println("THE DOCTOR SHOULD BE REGISTERED, WAIT UNTILL HE REGISTERS!\n");
 						return;
 					}
-					// create hemogram
 				case 2:
 					patient = searchPatient();
-					//System.out.println("patientId: "+patient.getId());
 					do 
 					{
 						if (patient == null) 
@@ -139,9 +125,6 @@ public class MenuAnalyzer
 							patient = searchPatient();
 						}
 					} while (patient == null);
-
-					//patientId = patient.getId();
-					// we need to pass the patientId to then link it to the hemogram
 					doctor = searchDoctor(patient);
 					if (doctor != null) 
 					{
@@ -154,7 +137,6 @@ public class MenuAnalyzer
 						System.out.println("THE DOCTOR SHOULD BE REGISTERED, WAIT UNTILL HE REGISTERS!\n");
 						return;
 					}
-					// create hemogram
 				case 3:
 					return;
 				default:
@@ -196,7 +178,10 @@ public class MenuAnalyzer
 	public static Doctor searchDoctor(Patient patient) throws Exception 
 	{
 		List<Doctor> doctors = Menu.doctorManager.listDoctors();
-		System.out.println(doctors);
+		for (Doctor doctor : doctors) 
+		{
+			System.out.println(doctor);
+		}
 		System.out.print("Insert the doctor id (if there isn't the doctor put 0): ");
 		int doctorId = Integer.parseInt(reader.readLine());
 		if (doctorId != 0) {
@@ -214,8 +199,6 @@ public class MenuAnalyzer
 		String date = reader.readLine();
 		LocalDate dateL = LocalDate.parse(date, formatter);
 		Date hemogramDate = Date.valueOf(dateL);
-		// System.out.println("\n\nanalyzerID: "+analyzerId+", patientId: "+patientId+",
-		// doctorId: "+doctorId+", date: "+hemogramDate);
 		Hemogram hemogram = new Hemogram(hemogramDate,patient,doctor,analyzer);
 		Menu.hemogramManager.insertHemogram(hemogram);
 		int hemogramId = Menu.dbManager.getLastId();
@@ -234,7 +217,6 @@ public class MenuAnalyzer
 		System.out.print("Leukocytes: ");
 		value = Double.parseDouble(reader.readLine());
 		feature = Menu.featuresManager.getFeatureByName("leukocytes");
-		//featureId = feature.getId();
 		healthy = checkHealthy(feature, value);
 		featureValue = new FeatureValue( value, feature, hemogram, healthy);
 		Menu.featureValueManager.insertFeatureValue(featureValue);
@@ -242,7 +224,6 @@ public class MenuAnalyzer
 		System.out.print("Erythrocytes: ");
 		value = Double.parseDouble(reader.readLine());
 		feature = Menu.featuresManager.getFeatureByName("erythrocytes");
-		//featureId = feature.getId();
 		healthy = checkHealthy(feature, value);
 		featureValue = new FeatureValue( value, feature, hemogram, healthy);
 		Menu.featureValueManager.insertFeatureValue(featureValue);
@@ -250,7 +231,6 @@ public class MenuAnalyzer
 		System.out.print("Hemoglobin: ");
 		value = Double.parseDouble(reader.readLine());
 		feature = Menu.featuresManager.getFeatureByName("hemoglobin");
-		//featureId = feature.getId();
 		healthy = checkHealthy(feature, value);
 		featureValue = new FeatureValue( value, feature, hemogram, healthy);
 		Menu.featureValueManager.insertFeatureValue(featureValue);
@@ -258,7 +238,6 @@ public class MenuAnalyzer
 		System.out.print("Hematocrit: ");
 		value = Double.parseDouble(reader.readLine());
 		feature = Menu.featuresManager.getFeatureByName("hematocrit");
-		//featureId = feature.getId();
 		healthy = checkHealthy(feature, value);
 		featureValue = new FeatureValue( value, feature, hemogram, healthy);
 		Menu.featureValueManager.insertFeatureValue(featureValue);
@@ -266,7 +245,6 @@ public class MenuAnalyzer
 		System.out.print("Platelets: ");
 		value = Double.parseDouble(reader.readLine());
 		feature = Menu.featuresManager.getFeatureByName("platelets");
-		//featureId = feature.getId();
 		healthy = checkHealthy(feature, value);
 		featureValue = new FeatureValue( value, feature, hemogram, healthy);
 		Menu.featureValueManager.insertFeatureValue(featureValue);
@@ -274,7 +252,6 @@ public class MenuAnalyzer
 		System.out.print("Cholesterol: ");
 		value = Double.parseDouble(reader.readLine());
 		feature = Menu.featuresManager.getFeatureByName("cholesterol");
-		//featureId = feature.getId();
 		healthy = checkHealthy(feature, value);
 		featureValue = new FeatureValue( value, feature, hemogram, healthy);
 		Menu.featureValueManager.insertFeatureValue(featureValue);
@@ -282,7 +259,6 @@ public class MenuAnalyzer
 		System.out.print("Cholesterol HDL: ");
 		value = Double.parseDouble(reader.readLine());
 		feature = Menu.featuresManager.getFeatureByName("cholesterolHDL");
-		//featureId = feature.getId();
 		healthy = checkHealthy(feature, value);
 		featureValue = new FeatureValue( value, feature, hemogram, healthy);
 		Menu.featureValueManager.insertFeatureValue(featureValue);
@@ -290,7 +266,6 @@ public class MenuAnalyzer
 		System.out.print("Triglycerides: ");
 		value = Double.parseDouble(reader.readLine());
 		feature = Menu.featuresManager.getFeatureByName("triglycerides");
-		//featureId = feature.getId();
 		healthy = checkHealthy(feature, value);
 		featureValue = new FeatureValue( value, feature, hemogram, healthy);
 		Menu.featureValueManager.insertFeatureValue(featureValue);
@@ -298,7 +273,6 @@ public class MenuAnalyzer
 		System.out.print("Cholesterol LDL: ");
 		value = Double.parseDouble(reader.readLine());
 		feature = Menu.featuresManager.getFeatureByName("cholesterolLDL");
-		//featureId = feature.getId();
 		healthy = checkHealthy(feature, value);
 		featureValue = new FeatureValue( value, feature, hemogram, healthy);
 		Menu.featureValueManager.insertFeatureValue(featureValue);
@@ -306,7 +280,6 @@ public class MenuAnalyzer
 		System.out.print("Glycemia: ");
 		value = Double.parseDouble(reader.readLine());
 		feature = Menu.featuresManager.getFeatureByName("glycemia");
-		//featureId = feature.getId();
 		healthy = checkHealthy(feature, value);
 		featureValue = new FeatureValue( value, feature, hemogram, healthy);
 		Menu.featureValueManager.insertFeatureValue(featureValue);
