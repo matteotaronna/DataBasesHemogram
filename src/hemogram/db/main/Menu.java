@@ -58,7 +58,7 @@ public class Menu
 						MenuDoctor.doctorMenu();
 						break;
 					case 3:
-						patientMenu();
+						MenuPatient.patientMenu();
 					case 0: 
 						dbManager.disconnect();
 						System.exit(0);
