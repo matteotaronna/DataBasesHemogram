@@ -26,8 +26,8 @@ public class MenuAnalyzer
 			{
 				Analyzer analyzer = null;
 				int analyzerId = 0;
-				System.out.println("1. New Analyzer");
-				System.out.println("2. Already signed up");
+				System.out.println("1. Sign In");
+				System.out.println("2. Log In");
 				System.out.println("3. Go back");
 
 				int option = Integer.parseInt(reader.readLine());
@@ -97,7 +97,7 @@ public class MenuAnalyzer
 	public static Analyzer logInAnalyzer() throws Exception 
 	{
 		Analyzer analyzer = null;
-		System.out.println("Please input your credentials");
+		System.out.println("LOG IN");
 		System.out.print("Username (name):");
 		String username = reader.readLine();
 		System.out.print("Password (workUser):");
@@ -124,7 +124,7 @@ public class MenuAnalyzer
 				Doctor doctor = null;
 				int patientId = 0;
 				int doctorId = 0;
-				System.out.println("1. New patient");
+				System.out.println("1. Sign In a new patient");
 				System.out.println("2. Search for a patient");
 				System.out.println("3. Go back");
 
@@ -133,7 +133,7 @@ public class MenuAnalyzer
 				switch (option) 
 				{
 				case 1:
-					patient = addPatient();
+					patient = signInPatient();
 					patientId = Menu.dbManager.getLastId();
 					patient.setId(patientId);
 					doctor = searchDoctor(patient);
@@ -177,7 +177,7 @@ public class MenuAnalyzer
 		}
 	}
 
-	public static Patient addPatient() throws Exception 
+	public static Patient signInPatient() throws Exception 
 	{
 		System.out.println("FILL IN YOUR INFO");
 		System.out.print("Name: ");
@@ -192,11 +192,27 @@ public class MenuAnalyzer
 		Date dobDateP = Date.valueOf(dobDate);
 		Patient newPatient = new Patient(patientName, patientSurname, dobDateP, DNI);
 		Menu.patientManager.signUpPatient(newPatient);
+		
+		//create the user 
+		String username = patientName;
+		String password = DNI;
+		// Create the password's hash
+		MessageDigest md = MessageDigest.getInstance("MD5");
+		md.update(password.getBytes());
+		byte[] hash = md.digest();
+						
+		//get the role from the database (it is going to be a patient)
+		Role role = Menu.usersManager.getRoleByName("patient");
+		// Create the user and store it
+		User user = new User(username, hash, role);
+		Menu.usersManager.createUser(user);
+		
 		return newPatient;
 	}
 
 	public static Patient searchPatient() throws Exception 
 	{
+		System.out.println("INTRODUCE THE DNI OF THE PATIENT TO FILL HIS HEMOGRAM");
 		System.out.print("Patient DNI: ");
 		String dni = reader.readLine();
 		Patient newPatient = Menu.patientManager.searchPatient(dni);
