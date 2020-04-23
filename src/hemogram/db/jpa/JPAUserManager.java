@@ -93,7 +93,7 @@ private EntityManager em;
 			// This is what happens when no result is retrieved
 			return null;
 		}
-		return null;
+		return role;
 	}
 
 	@Override

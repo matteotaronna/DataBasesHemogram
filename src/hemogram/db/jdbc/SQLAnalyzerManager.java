@@ -117,20 +117,37 @@ public class SQLAnalyzerManager implements AnalyzerManager
 	@Override
 	public void linkPatientDoctor(int patientId, int doctorId) 
 	{
-		try {
-			String sql = "INSERT INTO patientsDoctors (patientId, doctorId) " + "VALUES (?,?);";
-			PreparedStatement prep = c.prepareStatement(sql);
-			prep.setInt(1, patientId);
-			prep.setInt(2, doctorId);
-			prep.executeUpdate();
-			prep.close();
+		try 
+		{
+			
+			String sql1 = "SELECT * FROM patientsDoctors WHERE patientId = ?";
+			PreparedStatement prep1 = c.prepareStatement(sql1);
+			prep1.setInt(1, patientId);
+			ResultSet rs = prep1.executeQuery();
+			int doctorIdSearched;
+			boolean allreadyLinked = false;
+			while(rs.next())
+			{
+				doctorIdSearched = rs.getInt("doctorId");
+				if(doctorId==doctorIdSearched)
+				{
+					allreadyLinked = true;
+					break;
+				}
+			}
+			
+			if(allreadyLinked==false)
+			{
+				String sql = "INSERT INTO patientsDoctors (patientId, doctorId) " + "VALUES (?,?);";
+				PreparedStatement prep = c.prepareStatement(sql);
+				prep.setInt(1, patientId);
+				prep.setInt(2, doctorId);
+				prep.executeUpdate();
+				prep.close();
+			}
 
 		} catch (Exception e) {
-			if (e.getMessage().contains("Abort due to constraint violation"));
-			else {
 				e.printStackTrace();
-			}
 		}
-
 	}
 }
