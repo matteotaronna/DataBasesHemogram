@@ -2,12 +2,15 @@ package hemogram.db.main;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.security.MessageDigest;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import hemogram.db.pojos.*;
+import hemogram.db.pojos.users.Role;
+import hemogram.db.pojos.users.User;
 
 public class MenuAnalyzer 
 {
@@ -32,7 +35,7 @@ public class MenuAnalyzer
 				switch (option) 
 				{
 				case 1:
-					analyzer = addAnalyzer();
+					analyzer = signInAnalyzer();
 					analyzerId = Menu.dbManager.getLastId();
 					analyzer.setId(analyzerId);
 					analyzerSubmenu(analyzer);
@@ -59,30 +62,56 @@ public class MenuAnalyzer
 		}
 	}
 
-	public static Analyzer addAnalyzer() throws Exception 
+	public static Analyzer signInAnalyzer() throws Exception 
 	{
-		System.out.println("FILL IN YOUR INFO");
-		System.out.print("Name: ");
-		String analyzerName = reader.readLine();
-		System.out.print("Surname: ");
-		String analyzerSurname = reader.readLine();
-		System.out.print("Work User: ");
-		String analyzerWorkUser = reader.readLine();
-		System.out.print("Hospital: ");
-		String analyzerHospital = reader.readLine();
-		Analyzer newAnalyzer = new Analyzer(analyzerName, analyzerSurname, analyzerWorkUser, analyzerHospital);
-		Menu.analyzerManager.insertAnalyzer(newAnalyzer);
-		return newAnalyzer;
+		//add the new analyzer to the database
+				System.out.println("FILL IN YOUR INFO");
+				System.out.print("Name (Username): ");
+				String analyzerName = reader.readLine();
+				System.out.print("Surname: ");
+				String analyzerSurname = reader.readLine();
+				System.out.print("Work User (password): ");
+				String analyzerWorkUser = reader.readLine();
+				System.out.print("Hospital: ");
+				String analyzerHospital = reader.readLine();
+				Analyzer newAnalyzer = new Analyzer(analyzerName, analyzerSurname, analyzerWorkUser, analyzerHospital);
+				Menu.analyzerManager.insertAnalyzer(newAnalyzer);
+				
+				//create the user 
+				String username = analyzerName;
+				String password = analyzerWorkUser;
+				// Create the password's hash
+				MessageDigest md = MessageDigest.getInstance("MD5");
+				md.update(password.getBytes());
+				byte[] hash = md.digest();
+						
+				//get the role from the database (it is going to be an analyzer)
+				Role role = Menu.usersManager.getRoleByName("analyzer");
+				// Create the user and store it
+				User user = new User(username, hash, role);
+				Menu.usersManager.createUser(user);
+				
+				return newAnalyzer; //we return the analyzer to then link him to the hemogram
 	}
 
 	public static Analyzer logInAnalyzer() throws Exception 
 	{
-		System.out.print("Name: ");
-		String analyzerName = reader.readLine();
-		System.out.print("Work User: ");
-		String analyzerWorkUser = reader.readLine();
-		Analyzer newAnalyzer = Menu.analyzerManager.logInAnalyzer(analyzerName, analyzerWorkUser);
-		return newAnalyzer;
+		Analyzer analyzer = null;
+		System.out.println("Please input your credentials");
+		System.out.print("Username (name):");
+		String username = reader.readLine();
+		System.out.print("Password (workUser):");
+		String password = reader.readLine();
+		User user = Menu.usersManager.checkPassword(username, password);
+		// We check if the user/password combination was OK
+		if (user == null) {
+			System.out.println("Wrong credentials, please try again!");
+		}
+		// We sign in and return the analyzer
+		else {
+			analyzer = Menu.analyzerManager.logInAnalyzer(username, password);
+		}
+		return analyzer;
 	}
 
 	public static void analyzerSubmenu(Analyzer analyzer) 

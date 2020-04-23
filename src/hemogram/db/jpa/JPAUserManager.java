@@ -78,6 +78,23 @@ private EntityManager em;
 		List<Role> roles = (List<Role>) q.getResultList();
 		return roles;
 	}
+	
+	@Override
+	public Role getRoleByName (String roleName)
+	{
+		Role role = null;
+		try
+		{
+			Query q = em.createNativeQuery("SELECT * FROM roles WHERE role = ?", Role.class);
+			q.setParameter(1, roleName);
+			role = (Role) q.getSingleResult();
+			
+		} catch (NoResultException nre) {
+			// This is what happens when no result is retrieved
+			return null;
+		}
+		return null;
+	}
 
 	@Override
 	public User checkPassword(String username, String password) 
