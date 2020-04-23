@@ -7,7 +7,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import hemogram.db.interfaces.*;
 import hemogram.db.jdbc.*;
+import hemogram.db.jpa.JPAUserManager;
 import hemogram.db.pojos.*;
+import hemogram.db.pojos.users.Role;
 
 public class Menu 
 {
@@ -18,6 +20,7 @@ public class Menu
 	public static FeaturesManager featuresManager;
 	public static HemogramManager hemogramManager;
 	public static FeatureValueManager featureValueManager;
+	public static UserManager usersManager;
 	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)); 
 	
 	public static void  main(String args[])
@@ -38,6 +41,15 @@ public class Menu
 				
 				//Create tables
 				dbManager.createTables();
+				usersManager = new JPAUserManager();
+				usersManager.connect();
+				Role role = new Role("doctor");
+				usersManager.createRole(role);
+				Role role2 = new Role("analyzer");
+				usersManager.createRole(role2);
+				Role role3 = new Role("patient");
+				usersManager.createRole(role3);
+				
 				
 				//starts program
 				//THE DOCTOR SHOULD BE CREATED BEFORE CREATING THE HEMOGRAM
@@ -61,6 +73,7 @@ public class Menu
 						MenuPatient.patientMenu();
 					case 0: 
 						dbManager.disconnect();
+						usersManager.disconnect();
 						System.exit(0);
 						break;
 					default:

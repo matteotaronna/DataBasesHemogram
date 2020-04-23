@@ -20,7 +20,7 @@ private EntityManager em;
 	@Override
 	public void connect() 
 	{
-		em = Persistence.createEntityManagerFactory("dog-provider").createEntityManager();
+		em = Persistence.createEntityManagerFactory("HemogramDB-provider").createEntityManager();
 		em.getTransaction().begin();
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 		em.getTransaction().commit();
