@@ -43,9 +43,23 @@ private EntityManager em;
 	@Override
 	public void createRole(Role role) 
 	{
-		em.getTransaction().begin();
-		em.persist(role);
-		em.getTransaction().commit();
+		Query q = em.createNativeQuery("SELECT * FROM roles", Role.class);
+		List<Role> roles = (List<Role>) q.getResultList();
+		boolean existRole = false;
+		for (Role role2 : roles) 
+		{
+			if(role.getRole().equalsIgnoreCase(role2.getRole()))
+			{
+				existRole = true;
+				break;
+			}
+		}
+		if(existRole == false)
+		{
+			em.getTransaction().begin();
+			em.persist(role);
+			em.getTransaction().commit();
+		}
 	}
 
 	@Override
