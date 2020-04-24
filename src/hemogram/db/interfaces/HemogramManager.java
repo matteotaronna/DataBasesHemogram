@@ -1,6 +1,5 @@
 package hemogram.db.interfaces;
 
-import java.sql.Date;
 import java.util.List;
 
 import hemogram.db.pojos.Hemogram;

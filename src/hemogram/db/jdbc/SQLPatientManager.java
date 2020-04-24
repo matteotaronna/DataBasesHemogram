@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 import hemogram.db.interfaces.PatientManager;
-import hemogram.db.pojos.Analyzer;
 import hemogram.db.pojos.Patient;
 
 public class SQLPatientManager implements PatientManager 
