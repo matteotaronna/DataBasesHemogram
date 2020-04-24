@@ -65,33 +65,33 @@ public class MenuAnalyzer
 	public static Analyzer signInAnalyzer() throws Exception 
 	{
 		//add the new analyzer to the database
-				System.out.println("FILL IN YOUR INFO");
-				System.out.print("Name (Username): ");
-				String analyzerName = reader.readLine();
-				System.out.print("Surname: ");
-				String analyzerSurname = reader.readLine();
-				System.out.print("Work User (password): ");
-				String analyzerWorkUser = reader.readLine();
-				System.out.print("Hospital: ");
-				String analyzerHospital = reader.readLine();
-				Analyzer newAnalyzer = new Analyzer(analyzerName, analyzerSurname, analyzerWorkUser, analyzerHospital);
-				Menu.analyzerManager.insertAnalyzer(newAnalyzer);
+		System.out.println("FILL IN YOUR INFO");
+		System.out.print("Name (Username): ");
+		String analyzerName = reader.readLine();
+		System.out.print("Surname: ");
+		String analyzerSurname = reader.readLine();
+		System.out.print("Work User (password): ");
+		String analyzerWorkUser = reader.readLine();
+		System.out.print("Hospital: ");
+		String analyzerHospital = reader.readLine();
+		Analyzer newAnalyzer = new Analyzer(analyzerName, analyzerSurname, analyzerWorkUser, analyzerHospital);
+		Menu.analyzerManager.insertAnalyzer(newAnalyzer);
 				
-				//create the user 
-				String username = analyzerName;
-				String password = analyzerWorkUser;
-				// Create the password's hash
-				MessageDigest md = MessageDigest.getInstance("MD5");
-				md.update(password.getBytes());
-				byte[] hash = md.digest();
+		//create the user 
+		String username = analyzerName;
+		String password = analyzerWorkUser;
+		// Create the password's hash
+		MessageDigest md = MessageDigest.getInstance("MD5");
+		md.update(password.getBytes());
+		byte[] hash = md.digest();
 						
-				//get the role from the database (it is going to be an analyzer)
-				Role role = Menu.usersManager.getRoleByName("analyzer");
-				// Create the user and store it
-				User user = new User(username, hash, role);
-				Menu.usersManager.createUser(user);
+		//get the role from the database (it is going to be an analyzer)
+		Role role = Menu.usersManager.getRoleByName("analyzer");
+		//Create the user and store it
+		User user = new User(username, hash, role);
+		Menu.usersManager.createUser(user);
 				
-				return newAnalyzer; //we return the analyzer to then link him to the hemogram
+		return newAnalyzer; //we return the analyzer to then link him to the hemogram
 	}
 
 	public static Analyzer logInAnalyzer() throws Exception 
@@ -123,7 +123,6 @@ public class MenuAnalyzer
 				Patient patient = null;
 				Doctor doctor = null;
 				int patientId = 0;
-				int doctorId = 0;
 				System.out.println("1. Sign In a new patient");
 				System.out.println("2. Search for a patient");
 				System.out.println("3. Go back");
@@ -157,8 +156,6 @@ public class MenuAnalyzer
 					doctor = searchDoctor(patient);
 					if (doctor != null) 
 					{
-						doctorId = doctor.getId();
-						// join patient and doctor
 						createHemogram(analyzer, patient, doctor);
 						break;
 					} else 
@@ -179,7 +176,7 @@ public class MenuAnalyzer
 
 	public static Patient signInPatient() throws Exception 
 	{
-		System.out.println("FILL IN YOUR INFO");
+		System.out.println("FILL IN THE PATIENT'S INFO");
 		System.out.print("Name: ");
 		String patientName = reader.readLine();
 		System.out.print("Surname: ");
@@ -193,7 +190,7 @@ public class MenuAnalyzer
 		Patient newPatient = new Patient(patientName, patientSurname, dobDateP, DNI);
 		Menu.patientManager.signUpPatient(newPatient);
 		
-		//create the user 
+		//Create the user 
 		String username = patientName;
 		String password = DNI;
 		// Create the password's hash
@@ -250,12 +247,11 @@ public class MenuAnalyzer
 		hemogram.setId(hemogramId);
 
 		// inert values
-		System.out.println("Insert the values of the hemogram ");
+		System.out.println("INSERT THE VALUES FOR THE HEMOGRAM");
 
 		
 		double value;
 		boolean healthy;
-		int featureId;
 		FeatureValue featureValue;
 		Feature feature;
 
