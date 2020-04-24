@@ -59,7 +59,7 @@ public class MenuAnalyzer
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		} 
 	}
 
 	public static Analyzer signInAnalyzer() throws Exception 
