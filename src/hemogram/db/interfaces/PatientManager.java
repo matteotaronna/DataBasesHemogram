@@ -11,5 +11,6 @@ public interface PatientManager
 	public Patient getPatient (int patientId);
 	public Patient searchPatient (String dni);
 	public int getPatientId (Patient patient);
+	public Patient logInPatient(String name, String dni);
 	public List<Patient> listPatients (int doctorId);
 }

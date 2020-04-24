@@ -209,7 +209,7 @@ public class MenuAnalyzer
 
 	public static Patient searchPatient() throws Exception 
 	{
-		System.out.println("INTRODUCE THE DNI OF THE PATIENT TO FILL HIS HEMOGRAM");
+		System.out.println("INTRODUCE THE DNI OF THE PATIENT ");
 		System.out.print("Patient DNI: ");
 		String dni = reader.readLine();
 		Patient newPatient = Menu.patientManager.searchPatient(dni);

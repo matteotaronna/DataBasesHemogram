@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 import hemogram.db.interfaces.PatientManager;
+import hemogram.db.pojos.Analyzer;
 import hemogram.db.pojos.Patient;
 
 public class SQLPatientManager implements PatientManager 
@@ -65,6 +66,34 @@ public class SQLPatientManager implements PatientManager
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	public Patient logInPatient(String name, String dni) 
+	{
+		Patient newPatient = null;
+		try 
+		{
+			String sql = "SELECT * FROM patients WHERE name = ? AND dni = ?";
+			PreparedStatement s = c.prepareStatement(sql);
+			s.setString(1, name);
+			s.setString(2, dni);
+			ResultSet rs = s.executeQuery();
+			rs.next();
+			int id = rs.getInt("id");
+			String Aname = rs.getString("name");
+			String surname = rs.getString("surname");
+			Date Adob = rs.getDate("dob");
+			String Adni = rs.getString("dni");
+			newPatient = new Patient(id, Aname, surname, Adob, Adni);
+
+		} catch (Exception e) {
+			if (e.getMessage().contains("ResultSet closed")) {
+				newPatient = null;
+			} else {
+				e.printStackTrace();
+			}
+		}
+		return newPatient;
 	}
 
 	//SELECT

@@ -2,13 +2,9 @@ package hemogram.db.main;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import hemogram.db.interfaces.*;
 import hemogram.db.jdbc.*;
 import hemogram.db.jpa.JPAUserManager;
-import hemogram.db.pojos.*;
 import hemogram.db.pojos.users.Role;
 
 public class Menu 
@@ -27,8 +23,6 @@ public class Menu
 	{
 		try
 		{
-			while(true)
-			{
 				//create and connect with the database
 				dbManager = new SQLManager();
 				dbManager.connect();
@@ -60,7 +54,7 @@ public class Menu
 				System.out.println("0. Exit");
 				
 				int option = Integer.parseInt(reader.readLine());
-						
+				while(true) {
 				switch(option)
 				{
 					case 1:
@@ -71,6 +65,7 @@ public class Menu
 						break;
 					case 3:
 						MenuPatient.patientMenu();
+						break;
 					case 0: 
 						dbManager.disconnect();
 						usersManager.disconnect();
@@ -79,27 +74,7 @@ public class Menu
 					default:
 						break;
 				}
-			}
-		}catch(Exception e)
-		{
-				e.printStackTrace();
-		}
-	}
-	
-	private static void patientMenu()
-	{
-		try
-		{
-			while(true)
-			{
-				Patient patient;
-				System.out.println("Introduce your name");
-				String patientname= reader.readLine();
-				System.out.println("Introduce your DNI");
-				String patientDNI =reader.readLine();
-				
-				
-			}
+				}
 		}catch(Exception e)
 		{
 				e.printStackTrace();
