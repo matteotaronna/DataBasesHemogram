@@ -2,8 +2,12 @@ package hemogram.db.main;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.security.MessageDigest;
+
 import hemogram.db.pojos.Doctor;
 import hemogram.db.pojos.Patient;
+import hemogram.db.pojos.users.Role;
+import hemogram.db.pojos.users.User;
 
 public class MenuDoctor {
 
@@ -15,7 +19,7 @@ public class MenuDoctor {
 		{
 			while(true)
 			{
-				Doctor doctor;
+				Doctor doctor = null;
 				int doctorId= 0;
 				System.out.println("1. New Doctor");
 				System.out.println("2. Already signed up");
@@ -27,14 +31,20 @@ public class MenuDoctor {
 				{
 					case 1:
 						doctor = addDoctor();
-						//get doctor id
-						//we need to pass the doctor to then link the id to the hemogram
+						doctorId= Menu.dbManager.getLastId();
+						doctor.setId(doctorId);
 						doctorSubmenu(doctor);
 						break;
 					case 2:
 						doctor = logInDoctor();
-						// get doctor id
-						//we need to pass the analizer to then link the id to the hemogram
+						do 
+						{
+							if(doctor ==null)
+							{
+								System.out.println("Try again, the name or work-user does not exist");
+								doctor = logInDoctor();
+							}
+						}while(doctor== null);
 						doctorSubmenu(doctor);
 						break;
 					case 3:
@@ -51,19 +61,35 @@ public class MenuDoctor {
 	
 	public static Doctor addDoctor() throws Exception
 	{
+		//add a new doctor
 		System.out.println("FILL IN YOUR INFO");
-		System.out.print("Name: ");
+		System.out.print("Name (Username): ");
 		String doctorName = reader.readLine();
 		System.out.print("Surname: ");
 		String doctorSurname = reader.readLine();
+		System.out.println("Work_user: ");
+		String doctorwork_user= reader.readLine();
 		System.out.print("Hospital: ");
 		String hospital = reader.readLine();
 		System.out.print("Specialty: ");
 		String specialty = reader.readLine();
-		System.out.println("Work_user: ");
-		String doctorwork_user= reader.readLine();
+		
 		Doctor newDoctor = new Doctor (doctorName, doctorSurname, doctorwork_user, hospital, specialty);
 		Menu.doctorManager.insertDoctor(newDoctor);
+		
+		//create the user
+		String username = doctorName;
+		String password = doctorwork_user;
+		//Create the password's hash
+		MessageDigest md = MessageDigest.getInstance("MD5");
+		md.update(password.getBytes());
+		byte[] hash = md.digest();
+		
+		//get the role from the database (it is going to be a doctor)
+		Role role = Menu.usersManager.getRoleByName("doctor");
+		//Create the user and store it
+		User user = new User (username,hash, role);
+		Menu.usersManager.createUser(user);
 		return newDoctor;
 	}
 	
