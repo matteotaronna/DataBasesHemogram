@@ -3,11 +3,14 @@ package hemogram.db.main;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.security.MessageDigest;
+import java.util.*;
 
 import hemogram.db.pojos.Doctor;
+import hemogram.db.pojos.FeatureValue;
 import hemogram.db.pojos.Patient;
 import hemogram.db.pojos.users.Role;
 import hemogram.db.pojos.users.User;
+import hemogram.db.pojos.Hemogram;
 
 public class MenuDoctor {
 
@@ -95,12 +98,22 @@ public class MenuDoctor {
 	
 	public static Doctor logInDoctor() throws Exception
 	{
-		System.out.print("Name: ");
-		String doctorName = reader.readLine();
-		System.out.print("Work User: ");
+		Doctor doctor = null;
+		System.out.println("LOG IN:"); 
+		System.out.print("Username (Name): ");
+		String doctorname = reader.readLine();
+		System.out.print("Password (Work User): ");
 		String doctorwork_user = reader.readLine();
-		Doctor newDoctor = Menu.doctorManager.logInDoctor(doctorName, doctorwork_user);
-		return newDoctor;
+		User user= Menu.usersManager.checkPassword(doctorname, doctorwork_user);
+		if(user ==null)
+		{
+			System.out.println("The username or password doesn't exist, please try again. ");
+		}
+		else //Sign in
+		{
+			doctor = Menu.doctorManager.logInDoctor(doctorname, doctorwork_user);
+		}
+		return doctor;
 	}
 	
 	public static void doctorSubmenu(Doctor doctor)
@@ -109,19 +122,125 @@ public class MenuDoctor {
 		{
 			while(true)
 			{
-				Patient patient;
-				System.out.println("Enter the DNI of the patient");
-				String patientDNI = reader.readLine();
-				patient=Menu.patientManager.searchPatient(patientDNI);
-				if(patient!=null)
+				Patient patient= null;
+				List<Patient> doctorpatientList = new ArrayList <Patient>();
+				List<Hemogram> hemogramList = new ArrayList<Hemogram>();
+				List<FeatureValue> featureValueList = new ArrayList<FeatureValue>();
+				System.out.println ("1. List all your patients");
+				System.out.println("2. Search for a patient");
+				System.out.println("3. Go back");
+				//TENGO QUE CREAR ALGUNA FUNCION PARA PODER DECLARAR QUE PACIENTES SON DE ESTE DOCTOR
+				
+				int option = Integer.parseInt(reader.readLine());
+				
+				switch (option)
 				{
-					//get doctor id 
-					//no se muy bien si es asi como lo busca :( ACABAR!!!
+				case 1: 
+					doctorpatientList = Menu.patientManager.listPatients(doctor.getId());
+					if(doctorpatientList== null)
+					{
+						System.out.println("You don't have any patient yet");
+					}
+					else
+					{
+						for(Patient doctor_patient : doctorpatientList)
+						{
+							System.out.println("DNI: " + doctor_patient.getDni() + " , Name: " + doctor_patient.getName() + " , Surname: " + doctor_patient.getSurname() + " , Dob: " + doctor_patient.getDob() + " , ID: " + doctor_patient.getId());
+						}
+						System.out.println("To see a patient's hemogram, you need to search for that specific patient");
+					}
+					break; 
+				case 2: 
+					System.out.println("Introduce the patient DNI: ");
+					patient = searchPatient(); //debe buscarlo solo dentro de sus pacientes (igual hay que crear otra funcion)
+					do
+					{
+						if (patient ==null)
+						{
+							System.out.println("Try again, doesn't exist any of your patients with that DNI");
+							System.out.println("Introduce the DNI of your patient again");
+							patient= searchPatient();
+						}
+					}while (patient== null);
+					//The doctors patients hemogram's list
+					hemogramList = Menu.hemogramManager.listHemogramDoctor(patient.getId(), doctor.getId());
+					if(hemogramList ==null)
+					{
+						System.out.println("The patient don't have any hemogram done yet");
+						break;
+					}
+					else
+					{
+						for(Hemogram hemogram : hemogramList)
+						{
+							System.out.println("ID: " + hemogram.getId() + ", Date: " + hemogram.getDob() + ", Comments: " + hemogram.getComments());
+						}
+					}
+					System.out.println("Select the ID of the Hemogram you want to see: ");
+					int ID = Integer.parseInt(reader.readLine());
+					Hemogram hemogramPatient = Menu.hemogramManager.getHemogram(ID);
+					if (hemogramPatient ==null)
+					{
+						System.out.println("That hemogram Id doesn't exist");
+					}
+					else
+					{
+						if(patient.getId() == hemogramPatient.getPatient().getId())
+						{
+							featureValueList = Menu.featureValueManager.getFeatureValuesByHemogram(ID);
+							if(featureValueList != null) 
+							{
+								for (FeatureValue featureValue : featureValueList)
+								{
+									System.out.println("Name: " + featureValue.getFeature().getName() + ", VALUE: " + featureValue.getValue() + 
+											 ", HEALTHY: " + featureValue.getHealthy()+", [MIN: " + String.format("%.2f", featureValue.getFeature().getMinimum()) + 
+											 ", MAX: " + String.format("%.2f", featureValue.getFeature().getMaximum())+"]");
+								}
+							}
+							else
+							{
+								System.out.println("This hemogram is empty");
+								break;
+							}
+						}
+						System.out.println("Do you want to introduce any comments: yes/no");//deberia poner un desea borrar??
+						String respuesta = reader.readLine();
+						do // este do esta bien aqui puesto??
+						{
+							System.out.println("That is not an option");
+							System.out.println ("Introduce yes or not if you want or not ");
+							respuesta= reader.readLine();
+						
+						}while (respuesta!= "yes" || respuesta != "no");
+						if(respuesta =="yes") //como se hacia para poner que diferencia entre mayusculas y minusculas?
+						{
+							//tengo que acabarlo porque depende de si ya tiene algo escrito y hay que añadir info o si directamente quiere meter info de primeras
+						}
+						else if ( respuesta == "no")
+						{
+							break;
+						}
+					}
+					//Introducir todo lo de escribir un comentario en el hemogram
+					break;
+				case 3 : 
+					return;
+				default:
+					break;
 				}
 			}
+
 		}catch(Exception e)
 		{
 				e.printStackTrace();
 		}
+	}
+	public static Patient searchPatient () throws Exception
+	{
+		System.out.println("SEARCH A PATIENT: ");
+		System.out.println("Introduce the Patient's DNI: ");
+		String DNI = reader.readLine();
+		Patient searchedpatient = Menu.patientManager.searchPatient(DNI);
+		return searchedpatient;
 	}
 }
