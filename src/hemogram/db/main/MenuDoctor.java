@@ -129,7 +129,6 @@ public class MenuDoctor {
 				System.out.println ("1. List all your patients");
 				System.out.println("2. Search for a patient");
 				System.out.println("3. Go back");
-				//TENGO QUE CREAR ALGUNA FUNCION PARA PODER DECLARAR QUE PACIENTES SON DE ESTE DOCTOR
 				
 				int option = Integer.parseInt(reader.readLine());
 				
