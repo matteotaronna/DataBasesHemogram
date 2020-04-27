@@ -203,7 +203,7 @@ public class MenuDoctor {
 								break;
 							}
 						}
-						System.out.println("Do you want to introduce any comments: yes/no");//deberia poner un desea borrar??
+						System.out.println("Do you want to introduce any comments: YES/NO");
 						String respuesta = reader.readLine();
 						do // este do esta bien aqui puesto??
 						{
@@ -211,12 +211,12 @@ public class MenuDoctor {
 							System.out.println ("Introduce yes or not if you want or not ");
 							respuesta= reader.readLine();
 						
-						}while (respuesta!= "yes" || respuesta != "no");
-						if(respuesta =="yes") //como se hacia para poner que diferencia entre mayusculas y minusculas?
+						}while (respuesta.toUpperCase()!= "YES" || respuesta.toUpperCase() != "NO");
+						if(respuesta.toUpperCase() =="YES")
 						{
 							//tengo que acabarlo porque depende de si ya tiene algo escrito y hay que añadir info o si directamente quiere meter info de primeras
 						}
-						else if ( respuesta == "no")
+						else
 						{
 							break;
 						}
