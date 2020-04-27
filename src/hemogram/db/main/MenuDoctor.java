@@ -136,7 +136,7 @@ public class MenuDoctor {
 				switch (option)
 				{
 				case 1: 
-					doctorpatientList = Menu.patientManager.listPatients(doctor.getId());
+					doctorpatientList = Menu.patientManager.listPatients(doctor.getId()); //acabar de hacer la funcion
 					if(doctorpatientList== null)
 					{
 						System.out.println("You don't have any patient yet");
@@ -164,6 +164,7 @@ public class MenuDoctor {
 					}while (patient== null);
 					//The doctors patients hemogram's list
 					hemogramList = Menu.hemogramManager.listHemogramDoctor(patient.getId(), doctor.getId());
+					System.out.println(patient.getName() + " " + patient.getSurname());
 					if(hemogramList ==null)
 					{
 						System.out.println("The patient don't have any hemogram done yet");
@@ -203,25 +204,29 @@ public class MenuDoctor {
 								break;
 							}
 						}
-						System.out.println("Do you want to introduce any comments: YES/NO");
+						System.out.println("Do you want to introduce any comments, please introduce YES/NO");
 						String respuesta = reader.readLine();
-						do // este do esta bien aqui puesto??
+						if(respuesta.equalsIgnoreCase("YES"))
 						{
-							System.out.println("That is not an option");
-							System.out.println ("Introduce yes or not if you want or not ");
-							respuesta= reader.readLine();
-						
-						}while (respuesta.toUpperCase()!= "YES" || respuesta.toUpperCase() != "NO");
-						if(respuesta.toUpperCase() =="YES")
-						{
-							//tengo que acabarlo porque depende de si ya tiene algo escrito y hay que añadir info o si directamente quiere meter info de primeras
+							System.out.println("You can introduce your comments");
+							if(hemogramPatient.getComments()==null) //de que tipo han hecho el hemograma
+							{
+								
+								String comment= reader.readLine();
+								hemogramPatient.setComments(comment);
+							}
+							else//we don't want to lose the other comments
+							{
+								String comments= reader.readLine();
+								String finalcomment = hemogramPatient.getComments() + "\n" + comments; 
+								hemogramPatient.setComments(finalcomment);
+							}
 						}
 						else
 						{
 							break;
 						}
 					}
-					//Introducir todo lo de escribir un comentario en el hemogram
 					break;
 				case 3 : 
 					return;
