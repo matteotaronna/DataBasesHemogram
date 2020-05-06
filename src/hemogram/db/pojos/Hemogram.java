@@ -2,17 +2,30 @@ package hemogram.db.pojos;
 
 import java.io.Serializable;
 import java.sql.Date;
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import hemogram.db.xml.utils.SQLDateAdapter;
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name  = "hemogram")
+@XmlType(propOrder = {"dob", "comments", "patient", "doctor", "analyzer"})
 public class Hemogram implements Serializable
 {
 
 	private static final long serialVersionUID = -6292926181397696502L;
-
+	
+	@XmlTransient
 	private Integer id;
+	@XmlJavaTypeAdapter(SQLDateAdapter.class)
 	private Date dob;
+	@XmlElement
 	private String comments;
+	@XmlElement
 	private Patient patient;
+	@XmlElement
 	private Doctor doctor;
+	@XmlElement
 	private Analyzer analyzer;
 	
 	public Hemogram() {

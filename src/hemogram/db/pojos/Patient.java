@@ -3,17 +3,37 @@ package hemogram.db.pojos;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import hemogram.db.xml.utils.SQLDateAdapter;
 
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name  = "patient")
+@XmlType(propOrder = {"name", "surname", "dob", "dni", "doctor"})
 public class Patient implements Serializable
 {
+	// <element attribute="value">text or other elements</element>
 	private static final long serialVersionUID = -3478632845146919461L;
 	
+	@XmlTransient
 	private Integer id;
+	@XmlAttribute
 	private String name;
+	@XmlElement
 	private String surname;
+	@XmlJavaTypeAdapter(SQLDateAdapter.class)
 	private Date dob;
+	@XmlElement
 	private String dni;
+	// <patient>
+	//   <doctors> <-- Wrapper
+	//      <doctor></doctor>
+	//      <doctor></doctor>
+	//   </doctors>
+	// </patient>
+	@XmlElement(name = "doctor")
+	@XmlElementWrapper(name = "doctors")
 	private List<Doctor> doctor;
 	
 	public Patient() {

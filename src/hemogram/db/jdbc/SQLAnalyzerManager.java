@@ -56,6 +56,8 @@ public class SQLAnalyzerManager implements AnalyzerManager
 			String work_user = rs.getString("work_user");
 			String hospital = rs.getString("hospital");
 			newAnalyzer = new Analyzer(id, name, surname, work_user, hospital);
+			rs.close();
+			s.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -81,6 +83,8 @@ public class SQLAnalyzerManager implements AnalyzerManager
 			String Awork_user = rs.getString("work_user");
 			String hospital = rs.getString("hospital");
 			newAnalyzer = new Analyzer(id, Aname, surname, Awork_user, hospital);
+			rs.close();
+			s.close();
 
 		} catch (Exception e) {
 			if (e.getMessage().contains("ResultSet closed")) {
@@ -107,6 +111,8 @@ public class SQLAnalyzerManager implements AnalyzerManager
 			ResultSet rs = s.executeQuery();
 			rs.next();
 			analyzerId = rs.getInt("id");
+			rs.close();
+			s.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
