@@ -1,20 +1,23 @@
 package hemogram.db.main;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.security.MessageDigest;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-
+import javax.xml.bind.*;
+import hemogram.db.interfaces.PatientManager;
 import hemogram.db.pojos.*;
 import hemogram.db.pojos.users.Role;
 import hemogram.db.pojos.users.User;
 
 public class MenuAnalyzer 
 {
-
+	
+	public static PatientManager patientManager;
 	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -136,6 +139,11 @@ public class MenuAnalyzer
 					patientId = Menu.dbManager.getLastId();
 					patient.setId(patientId);
 					doctor = searchDoctor(patient);
+					System.out.print("Do you want to generate a XML for the patient? 0 (NO) / 1 (YES): ");
+					option  = Integer.parseInt(reader.readLine());
+					if(option == 1) {
+						generatePatientXML(patientId);
+					}
 					if (doctor != null) {
 						createHemogram(analyzer, patient, doctor);
 						break;
@@ -172,6 +180,22 @@ public class MenuAnalyzer
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void generatePatientXML(int patientId) throws Exception {
+		Patient patient  = patientManager.getPatient(patientId);
+		// Create a JAXBContext
+		JAXBContext context = JAXBContext.newInstance();
+		// Get the marshaller
+		Marshaller marshal = context.createMarshaller();
+		// Formatting
+		marshal.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		// Marshal the Patient to a file
+		File file = new File("./xmls/Output-Patient.xml");
+		marshal.marshal(patient, file);
+		// Marshal the patient to the screen
+		marshal.marshal(patient, System.out);
+		
 	}
 
 	public static Patient signInPatient() throws Exception 
