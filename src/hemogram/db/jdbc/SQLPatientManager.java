@@ -117,7 +117,7 @@ public class SQLPatientManager implements PatientManager
 				Date dob = rs.getDate("dob");
 				String dni = rs.getString("dni");
 				newPatient = new Patient(id, name, surname, dob, dni);
-				
+			
 		} catch (Exception e) 
 		{
 			e.printStackTrace();
@@ -206,5 +206,6 @@ public class SQLPatientManager implements PatientManager
 			e.printStackTrace();
 		}
 		return patientsList;
+		//otro commit
 	}
 }
