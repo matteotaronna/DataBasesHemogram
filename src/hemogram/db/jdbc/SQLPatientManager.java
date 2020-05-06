@@ -4,8 +4,12 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 import hemogram.db.interfaces.PatientManager;
+import hemogram.db.pojos.Analyzer;
+import hemogram.db.pojos.Doctor;
+import hemogram.db.pojos.Hemogram;
 import hemogram.db.pojos.Patient;
 
 public class SQLPatientManager implements PatientManager 
@@ -178,8 +182,29 @@ public class SQLPatientManager implements PatientManager
 
 	@Override
 	public List<Patient> listPatients(int doctorId) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Patient> patientsList = new ArrayList<Patient>();
+		try 
+		{
+			String sql = "SELECT * FROM patients AS  p JOIN patientsDoctors AS pd ON p.id = pd.patientId" 
+						+ " JOIN doctors AS d ON d.id = pd.doctorId" + " WHERE doctorId = ?";
+			PreparedStatement s = c.prepareStatement(sql);
+			s.setInt(1, doctorId);
+			ResultSet rs = s.executeQuery();
+			while(rs.next()==true)
+			{
+				int id = rs.getInt("id");
+				String name = rs.getString("name");
+				String surname = rs.getString("surname");
+				Date dob = rs.getDate("dob");
+				String dni = rs.getString("dni");
+				Patient newPatient = new Patient(id, name, surname, dob, dni);
+				patientsList.add(newPatient);
+			}
+			
+		} catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		return patientsList;
 	}
-
 }
