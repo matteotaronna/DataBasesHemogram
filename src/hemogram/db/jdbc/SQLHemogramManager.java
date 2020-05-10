@@ -87,7 +87,7 @@ public class SQLHemogramManager implements HemogramManager{
 			}
 			return newHemogram;
 		}
-		
+		@Override
 		public List<Hemogram> listHemogramPatient (int patientId){
 			
 			List<Hemogram> hemogramList = new ArrayList<Hemogram>();
@@ -118,7 +118,7 @@ public class SQLHemogramManager implements HemogramManager{
 			}
 			return hemogramList;
 		}
-		
+		@Override
 		public List<Hemogram> listHemogramDoctor (int patientId, int doctorId){
 			List<Hemogram> hemogramList = new ArrayList<Hemogram>();
 			try 
@@ -148,5 +148,19 @@ public class SQLHemogramManager implements HemogramManager{
 				e.printStackTrace();
 			}
 			return hemogramList;
+		}
+		@Override
+		public void updatecomment (int hemogramid, String comments)
+		{
+			try {
+				String sql = "UPDATE hemograms SET comment=? WHERE id=?";
+				PreparedStatement s = c.prepareStatement(sql);
+				s.setString(1, comments);
+				s.setInt(2, hemogramid);
+				s.executeUpdate();
+				s.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		}

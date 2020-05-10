@@ -207,19 +207,22 @@ public class MenuDoctor {
 						String respuesta = reader.readLine();
 						if(respuesta.equalsIgnoreCase("YES"))
 						{
+							String finalcomment;
 							System.out.println("You can introduce your comments");
-							if(hemogramPatient.getComments()==null) //de que tipo han hecho el hemograma
+							if(hemogramPatient.getComments()==null) 
 							{
-								
-								String comment= reader.readLine();
-								hemogramPatient.setComments(comment);
+								//habria que hacer un update
+								finalcomment= reader.readLine();
+								//hemogramPatient.setComments(comment);
 							}
 							else//we don't want to lose the other comments
 							{
 								String comments= reader.readLine();
-								String finalcomment = hemogramPatient.getComments() + "\n" + comments; 
-								hemogramPatient.setComments(finalcomment);
+								finalcomment = hemogramPatient.getComments() + "\n" + comments; 
+								///////////a pesar de ser un String se guarda con el retorno de carro?
+								//hemogramPatient.setComments(finalcomment);
 							}
+							Menu.hemogramManager.updatecomment(hemogramPatient.getId(), finalcomment);
 						}
 						else
 						{

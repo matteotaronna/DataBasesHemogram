@@ -9,4 +9,5 @@ public interface HemogramManager {
 	public Hemogram getHemogram(int hemogramId);
 	public List<Hemogram> listHemogramDoctor(int patient_id, int doctor_id);
 	public List<Hemogram> listHemogramPatient (int patientId);
+	public void updatecomment (int hemogramid, String comments);
 }

@@ -98,6 +98,7 @@ public class SQLDoctorManager implements DoctorManager
 		}
 		return doctors;
 	}
+	@Override
 	public Doctor logInDoctor (String name, String work_user)
 	{
 		Doctor newDoctor = null;
