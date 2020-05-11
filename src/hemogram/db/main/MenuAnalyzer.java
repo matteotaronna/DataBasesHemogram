@@ -139,11 +139,6 @@ public class MenuAnalyzer
 					patientId = Menu.dbManager.getLastId();
 					patient.setId(patientId);
 					doctor = searchDoctor(patient);
-					System.out.print("Do you want to generate a XML for the patient? 0 (NO) / 1 (YES): ");
-					option  = Integer.parseInt(reader.readLine());
-					if(option == 1) {
-						generatePatientXML(patientId);
-					}
 					if (doctor != null) {
 						createHemogram(analyzer, patient, doctor);
 						break;
