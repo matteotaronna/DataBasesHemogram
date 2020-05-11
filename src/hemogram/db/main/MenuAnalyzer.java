@@ -25,7 +25,7 @@ import hemogram.db.xml.utils.CustomErrorHandler;
 
 public class MenuAnalyzer 
 {
-	
+	//hola
 	public static PatientManager patientManager;
 	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
