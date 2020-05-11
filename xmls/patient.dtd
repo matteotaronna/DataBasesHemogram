@@ -4,8 +4,14 @@
 	<!ELEMENT dob (#PCDATA)>
 	<!ELEMENT dni (#PCDATA)>
 	<!ELEMENT hemograms (hemogram+)>
-	<!ELEMENT hemogram (dob,comments?)>
+	<!ELEMENT hemogram (dob,comments?,doctor,analyzer)>
 	<!ATTLIST hemogram id CDATA #REQUIRED>
-	<!ELEMENT dob (#PCDATA)>
 	<!ELEMENT comments (#PCDATA)>
+	<!ELEMENT doctor (work_user,hospital,specialty)>
+	<!ATTLIST doctor name CDATA #REQUIRED surname CDATA #REQUIRED>
+	<!ELEMENT work_user (#PCDATA)>
+	<!ELEMENT hospital (#PCDATA)>
+	<!ELEMENT specialty (#PCDATA)>
+	<!ELEMENT analyzer (work_user,hospital)>
+	<!ATTLIST analyzer name CDATA #REQUIRED surname CDATA #REQUIRED>
 ]>

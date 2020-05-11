@@ -178,6 +178,7 @@ public class MenuAnalyzer
 					}
 				case 3:
 					createFromXML();
+					break;
 				case 4:
 					return;
 				default:
@@ -234,12 +235,24 @@ public class MenuAnalyzer
 		Menu.patientManager.signUpPatient(patient);
 		// Get the dogId from the database because the XML file doesn't have it
 		int patientId = Menu.dbManager.getLastId();
+		patient.setId(patientId);
 		// For each medicine of the dog
 		List<Hemogram> hemograms = patient.getHemograms();
 		for (Hemogram hemogram : hemograms) {
 			// Give the medicine to the dog
+			hemogram.setPatient(patient);
+			
+			//first insert doctor and analyzer
+			Menu.doctorManager.insertDoctor(hemogram.getDoctor());
+			int doctorId =Menu.dbManager.getLastId();
+			hemogram.getDoctor().setId(doctorId);
+			Menu.analyzerManager.insertAnalyzer(hemogram.getAnalyzer());
+			int analyzerId =Menu.dbManager.getLastId();
+			hemogram.getAnalyzer().setId(analyzerId);
+			
 			Menu.hemogramManager.insertHemogram(hemogram);
 		}
+		System.out.println("records inserted");
 	}
 
 	public static Patient signInPatient() throws Exception 

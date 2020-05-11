@@ -2,14 +2,30 @@ package hemogram.db.pojos;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name  = "analyzer")
+@XmlType(propOrder = {"name", "surname", "work_user", "hospital"})
 public class Analyzer implements Serializable{
 
 	private static final long serialVersionUID = 2533734397872268521L;
 	
+	@XmlTransient
 	private Integer id;
+	@XmlAttribute
 	private String name;
+	@XmlAttribute
 	private String surname;
+	@XmlElement
 	private String work_user;
+	@XmlElement
 	private String hospital;
 	
 	public Analyzer() {
