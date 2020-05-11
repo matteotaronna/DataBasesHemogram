@@ -128,7 +128,6 @@ public class MenuAnalyzer
 				int patientId = 0;
 				System.out.println("1. Sign In a new patient");
 				System.out.println("2. Search for a patient");
-				System.out.println("3. Create ");
 				System.out.println("3. Go back");
 
 				int option = Integer.parseInt(reader.readLine());
@@ -140,11 +139,6 @@ public class MenuAnalyzer
 					patientId = Menu.dbManager.getLastId();
 					patient.setId(patientId);
 					doctor = searchDoctor(patient);
-					System.out.print("Do you want to generate a XML for the patient? 0 (NO) / 1 (YES): ");
-					option  = Integer.parseInt(reader.readLine());
-					if(option == 1) {
-						generatePatientXML(patientId);
-					}
 					if (doctor != null) {
 						createHemogram(analyzer, patient, doctor);
 						break;
@@ -181,22 +175,6 @@ public class MenuAnalyzer
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public static void generatePatientXML(int patientId) throws Exception {
-		Patient patient  = patientManager.getPatient(patientId);
-		// Create a JAXBContext
-		JAXBContext context = JAXBContext.newInstance();
-		// Get the marshaller
-		Marshaller marshal = context.createMarshaller();
-		// Formatting
-		marshal.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		// Marshal the Patient to a file
-		File file = new File("./xmls/Output-Patient.xml");
-		marshal.marshal(patient, file);
-		// Marshal the patient to the screen
-		marshal.marshal(patient, System.out);
-		
 	}
 
 	public static Patient signInPatient() throws Exception 
