@@ -44,7 +44,7 @@ public class Menu
 				Role role3 = new Role("patient");
 				usersManager.createRole(role3);
 				
-				
+				while(true) {
 				//starts program
 				//THE DOCTOR SHOULD BE CREATED BEFORE CREATING THE HEMOGRAM
 				System.out.println("Who are you?");
@@ -54,7 +54,7 @@ public class Menu
 				System.out.println("0. Exit");
 				
 				int option = Integer.parseInt(reader.readLine());
-				while(true) {
+				
 				switch(option)
 				{
 					case 1:

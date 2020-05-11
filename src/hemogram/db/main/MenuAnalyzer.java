@@ -177,6 +177,8 @@ public class MenuAnalyzer
 						return;
 					}
 				case 3:
+					createFromXML();
+				case 4:
 					return;
 				default:
 					break;
@@ -187,7 +189,7 @@ public class MenuAnalyzer
 		}
 	}
 	
-	private static void admitDogXML() throws Exception {
+	private static void createFromXML() throws Exception {
 		// Create a JAXBContext
 		JAXBContext context = JAXBContext.newInstance(Patient.class);
 		// Get the unmarshaller

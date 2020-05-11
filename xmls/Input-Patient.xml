@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<patient name="Rodrigo" surname="Lopez">
+<patient name="Mario" surname="Lopez">
     <dob>2020-05-04</dob>
     <dni>1234</dni>
     <hemograms>
