@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!DOCTYPE patient [
+	<!ELEMENT patient (dob,dni,hemograms?)>
+	<!ATTLIST patient name CDATA #REQUIRED surname CDATA #REQUIRED>
+	<!ELEMENT dob (#PCDATA)>
+	<!ELEMENT dni (#PCDATA)>
+	<!ELEMENT hemograms (hemogram+)>
+	<!ELEMENT hemogram (dob,comments?)>
+	<!ATTLIST hemogram id CDATA #REQUIRED>
+	<!ELEMENT dob (#PCDATA)>
+	<!ELEMENT comments (#PCDATA)>
+]>
+
 <patient name="Mario" surname="Lopez">
     <dob>2020-05-04</dob>
     <dni>1234</dni>
