@@ -1,9 +1,12 @@
 package hemogram.db.main;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 import hemogram.db.pojos.FeatureValue;
 import hemogram.db.pojos.Hemogram;
 import hemogram.db.pojos.Patient;
@@ -51,7 +54,8 @@ public class MenuPatient {
 				List<Hemogram> hemogramList = new ArrayList<Hemogram>();
 				List<FeatureValue> featureValueList = new ArrayList<FeatureValue>();
 				System.out.println("1. List all Hemograms");
-				System.out.println("2. Go back");
+				System.out.println("2. Generate XML");
+				System.out.println("3. Go back");
 
 				int option = Integer.parseInt(reader.readLine());
 
@@ -92,6 +96,8 @@ public class MenuPatient {
 					
 					break;
 				case 2:
+					generateXML(patient.getId());
+				case 3:
 					return;
 				default:
 					break;
@@ -100,6 +106,21 @@ public class MenuPatient {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private static void generateXML(int patientId) throws Exception {
+		Patient patient = Menu.patientManager.getPatient(patientId);
+		// Create a JAXBContext
+		JAXBContext context = JAXBContext.newInstance(Patient.class);
+		// Get the marshaller
+		Marshaller marshal = context.createMarshaller();
+		// Pretty formatting
+		marshal.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		// Marshall the dog to a file
+		File file = new File("./xmls/Output-Patient.xml");
+		marshal.marshal(patient, file);
+		// Marshall the dog to the screen
+		marshal.marshal(patient, System.out);
 	}
 	
 	public static Patient logInPatient() throws Exception 
