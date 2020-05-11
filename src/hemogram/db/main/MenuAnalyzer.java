@@ -128,6 +128,7 @@ public class MenuAnalyzer
 				int patientId = 0;
 				System.out.println("1. Sign In a new patient");
 				System.out.println("2. Search for a patient");
+				System.out.println("3. Create ");
 				System.out.println("3. Go back");
 
 				int option = Integer.parseInt(reader.readLine());

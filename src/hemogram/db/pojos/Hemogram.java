@@ -9,13 +9,13 @@ import hemogram.db.xml.utils.SQLDateAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name  = "hemogram")
-@XmlType(propOrder = {"dob", "comments", "patient", "doctor", "analyzer"})
+@XmlType(propOrder = {"id","dob", "comments", "patient"})
 public class Hemogram implements Serializable
 {
 
 	private static final long serialVersionUID = -6292926181397696502L;
 	
-	@XmlTransient
+	@XmlAttribute
 	private Integer id;
 	@XmlJavaTypeAdapter(SQLDateAdapter.class)
 	private Date dob;
@@ -23,9 +23,9 @@ public class Hemogram implements Serializable
 	private String comments;
 	@XmlElement
 	private Patient patient;
-	@XmlElement
+	@XmlTransient
 	private Doctor doctor;
-	@XmlElement
+	@XmlTransient
 	private Analyzer analyzer;
 	
 	public Hemogram() {

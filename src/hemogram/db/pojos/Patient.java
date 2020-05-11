@@ -10,7 +10,7 @@ import hemogram.db.xml.utils.SQLDateAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name  = "patient")
-@XmlType(propOrder = {"name", "surname", "dob", "dni", "doctor"})
+@XmlType(propOrder = {"name", "surname", "dob", "dni"})
 public class Patient implements Serializable
 {
 	// <element attribute="value">text or other elements</element>
@@ -20,7 +20,7 @@ public class Patient implements Serializable
 	private Integer id;
 	@XmlAttribute
 	private String name;
-	@XmlElement
+	@XmlAttribute
 	private String surname;
 	@XmlJavaTypeAdapter(SQLDateAdapter.class)
 	private Date dob;
@@ -32,9 +32,13 @@ public class Patient implements Serializable
 	//      <doctor></doctor>
 	//   </doctors>
 	// </patient>
-	@XmlElement(name = "doctor")
-	@XmlElementWrapper(name = "doctors")
+	//@XmlElement(name = "doctor")
+	//@XmlElementWrapper(name = "doctors")
+	@XmlTransient
 	private List<Doctor> doctor;
+	@XmlElement(name = "hemogram")
+	@XmlElementWrapper(name = "hemograms")
+	private List <Hemogram> hemograms;
 	
 	public Patient() {
 		super();
@@ -49,6 +53,19 @@ public class Patient implements Serializable
 		this.dni = dni;
 	}
 	
+	
+	public Patient(Integer id, String name, String surname, Date dob, String dni, List<Doctor> doctor,
+			List<Hemogram> hemograms) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.surname = surname;
+		this.dob = dob;
+		this.dni = dni;
+		this.doctor = doctor;
+		this.hemograms = hemograms;
+	}
+
 	public Patient(String name, String surname, Date dob, String dni) {
 		super();
 		this.name = name;
@@ -58,7 +75,6 @@ public class Patient implements Serializable
 	}
 	
 	
-
 	public Patient(Integer id, String name, String surname, Date dob, String dni, List<Doctor> doctor) {
 		super();
 		this.id = id;
@@ -110,6 +126,14 @@ public class Patient implements Serializable
 
 	public void setDoctor(List<Doctor> doctor) {
 		this.doctor = doctor;
+	}
+
+	public List<Hemogram> getHemograms() {
+		return hemograms;
+	}
+
+	public void setHemograms(List<Hemogram> hemograms) {
+		this.hemograms = hemograms;
 	}
 
 	@Override

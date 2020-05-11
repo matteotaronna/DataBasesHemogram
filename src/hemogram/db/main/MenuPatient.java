@@ -59,6 +59,7 @@ public class MenuPatient {
 				{
 				case 1:
 					hemogramList = Menu.hemogramManager.listHemogramPatient(patient.getId());
+					patient.setHemograms(hemogramList);
 					if(hemogramList == null) {
 						System.out.println("The patient do not have a hemogram");
 					} else {

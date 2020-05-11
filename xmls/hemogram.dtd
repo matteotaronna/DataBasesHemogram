@@ -1,0 +1,11 @@
+<!DOCTYPE patient [
+	<!ELEMENT patient (dob,dni,hemogram+)>
+	<!ATTLIST patient name CDATA #REQUIRED surname CDATA #REQUIRED>
+	<!ELEMENT dob (#PCDATA)>
+	<!ELEMENT dni (#PCDATA)>
+	<!ELEMENT hemograms (hemogram+)>
+	<!ELEMENT hemogram (dob,comments?, patient)>
+	<!ATTLIST hemogram id CDATA #REQUIRED>
+	<!ELEMENT dob (#PCDATA)>
+	<!ELEMENT comments (#PCDATA)>
+]>

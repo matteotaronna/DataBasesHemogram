@@ -163,6 +163,7 @@ public class MenuDoctor {
 					}while (patient== null);
 					//The doctors patients hemogram's list
 					hemogramList = Menu.hemogramManager.listHemogramDoctor(patient.getId(), doctor.getId());
+					patient.setHemograms(hemogramList);
 					System.out.println(patient.getName() + " " + patient.getSurname());
 					if(hemogramList ==null)
 					{
