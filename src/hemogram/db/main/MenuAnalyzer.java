@@ -2,6 +2,7 @@ package hemogram.db.main;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.security.MessageDigest;
 import java.sql.Date;
@@ -9,10 +10,18 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.xml.bind.*;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+
 import hemogram.db.interfaces.PatientManager;
 import hemogram.db.pojos.*;
 import hemogram.db.pojos.users.Role;
 import hemogram.db.pojos.users.User;
+import hemogram.db.xml.utils.CustomErrorHandler;
 
 public class MenuAnalyzer 
 {
@@ -128,7 +137,8 @@ public class MenuAnalyzer
 				int patientId = 0;
 				System.out.println("1. Sign In a new patient");
 				System.out.println("2. Search for a patient");
-				System.out.println("3. Go back");
+				System.out.println("3. Create patient and hemogram from XML");
+				System.out.println("4. Go back");
 
 				int option = Integer.parseInt(reader.readLine());
 
@@ -174,6 +184,59 @@ public class MenuAnalyzer
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	private static void admitDogXML() throws Exception {
+		// Create a JAXBContext
+		JAXBContext context = JAXBContext.newInstance(Patient.class);
+		// Get the unmarshaller
+		Unmarshaller unmarshal = context.createUnmarshaller();
+		// Open the file
+		File file = null;
+		boolean incorrectPatient = false;
+		do {
+			System.out.println("Type the filename for the XML document (expected in the xmls folder):");
+			String fileName = reader.readLine();
+			file = new File("./xmls/" + fileName);
+			try {
+				// Create a DocumentBuilderFactory
+				DocumentBuilderFactory dBF = DocumentBuilderFactory.newInstance();
+				// Set it up so it validates XML documents
+				dBF.setValidating(true);
+				// Create a DocumentBuilder and an ErrorHandler (to check validity)
+				DocumentBuilder builder = dBF.newDocumentBuilder();
+				CustomErrorHandler customErrorHandler = new hemogram.db.xml.utils.CustomErrorHandler();
+				builder.setErrorHandler(customErrorHandler);
+				// Parse the XML file and print out the result
+				Document doc = builder.parse(file);
+				if (!customErrorHandler.isValid()) {
+					incorrectPatient = true;
+				}
+			} catch (ParserConfigurationException ex) {
+				System.out.println(file + " error while parsing!");
+				incorrectPatient = true;
+			} catch (SAXException ex) {
+				System.out.println(file + " was not well-formed!");
+				incorrectPatient = true;
+			} catch (IOException ex) {
+				System.out.println(file + " was not accesible!");
+				incorrectPatient = true;
+			}
+			
+		} while (incorrectPatient);
+		// Unmarshall the dog from a file
+		Patient patient = (Patient) unmarshal.unmarshal(file);
+		// Print the dog
+		System.out.println("Added to the database: " + patient);
+		Menu.patientManager.signUpPatient(patient);
+		// Get the dogId from the database because the XML file doesn't have it
+		int patientId = Menu.dbManager.getLastId();
+		// For each medicine of the dog
+		List<Hemogram> hemograms = patient.getHemograms();
+		for (Hemogram hemogram : hemograms) {
+			// Give the medicine to the dog
+			Menu.hemogramManager.insertHemogram(hemogram);
 		}
 	}
 

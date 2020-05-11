@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<patient name="Rodrigo" surname="Lopez">
+    <dob>2020-05-04</dob>
+    <dni>1234</dni>
+    <hemograms>
+        <hemogram id="6">
+            <dob>2020-10-04</dob>
+            <comments>holiwas</comments>
+        </hemogram>
+        <hemogram id="7">
+            <dob>2020-11-06</dob>
+            <comments>ey que pasa</comments>
+        </hemogram>
+    </hemograms>
+</patient>
