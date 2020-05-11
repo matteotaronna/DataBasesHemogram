@@ -10,7 +10,7 @@ import hemogram.db.xml.utils.SQLDateAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name  = "patient")
-@XmlType(propOrder = {"name", "surname", "dob", "dni"})
+@XmlType(propOrder = {"name", "surname", "dob", "dni", "hemograms"})
 public class Patient implements Serializable
 {
 	// <element attribute="value">text or other elements</element>
