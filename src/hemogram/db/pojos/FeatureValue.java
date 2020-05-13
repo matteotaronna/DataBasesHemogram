@@ -2,14 +2,30 @@ package hemogram.db.pojos;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name  = "featureValue")
+@XmlType(propOrder = {"value","feature"})
 public class FeatureValue implements Serializable
 {
 	private static final long serialVersionUID = 1407821407855057099L;
 	
+	@XmlTransient
 	private Integer id;
+	@XmlElement
 	private double value;
+	@XmlElement
 	private Feature feature;
+	@XmlTransient
 	private Hemogram hemogram;
+	@XmlTransient
 	private boolean healthy;
 	
 	

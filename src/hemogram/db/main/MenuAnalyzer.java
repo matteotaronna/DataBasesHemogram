@@ -239,6 +239,7 @@ public class MenuAnalyzer
 		// For each medicine of the dog
 		List<Hemogram> hemograms = patient.getHemograms();
 		for (Hemogram hemogram : hemograms) {
+			List <FeatureValue> featureValues = hemogram.getFeatureValues();
 			// Give the medicine to the dog
 			hemogram.setPatient(patient);
 			
@@ -251,8 +252,69 @@ public class MenuAnalyzer
 			hemogram.getAnalyzer().setId(analyzerId);
 			
 			Menu.hemogramManager.insertHemogram(hemogram);
+			Menu.analyzerManager.linkPatientDoctor(patient.getId(), doctorId);
+			
+			//for (FeatureValue featureValue : featureValues)
+			//{
+				//System.out.println(featureValue.getValue());
+				//System.out.println(featureValue.getFeature());
+				//insertFeatureValue(featureValue,hemogram);
+			//}
+			
 		}
 		System.out.println("records inserted");
+	}
+	
+	public static void insertFeatureValue(FeatureValue featureValue, Hemogram hemogram)
+	{
+		
+		featureValue.setHemogram(hemogram);
+		Feature feature = Menu.featuresManager.getFeatureByName(featureValue.getFeature().getName());
+		featureValue.getFeature().setId(feature.getId());
+		boolean healthy = checkHealthy(feature, featureValue.getValue());
+		featureValue.setHealthy(healthy);
+		Menu.featureValueManager.insertFeatureValue(featureValue);
+		
+		
+		/*
+		System.out.print("Leukocytes: ");
+		value = Double.parseDouble(reader.readLine());
+		feature = Menu.featuresManager.getFeatureByName("leukocytes");
+		healthy = checkHealthy(feature, value);
+		featureValue = new FeatureValue( value, feature, hemogram, healthy);
+		Menu.featureValueManager.insertFeatureValue(featureValue);
+		*/
+		
+		/*
+		 *
+            <featureValues>
+            	<featureValue>
+            		<value>2</value>
+            		<feature>
+            			<name>Leukocytes</name>
+            		</feature>
+            	</featureValue>
+            	<featureValue>
+            		<value>2</value>
+            		<feature>
+            			<name>Erythrocytes</name>
+            		</feature>
+            	</featureValue>
+            	<featureValue>
+            		<value>2</value>
+            		<feature>
+            			<name>Hemoglobin</name>
+            		</feature>
+            	</featureValue>
+            	<featureValue>
+            		<value>2</value>
+            		<feature>
+            			<name>Hematocrit</name>
+            		</feature>
+            	</featureValue>
+            </featureValues>
+		 */
+		
 	}
 
 	public static Patient signInPatient() throws Exception 

@@ -2,6 +2,8 @@ package hemogram.db.pojos;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
+
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -9,7 +11,7 @@ import hemogram.db.xml.utils.SQLDateAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name  = "hemogram")
-@XmlType(propOrder = {"id","dob", "comments","doctor","analyzer"})
+@XmlType(propOrder = {"id","dob", "comments","doctor","analyzer","featureValues"})
 public class Hemogram implements Serializable
 {
 
@@ -27,6 +29,8 @@ public class Hemogram implements Serializable
 	private Doctor doctor;
 	@XmlElement
 	private Analyzer analyzer;
+	@XmlElement
+	private List<FeatureValue> featureValues;
 	
 	public Hemogram() {
 		super();
@@ -140,4 +144,14 @@ public class Hemogram implements Serializable
 	public void setAnalyzer(Analyzer analyzer) {
 		this.analyzer = analyzer;
 	}
+
+	public List<FeatureValue> getFeatureValues() {
+		return featureValues;
+	}
+
+	public void setFeatureValues(List<FeatureValue> featureValues) {
+		this.featureValues = featureValues;
+	}
+	
+	
 }

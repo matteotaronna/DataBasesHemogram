@@ -2,13 +2,28 @@ package hemogram.db.pojos;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name  = "feature")
+@XmlType(propOrder = {"name"})
 public class Feature implements Serializable
 {
 	private static final long serialVersionUID = 3698476214030959794L;
 	
+	@XmlTransient
 	private Integer id;
+	@XmlElement
 	private String name;
+	@XmlTransient
 	private double minimum;
+	@XmlTransient
 	private double maximum;
 	
 	

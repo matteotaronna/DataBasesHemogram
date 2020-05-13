@@ -6,7 +6,7 @@
 	<!ELEMENT dob (#PCDATA)>
 	<!ELEMENT dni (#PCDATA)>
 	<!ELEMENT hemograms (hemogram+)>
-	<!ELEMENT hemogram (dob,comments?,doctor,analyzer)>
+	<!ELEMENT hemogram (dob,comments?,doctor,analyzer,featureValues?)>
 	<!ATTLIST hemogram id CDATA #REQUIRED>
 	<!ELEMENT comments (#PCDATA)>
 	<!ELEMENT doctor (work_user,hospital,specialty)>
@@ -16,6 +16,11 @@
 	<!ELEMENT specialty (#PCDATA)>
 	<!ELEMENT analyzer (work_user,hospital)>
 	<!ATTLIST analyzer name CDATA #REQUIRED surname CDATA #REQUIRED>
+	<!ELEMENT featureValues (featureValue+)>
+	<!ELEMENT featureValue (value,feature)>
+	<!ELEMENT value (#PCDATA)>
+	<!ELEMENT feature (name)>
+	<!ELEMENT name (#PCDATA)>
 ]>
 
 <patient name="Mario" surname="Lopez">
@@ -35,20 +40,5 @@
     			<hospital>rubber</hospital>
             </analyzer>
         </hemogram>
-        
-        <hemogram id="9">
-            <dob>2020-11-04</dob>
-            <comments>ey que pasa</comments>
-            <doctor name="Roberto" surname="Jimenez">
-    			<work_user>martes</work_user>
-    			<hospital>clinico</hospital>
-    			<specialty>cardiologist</specialty>
-            </doctor>
-            <analyzer name="Paula" surname="Fernandez">
-    			<work_user>viernes</work_user>
-    			<hospital>clinico</hospital>
-            </analyzer>
-        </hemogram>
-        
     </hemograms>
 </patient>
