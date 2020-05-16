@@ -70,17 +70,16 @@ public class SQLFeaturesManager implements FeaturesManager
 		Feature newFeature = null;
 		try 
 		{
-			String sql = "SELECT * FROM features WHERE name = ?";
+			String sql = "SELECT * FROM features WHERE name LIKE ?";
 			PreparedStatement s = c.prepareStatement(sql);
 			s.setString(1, featureName);
 			ResultSet rs = s.executeQuery();
-			rs.next();
+			rs.next(); 
 				int id = rs.getInt("id");
 				String name = rs.getString("name");
 				float minimum = rs.getFloat("minimum");
 				float maximum = rs.getFloat("maximum");
 				newFeature = new Feature(id, name, minimum, maximum);
-			
 		} catch (Exception e) 
 		{
 			e.printStackTrace();

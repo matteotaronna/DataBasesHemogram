@@ -7,7 +7,6 @@
 	<!ELEMENT dni (#PCDATA)>
 	<!ELEMENT hemograms (hemogram+)>
 	<!ELEMENT hemogram (dob,comments?,doctor,analyzer,featureValues?)>
-	<!ATTLIST hemogram id CDATA #REQUIRED>
 	<!ELEMENT comments (#PCDATA)>
 	<!ELEMENT doctor (work_user,hospital,specialty)>
 	<!ATTLIST doctor name CDATA #REQUIRED surname CDATA #REQUIRED>
@@ -27,7 +26,7 @@
     <dob>2020-05-04</dob>
     <dni>1234</dni>
     <hemograms>
-        <hemogram id="8">
+        <hemogram>
             <dob>2020-10-04</dob>
             <comments>holiwas</comments>
             <doctor name="Carlos" surname="Fernandez">
@@ -39,6 +38,32 @@
     			<work_user>miercoles</work_user>
     			<hospital>rubber</hospital>
             </analyzer>
+ 			<featureValues>
+            	<featureValue>
+            		<value>2.2</value>
+            		<feature>
+            			<name>Leukocytes</name>
+            		</feature>
+            	</featureValue>
+            	<featureValue>
+            		<value>2.3</value>
+            		<feature>
+            			<name>Erythrocytes</name>
+            		</feature>
+            	</featureValue>
+            	<featureValue>
+            		<value>2.4</value>
+            		<feature>
+            			<name>Hemoglobin</name>
+            		</feature>
+            	</featureValue>
+            	<featureValue>
+            		<value>2</value>
+            		<feature>
+            			<name>Hematocrit</name>
+            		</feature>
+            	</featureValue>
+            </featureValues>
         </hemogram>
     </hemograms>
 </patient>

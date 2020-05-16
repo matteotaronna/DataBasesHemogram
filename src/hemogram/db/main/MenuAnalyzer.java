@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -89,19 +90,7 @@ public class MenuAnalyzer
 		Analyzer newAnalyzer = new Analyzer(analyzerName, analyzerSurname, analyzerWorkUser, analyzerHospital);
 		Menu.analyzerManager.insertAnalyzer(newAnalyzer);
 				
-		//create the user 
-		String username = analyzerName;
-		String password = analyzerWorkUser;
-		// Create the password's hash
-		MessageDigest md = MessageDigest.getInstance("MD5");
-		md.update(password.getBytes());
-		byte[] hash = md.digest();
-						
-		//get the role from the database (it is going to be an analyzer)
-		Role role = Menu.usersManager.getRoleByName("analyzer");
-		//Create the user and store it
-		User user = new User(username, hash, role);
-		Menu.usersManager.createUser(user);
+		createAnalyzerUser(newAnalyzer);
 				
 		return newAnalyzer; //we return the analyzer to then link him to the hemogram
 	}
@@ -228,38 +217,42 @@ public class MenuAnalyzer
 			}
 			
 		} while (incorrectPatient);
-		// Unmarshall the dog from a file
+		// Unmarshall the Patient from a file
 		Patient patient = (Patient) unmarshal.unmarshal(file);
-		// Print the dog
 		System.out.println("Added to the database: " + patient);
 		Menu.patientManager.signUpPatient(patient);
 		// Get the dogId from the database because the XML file doesn't have it
 		int patientId = Menu.dbManager.getLastId();
 		patient.setId(patientId);
-		// For each medicine of the dog
+		createPatientUser(patient);
+		// For each hemogram of the patient
 		List<Hemogram> hemograms = patient.getHemograms();
 		for (Hemogram hemogram : hemograms) {
-			List <FeatureValue> featureValues = hemogram.getFeatureValues();
-			// Give the medicine to the dog
-			hemogram.setPatient(patient);
 			
+			hemogram.setPatient(patient);
 			//first insert doctor and analyzer
 			Menu.doctorManager.insertDoctor(hemogram.getDoctor());
-			int doctorId =Menu.dbManager.getLastId();
+			createDoctorUser(hemogram.getDoctor());
+			int doctorId = Menu.dbManager.getLastId();
 			hemogram.getDoctor().setId(doctorId);
 			Menu.analyzerManager.insertAnalyzer(hemogram.getAnalyzer());
+			createAnalyzerUser(hemogram.getAnalyzer());
 			int analyzerId =Menu.dbManager.getLastId();
 			hemogram.getAnalyzer().setId(analyzerId);
 			
 			Menu.hemogramManager.insertHemogram(hemogram);
+			int hemogramId = Menu.dbManager.getLastId();;
+			hemogram.setId(hemogramId);
 			Menu.analyzerManager.linkPatientDoctor(patient.getId(), doctorId);
 			
-			//for (FeatureValue featureValue : featureValues)
-			//{
+			
+			List <FeatureValue> featureValues = hemogram.getFeatureValues();
+			for (FeatureValue featureValue : featureValues)
+			{
 				//System.out.println(featureValue.getValue());
-				//System.out.println(featureValue.getFeature());
-				//insertFeatureValue(featureValue,hemogram);
-			//}
+				//System.out.println(featureValue.getFeature().getName());
+				insertFeatureValue(featureValue,hemogram);
+			}
 			
 		}
 		System.out.println("records inserted");
@@ -267,54 +260,65 @@ public class MenuAnalyzer
 	
 	public static void insertFeatureValue(FeatureValue featureValue, Hemogram hemogram)
 	{
-		
 		featureValue.setHemogram(hemogram);
 		Feature feature = Menu.featuresManager.getFeatureByName(featureValue.getFeature().getName());
-		featureValue.getFeature().setId(feature.getId());
+		featureValue.setFeature(feature);
 		boolean healthy = checkHealthy(feature, featureValue.getValue());
 		featureValue.setHealthy(healthy);
+		//System.out.println(feature);
+		//System.out.println(featureValue);
 		Menu.featureValueManager.insertFeatureValue(featureValue);
-		
-		
-		/*
-		System.out.print("Leukocytes: ");
-		value = Double.parseDouble(reader.readLine());
-		feature = Menu.featuresManager.getFeatureByName("leukocytes");
-		healthy = checkHealthy(feature, value);
-		featureValue = new FeatureValue( value, feature, hemogram, healthy);
-		Menu.featureValueManager.insertFeatureValue(featureValue);
-		*/
-		
-		/*
-		 *
-            <featureValues>
-            	<featureValue>
-            		<value>2</value>
-            		<feature>
-            			<name>Leukocytes</name>
-            		</feature>
-            	</featureValue>
-            	<featureValue>
-            		<value>2</value>
-            		<feature>
-            			<name>Erythrocytes</name>
-            		</feature>
-            	</featureValue>
-            	<featureValue>
-            		<value>2</value>
-            		<feature>
-            			<name>Hemoglobin</name>
-            		</feature>
-            	</featureValue>
-            	<featureValue>
-            		<value>2</value>
-            		<feature>
-            			<name>Hematocrit</name>
-            		</feature>
-            	</featureValue>
-            </featureValues>
-		 */
-		
+	}
+	
+	public static void createPatientUser(Patient patient) throws Exception
+	{
+		//Create the user 
+		String username = patient.getName();
+		String password = patient.getDni();
+		// Create the password's hash
+		MessageDigest md = MessageDigest.getInstance("MD5");
+		md.update(password.getBytes());
+		byte[] hash = md.digest();
+								
+		//get the role from the database (it is going to be a patient)
+		Role role = Menu.usersManager.getRoleByName("patient");
+		// Create the user and store it
+		User user = new User(username, hash, role);
+		Menu.usersManager.createUser(user);
+	}
+	
+	public static void createAnalyzerUser(Analyzer analyzer) throws Exception
+	{
+		//create the user 
+		String username = analyzer.getName();
+		String password = analyzer.getWork_user();
+		// Create the password's hash
+		MessageDigest md = MessageDigest.getInstance("MD5");
+		md.update(password.getBytes());
+		byte[] hash = md.digest();
+							
+		//get the role from the database (it is going to be an analyzer)
+		Role role = Menu.usersManager.getRoleByName("analyzer");
+		//Create the user and store it
+		User user = new User(username, hash, role);
+		Menu.usersManager.createUser(user);
+	}
+	
+	public static void createDoctorUser(Doctor doctor) throws Exception
+	{
+		//create the user 
+		String username = doctor.getName();
+		String password = doctor.getWork_user();
+		// Create the password's hash
+		MessageDigest md = MessageDigest.getInstance("MD5");
+		md.update(password.getBytes());
+		byte[] hash = md.digest();
+							
+		//get the role from the database (it is going to be an analyzer)
+		Role role = Menu.usersManager.getRoleByName("analyzer");
+		//Create the user and store it
+		User user = new User(username, hash, role);
+		Menu.usersManager.createUser(user);
 	}
 
 	public static Patient signInPatient() throws Exception 
@@ -333,22 +337,12 @@ public class MenuAnalyzer
 		Patient newPatient = new Patient(patientName, patientSurname, dobDateP, DNI);
 		Menu.patientManager.signUpPatient(newPatient);
 		
-		//Create the user 
-		String username = patientName;
-		String password = DNI;
-		// Create the password's hash
-		MessageDigest md = MessageDigest.getInstance("MD5");
-		md.update(password.getBytes());
-		byte[] hash = md.digest();
-						
-		//get the role from the database (it is going to be a patient)
-		Role role = Menu.usersManager.getRoleByName("patient");
-		// Create the user and store it
-		User user = new User(username, hash, role);
-		Menu.usersManager.createUser(user);
+		createPatientUser(newPatient);
 		
 		return newPatient;
 	}
+	
+	
 
 	public static Patient searchPatient() throws Exception 
 	{
