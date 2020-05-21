@@ -26,7 +26,7 @@ public class Xml2Html {
 	}
 
 	public static void main(String[] args) {
-		simpleTransform("./xmls/Output-Dog.xml", "./xmls/DogStyle.xslt", "./xmls/Dog.html");
+		simpleTransform("./xmls/Output-Patient.xml", "./xmls/PatientStyle.xslt", "./xmls/Patient.html");
 
 	}
 }
