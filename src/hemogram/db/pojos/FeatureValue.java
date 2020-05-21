@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name  = "featureValue")
-@XmlType(propOrder = {"value","feature"})
+@XmlType(propOrder = {"value","feature","healthy"})
 public class FeatureValue implements Serializable
 {
 	private static final long serialVersionUID = 1407821407855057099L;
@@ -25,7 +25,7 @@ public class FeatureValue implements Serializable
 	private Feature feature;
 	@XmlTransient
 	private Hemogram hemogram;
-	@XmlTransient
+	@XmlElement
 	private boolean healthy;
 	
 	

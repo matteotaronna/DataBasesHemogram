@@ -16,8 +16,9 @@
 	<!ELEMENT analyzer (work_user,hospital)>
 	<!ATTLIST analyzer name CDATA #REQUIRED surname CDATA #REQUIRED>
 	<!ELEMENT featureValues (featureValue+)>
-	<!ELEMENT featureValue (value,feature)>
+	<!ELEMENT featureValue (value,feature,healthy?)>
 	<!ELEMENT value (#PCDATA)>
+	<!ELEMENT healthy (#PCDATA)>
 	<!ELEMENT feature (name)>
 	<!ELEMENT name (#PCDATA)>
 ]>
