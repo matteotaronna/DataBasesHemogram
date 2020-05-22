@@ -110,7 +110,13 @@ public class MenuPatient {
 	
 	private static void generateXML(int patientId) throws Exception {
 		Patient patient = Menu.patientManager.getPatient(patientId);
-		// Create a JAXBContext
+		List<Hemogram> hemograms =Menu.hemogramManager.listHemogramPatient(patient.getId());
+		for (Hemogram hemogram : hemograms) 
+		{
+			List<FeatureValue> featureValues = Menu.featureValueManager.getFeatureValuesByHemogram(hemogram.getId());
+			hemogram.setFeatureValues(featureValues);
+		}
+		patient.setHemograms(hemograms);
 		JAXBContext context = JAXBContext.newInstance(Patient.class);
 		// Get the marshaller
 		Marshaller marshal = context.createMarshaller();
