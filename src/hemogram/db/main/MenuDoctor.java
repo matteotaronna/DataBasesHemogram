@@ -1,9 +1,13 @@
 package hemogram.db.main;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.security.MessageDigest;
 import java.util.*;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 
 import hemogram.db.pojos.Doctor;
 import hemogram.db.pojos.FeatureValue;
@@ -124,9 +128,8 @@ public class MenuDoctor {
 			{
 				Patient patient= null;
 				List<Patient> doctorpatientList = new ArrayList <Patient>();
-				List<Hemogram> hemogramList = new ArrayList<Hemogram>();
-				List<FeatureValue> featureValueList = new ArrayList<FeatureValue>();
-				System.out.println ("1. List all your patients");
+				
+				System.out.println("1. List all your patients");
 				System.out.println("2. Search for a patient");
 				System.out.println("3. Go back");
 				
@@ -161,76 +164,11 @@ public class MenuDoctor {
 							patient= searchPatient();
 						}
 					}while (patient== null);
-					//The doctors patients hemogram's list
-					hemogramList = Menu.hemogramManager.listHemogramDoctor(patient.getId(), doctor.getId());
-					patient.setHemograms(hemogramList);
-					System.out.println(patient.getName() + " " + patient.getSurname());
-					if(hemogramList ==null)
-					{
-						System.out.println("The patient don't have any hemogram done yet");
-						break;
-					}
-					else
-					{
-						for(Hemogram hemogram : hemogramList)
-						{
-							System.out.println("ID: " + hemogram.getId() + ", Date: " + hemogram.getDob() + ", Comments: " + hemogram.getComments());
-						}
-					}
-					System.out.println("Select the ID of the Hemogram you want to see: ");
-					int ID = Integer.parseInt(reader.readLine());
-					Hemogram hemogramPatient = Menu.hemogramManager.getHemogram(ID);
-					if (hemogramPatient ==null)
-					{
-						System.out.println("That hemogram Id doesn't exist");
-					}
-					else
-					{
-						if(patient.getId() == hemogramPatient.getPatient().getId())
-						{
-							featureValueList = Menu.featureValueManager.getFeatureValuesByHemogram(ID);
-							if(featureValueList != null) 
-							{
-								for (FeatureValue featureValue : featureValueList)
-								{
-									System.out.println("Name: " + featureValue.getFeature().getName() + ", VALUE: " + featureValue.getValue() + 
-											 ", HEALTHY: " + featureValue.getHealthy()+", [MIN: " + String.format("%.2f", featureValue.getFeature().getMinimum()) + 
-											 ", MAX: " + String.format("%.2f", featureValue.getFeature().getMaximum())+"]");
-								}
-							}
-							else
-							{
-								System.out.println("This hemogram is empty");
-								break;
-							}
-						}
-						System.out.println("Do you want to introduce any comments, please introduce YES/NO");
-						String respuesta = reader.readLine();
-						if(respuesta.equalsIgnoreCase("YES"))
-						{
-							String finalcomment;
-							System.out.println("You can introduce your comments");
-							if(hemogramPatient.getComments()==null) 
-							{
-								//habria que hacer un update
-								finalcomment= reader.readLine();
-								//hemogramPatient.setComments(comment);
-							}
-							else//we don't want to lose the other comments
-							{
-								String comments= reader.readLine();
-								finalcomment = hemogramPatient.getComments() + "\n" + comments; 
-								///////////a pesar de ser un String se guarda con el retorno de carro?
-								//hemogramPatient.setComments(finalcomment);
-							}
-							Menu.hemogramManager.updatecomment(hemogramPatient.getId(), finalcomment);
-						}
-						else
-						{
-							break;
-						}
-					}
+					doctorsubmenu_patient(doctor, patient);
+					//nos lleva al menu donde vemos que quiere hacer el doctor con ese paciente
+					
 					break;
+				
 				case 3 : 
 					return;
 				default:
@@ -251,4 +189,130 @@ public class MenuDoctor {
 		Patient searchedpatient = Menu.patientManager.searchPatient(DNI);
 		return searchedpatient;
 	}
+	public static void doctorsubmenu_patient(Doctor doctor, Patient patient)
+	{
+		try
+		{
+			while(true)
+			{
+				List<Hemogram> hemogramList = new ArrayList<Hemogram>();
+				List<FeatureValue> featureValueList = new ArrayList<FeatureValue>();
+					System.out.println("1. Show his hemograms normally");
+					System.out.println("2. Generate XML");
+					System.out.println("3. Go back");
+			
+					int option = Integer.parseInt(reader.readLine());
+			
+					switch (option)
+					{
+						case 1: 
+						
+							hemogramList = Menu.hemogramManager.listHemogramDoctor(patient.getId(), doctor.getId());
+							patient.setHemograms(hemogramList);
+							System.out.println(patient.getName() + " " + patient.getSurname());
+							if(hemogramList ==null)
+							{
+								System.out.println("The patient don't have any hemogram done yet");
+								break;
+							}
+							else
+							{
+								for(Hemogram hemogram : hemogramList)
+								{
+									System.out.println("ID: " + hemogram.getId() + ", Date: " + hemogram.getDob() + ", Comments: " + hemogram.getComments());
+								}
+							}
+							System.out.println("Select the ID of the Hemogram you want to see: ");
+							int ID = Integer.parseInt(reader.readLine());
+							Hemogram hemogramPatient = Menu.hemogramManager.getHemogram(ID);
+							if (hemogramPatient ==null)
+							{
+								System.out.println("That hemogram Id doesn't exist");
+							}
+							else
+							{
+								if(patient.getId() == hemogramPatient.getPatient().getId())
+								{
+									featureValueList = Menu.featureValueManager.getFeatureValuesByHemogram(ID);
+									if(featureValueList != null) 
+									{
+										for (FeatureValue featureValue : featureValueList)
+										{
+											System.out.println("Name: " + featureValue.getFeature().getName() + ", VALUE: " + featureValue.getValue() + 
+														", HEALTHY: " + featureValue.getHealthy()+", [MIN: " + String.format("%.2f", featureValue.getFeature().getMinimum()) + 
+														", MAX: " + String.format("%.2f", featureValue.getFeature().getMaximum())+"]");
+										}
+									}
+									else
+									{
+										System.out.println("This hemogram is empty");
+										break;
+									}
+								}
+								System.out.println("Do you want to introduce any comments, please introduce YES/NO");
+								String respuesta = reader.readLine();
+								if(respuesta.equalsIgnoreCase("YES"))
+								{
+									String finalcomment;
+									System.out.println("You can introduce your comments");
+									if(hemogramPatient.getComments()==null) 
+									{
+										finalcomment= reader.readLine();
+										//hemogramPatient.setComments(comment);
+									}
+									else//we don't want to lose the other comments
+									{
+										String comments= reader.readLine();
+										finalcomment = hemogramPatient.getComments() + "\n" + comments; 
+										///////////a pesar de ser un String se guarda con el retorno de carro?
+										//hemogramPatient.setComments(finalcomment);
+									}
+									Menu.hemogramManager.updatecomment(hemogramPatient.getId(), finalcomment);
+								}
+								else
+								{
+									break;
+								}
+							}
+							break;
+				
+				case 2: 
+					generateXML(patient.getId());
+					break;
+					
+				case 3 : 
+					return;
+				default:
+					break;
+				}
+			}
+			
+		}catch(Exception e)
+		{
+				e.printStackTrace();
+		}
+		
+	}
+	
+	private static void generateXML(int patientId) throws Exception {
+		Patient patient = Menu.patientManager.getPatient(patientId);
+		List<Hemogram> hemograms =Menu.hemogramManager.listHemogramPatient(patient.getId());
+		for (Hemogram hemogram : hemograms) 
+		{
+			List<FeatureValue> featureValues = Menu.featureValueManager.getFeatureValuesByHemogram(hemogram.getId());
+			hemogram.setFeatureValues(featureValues);
+		}
+		patient.setHemograms(hemograms);
+		JAXBContext context = JAXBContext.newInstance(Patient.class);
+		// Get the marshaller
+		Marshaller marshal = context.createMarshaller();
+		// Pretty formatting
+		marshal.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		// Marshall the dog to a file
+		File file = new File("./xmls/Output-Patient.xml");
+		marshal.marshal(patient, file);
+		// Marshall the dog to the screen
+		marshal.marshal(patient, System.out);
+	}
+	
 }
