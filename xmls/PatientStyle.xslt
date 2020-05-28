@@ -34,6 +34,7 @@
 		</tr>
 		</xsl:for-each>
 		</table>
+		<xsl:value-of select="comments"/>
 		</xsl:for-each>
 	</p>
 	</html>

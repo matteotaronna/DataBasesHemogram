@@ -5,6 +5,7 @@
     <hemograms>
         <hemogram>
             <dob>2020-05-21</dob>
+            <comments>hola</comments>
             <doctor name="Carlos" surname="Fernandez">
                 <work_user>lunes</work_user>
                 <hospital>rubber</hospital>

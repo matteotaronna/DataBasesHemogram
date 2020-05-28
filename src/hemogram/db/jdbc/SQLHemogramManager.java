@@ -153,7 +153,7 @@ public class SQLHemogramManager implements HemogramManager{
 		public void updatecomment (int hemogramid, String comments)
 		{
 			try {
-				String sql = "UPDATE hemograms SET comment=? WHERE id=?";
+				String sql = "UPDATE hemograms SET comments=? WHERE id=?";
 				PreparedStatement s = c.prepareStatement(sql);
 				s.setString(1, comments);
 				s.setInt(2, hemogramid);
