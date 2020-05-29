@@ -5,7 +5,6 @@
     <hemograms>
         <hemogram>
             <dob>2020-10-04</dob>
-            <comments>ARRIBA ESPANA</comments>
             <doctor name="Carlos" surname="Fernandez">
                 <work_user>lunes</work_user>
                 <hospital>rubber</hospital>
