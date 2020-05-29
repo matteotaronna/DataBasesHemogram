@@ -192,11 +192,11 @@ public class SQLPatientManager implements PatientManager
 			ResultSet rs = s.executeQuery();
 			while(rs.next()==true)
 			{
-				int id = rs.getInt("id");
-				String name = rs.getString("name");
-				String surname = rs.getString("surname");
-				Date dob = rs.getDate("dob");
-				String dni = rs.getString("dni");
+				int id = rs.getInt(1);
+				String name = rs.getString(2);
+				String surname = rs.getString(3);
+				Date dob = rs.getDate(4);
+				String dni = rs.getString(5);
 				Patient newPatient = new Patient(id, name, surname, dob, dni);
 				patientsList.add(newPatient);
 			}
