@@ -154,7 +154,6 @@ public class MenuDoctor {
 					}
 					break; 
 				case 2: 
-					System.out.println("Introduce the patient DNI: ");
 					patient = searchPatient(); //debe buscarlo solo dentro de sus pacientes (igual hay que crear otra funcion)
 					do
 					{
