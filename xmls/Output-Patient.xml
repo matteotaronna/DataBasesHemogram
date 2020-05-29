@@ -1,90 +1,48 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<patient name="claudia" surname="t">
-    <dob>1999-05-05</dob>
-    <dni>11</dni>
+<patient name="Mario" surname="Lopez">
+    <dob>2020-05-04</dob>
+    <dni>1234</dni>
     <hemograms>
         <hemogram>
-            <dob>2020-05-21</dob>
-            <comments>hola</comments>
+            <dob>2020-10-04</dob>
+            <comments>ARRIBA ESPANA</comments>
             <doctor name="Carlos" surname="Fernandez">
                 <work_user>lunes</work_user>
                 <hospital>rubber</hospital>
                 <specialty>cardiologist</specialty>
             </doctor>
-            <analyzer name="matteo" surname="taronna">
-                <work_user>hola</work_user>
-                <hospital>hola</hospital>
+            <analyzer name="Laura" surname="Sanchez">
+                <work_user>miercoles</work_user>
+                <hospital>rubber</hospital>
             </analyzer>
             <featureValues>
                 <featureValue>
-                    <value>35.0</value>
+                    <value>2.2</value>
                     <feature>
                         <name>leukocytes</name>
                     </feature>
                     <healthy>false</healthy>
                 </featureValue>
                 <featureValue>
-                    <value>67.0</value>
+                    <value>2.3</value>
                     <feature>
                         <name>erythrocytes</name>
                     </feature>
                     <healthy>false</healthy>
                 </featureValue>
                 <featureValue>
-                    <value>84.0</value>
+                    <value>2.4</value>
                     <feature>
                         <name>hemoglobin</name>
                     </feature>
                     <healthy>false</healthy>
                 </featureValue>
                 <featureValue>
-                    <value>300.0</value>
+                    <value>2.0</value>
                     <feature>
                         <name>hematocrit</name>
                     </feature>
                     <healthy>false</healthy>
-                </featureValue>
-                <featureValue>
-                    <value>45.0</value>
-                    <feature>
-                        <name>platelets</name>
-                    </feature>
-                    <healthy>false</healthy>
-                </featureValue>
-                <featureValue>
-                    <value>33.0</value>
-                    <feature>
-                        <name>cholesterol</name>
-                    </feature>
-                    <healthy>true</healthy>
-                </featureValue>
-                <featureValue>
-                    <value>67.0</value>
-                    <feature>
-                        <name>cholesterolHDL</name>
-                    </feature>
-                    <healthy>false</healthy>
-                </featureValue>
-                <featureValue>
-                    <value>24.0</value>
-                    <feature>
-                        <name>triglycerides</name>
-                    </feature>
-                    <healthy>true</healthy>
-                </featureValue>
-                <featureValue>
-                    <value>29.0</value>
-                    <feature>
-                        <name>cholesterolLDL</name>
-                    </feature>
-                    <healthy>true</healthy>
-                </featureValue>
-                <featureValue>
-                    <value>83.0</value>
-                    <feature>
-                        <name>glycemia</name>
-                    </feature>
-                    <healthy>true</healthy>
                 </featureValue>
             </featureValues>
         </hemogram>

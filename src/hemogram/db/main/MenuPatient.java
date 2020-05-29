@@ -22,6 +22,7 @@ public class MenuPatient {
 		{
 			while (true) 
 			{
+				System.out.println("PATIENT");
 				System.out.println("1. LogIn");
 				System.out.println("2. Go back");
 
@@ -53,6 +54,7 @@ public class MenuPatient {
 			{
 				List<Hemogram> hemogramList = new ArrayList<Hemogram>();
 				List<FeatureValue> featureValueList = new ArrayList<FeatureValue>();
+				System.out.println("PATIENT");
 				System.out.println("1. List all Hemograms");
 				System.out.println("2. Generate XML");
 				System.out.println("3. Go back");

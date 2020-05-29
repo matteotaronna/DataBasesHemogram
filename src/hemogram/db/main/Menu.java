@@ -69,6 +69,7 @@ public class Menu
 					case 0: 
 						dbManager.disconnect();
 						usersManager.disconnect();
+						System.out.println("Thank you for using our program! Have a good day :D");
 						System.exit(0);
 						break;
 					default:

@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -14,10 +13,8 @@ import javax.xml.bind.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
-
 import hemogram.db.interfaces.PatientManager;
 import hemogram.db.pojos.*;
 import hemogram.db.pojos.users.Role;
@@ -26,7 +23,6 @@ import hemogram.db.xml.utils.CustomErrorHandler;
 
 public class MenuAnalyzer 
 {
-	//hola
 	public static PatientManager patientManager;
 	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -39,6 +35,7 @@ public class MenuAnalyzer
 			{
 				Analyzer analyzer = null;
 				int analyzerId = 0;
+				System.out.println("ANALYZER");
 				System.out.println("1. Sign In");
 				System.out.println("2. Log In");
 				System.out.println("3. Go back");
@@ -124,6 +121,7 @@ public class MenuAnalyzer
 				Patient patient = null;
 				Doctor doctor = null;
 				int patientId = 0;
+				System.out.println("ANALYZER");
 				System.out.println("1. Sign In a new patient");
 				System.out.println("2. Search for a patient");
 				System.out.println("3. Create patient and hemogram from XML");
@@ -188,7 +186,7 @@ public class MenuAnalyzer
 		File file = null;
 		boolean incorrectPatient = false;
 		do {
-			System.out.println("Type the filename for the XML document (expected in the xmls folder):");
+			System.out.println("Type the filename for the XML document (expected in the xmls folder, probably named Input-Patient.xml):");
 			String fileName = reader.readLine();
 			file = new File("./xmls/" + fileName);
 			try {
@@ -341,8 +339,6 @@ public class MenuAnalyzer
 		
 		return newPatient;
 	}
-	
-	
 
 	public static Patient searchPatient() throws Exception 
 	{
@@ -385,7 +381,6 @@ public class MenuAnalyzer
 
 		// inert values
 		System.out.println("INSERT THE VALUES FOR THE HEMOGRAM");
-
 		
 		double value;
 		boolean healthy;

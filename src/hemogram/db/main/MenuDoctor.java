@@ -28,6 +28,7 @@ public class MenuDoctor {
 			{
 				Doctor doctor = null;
 				int doctorId= 0;
+				System.out.println("DOCTOR");
 				System.out.println("1. New Doctor");
 				System.out.println("2. Already signed up");
 				System.out.println("3. Go back");
@@ -128,7 +129,7 @@ public class MenuDoctor {
 			{
 				Patient patient= null;
 				List<Patient> doctorpatientList = new ArrayList <Patient>();
-				
+				System.out.println("DOCTOR");
 				System.out.println("1. List all your patients");
 				System.out.println("2. Search for a patient");
 				System.out.println("3. Go back");
@@ -197,6 +198,7 @@ public class MenuDoctor {
 			{
 				List<Hemogram> hemogramList = new ArrayList<Hemogram>();
 				List<FeatureValue> featureValueList = new ArrayList<FeatureValue>();
+				    System.out.println("DOCTOR");
 					System.out.println("1. Show his hemograms normally");
 					System.out.println("2. Generate XML");
 					System.out.println("3. Go back");
@@ -305,14 +307,14 @@ public class MenuDoctor {
 		patient.setHemograms(hemograms);
 		JAXBContext context = JAXBContext.newInstance(Patient.class);
 		// Get the marshaller
-		Marshaller marshal = context.createMarshaller();
+		Marshaller marshall = context.createMarshaller();
 		// Pretty formatting
-		marshal.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		marshall.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		// Marshall the dog to a file
 		File file = new File("./xmls/Output-Patient.xml");
-		marshal.marshal(patient, file);
+		marshall.marshal(patient, file);
 		// Marshall the dog to the screen
-		marshal.marshal(patient, System.out);
+		marshall.marshal(patient, System.out);
 	}
 	
 }

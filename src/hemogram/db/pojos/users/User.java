@@ -28,7 +28,6 @@ public class User implements Serializable {
 	@TableGenerator(name="users", table="sqlite_sequence",
 	    pkColumnName="name", valueColumnName="seq", pkColumnValue="users")
 	private Integer id;
-	@Column(unique = true)
 	private String username;
 	@Lob
 	private byte[] password;
