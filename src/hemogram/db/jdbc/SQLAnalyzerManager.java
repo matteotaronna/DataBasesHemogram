@@ -151,6 +151,8 @@ public class SQLAnalyzerManager implements AnalyzerManager
 				prep.executeUpdate();
 				prep.close();
 			}
+			rs.close();
+			prep1.close();
 
 		} catch (Exception e) {
 				e.printStackTrace();

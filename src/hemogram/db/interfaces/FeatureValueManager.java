@@ -8,7 +8,5 @@ import hemogram.db.pojos.*;
 public interface FeatureValueManager 
 {
 	public void insertFeatureValue(FeatureValue featureValue) ;
-	public FeatureValue getFeatureValue (int featureValueId);
-	public Feature getFeatureValueByName (String featureName);
 	public List<FeatureValue> getFeatureValuesByHemogram (int hemogramId);
 }

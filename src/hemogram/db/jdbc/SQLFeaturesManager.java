@@ -56,6 +56,8 @@ public class SQLFeaturesManager implements FeaturesManager
 				float minimum = rs.getFloat("minimum");
 				float maximum = rs.getFloat("maximum");
 				newFeature = new Feature(id, name, minimum, maximum);
+			rs.close();
+			s.close();
 			
 		} catch (Exception e) 
 		{
@@ -80,6 +82,8 @@ public class SQLFeaturesManager implements FeaturesManager
 				float minimum = rs.getFloat("minimum");
 				float maximum = rs.getFloat("maximum");
 				newFeature = new Feature(id, name, minimum, maximum);
+			rs.close();
+			s.close();
 		} catch (Exception e) 
 		{
 			e.printStackTrace();
@@ -108,8 +112,8 @@ public class SQLFeaturesManager implements FeaturesManager
 						//add dog to the list
 						featuresList.add(newFeature);
 					}
-					//rs.close();
-					//stmt.close();
+					rs.close();
+					stmt.close();
 				} catch (Exception e) 
 				{
 					e.printStackTrace();

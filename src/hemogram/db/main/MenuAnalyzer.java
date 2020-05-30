@@ -247,8 +247,6 @@ public class MenuAnalyzer
 			List <FeatureValue> featureValues = hemogram.getFeatureValues();
 			for (FeatureValue featureValue : featureValues)
 			{
-				//System.out.println(featureValue.getValue());
-				//System.out.println(featureValue.getFeature().getName());
 				insertFeatureValue(featureValue,hemogram);
 			}
 			

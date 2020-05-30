@@ -47,19 +47,6 @@ public SQLFeatureValueManager(Connection c, FeaturesManager feature, HemogramMan
 	}
 
 	@Override
-	public FeatureValue getFeatureValue(int featureValueId) 
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Feature getFeatureValueByName(String featureName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
 	public List<FeatureValue> getFeatureValuesByHemogram (int hemogramId)
 	{
 		List<FeatureValue> featuresValues=new ArrayList<FeatureValue>();
@@ -82,6 +69,7 @@ public SQLFeatureValueManager(Connection c, FeaturesManager feature, HemogramMan
 				FeatureValue newFeatureValue = new FeatureValue( id,  value,  feature, hemogram,  healthy);
 				featuresValues.add(newFeatureValue);
 			}
+			rs.close();
 			prep.close();
 		
 		}catch (Exception e) 

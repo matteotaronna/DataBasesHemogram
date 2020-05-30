@@ -80,6 +80,8 @@ public class SQLHemogramManager implements HemogramManager{
 					Analyzer analyzer = analyzerM.getAnalyzer(analyzer_id);
 					newHemogram = new Hemogram(id, dob, comments, patient,doctor, analyzer);
 				}
+				rs.close();
+				s.close();
 				
 			} catch (Exception e) 
 			{
@@ -111,6 +113,8 @@ public class SQLHemogramManager implements HemogramManager{
 					Hemogram newHemogram = new Hemogram(id, dob, comments, patient,doctor, analyzer);
 					hemogramList.add(newHemogram);
 				}
+				rs.close();
+				s.close();
 				
 			} catch (Exception e) 
 			{
@@ -142,6 +146,8 @@ public class SQLHemogramManager implements HemogramManager{
 					Hemogram newHemogram = new Hemogram(id, dob, comments, patient,doctor, analyzer);
 					hemogramList.add(newHemogram);
 				}
+				rs.close();
+				s.close();
 				
 			} catch (Exception e) 
 			{

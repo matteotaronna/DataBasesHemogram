@@ -185,6 +185,8 @@ public class SQLManager implements DBManager
 			PreparedStatement p = c.prepareStatement(query);
 			ResultSet rs = p.executeQuery();
 			result = rs.getInt("lastId");
+			rs.close();
+			p.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
