@@ -7,31 +7,21 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import hemogram.db.interfaces.PatientManager;
-import hemogram.db.pojos.Analyzer;
-import hemogram.db.pojos.Doctor;
-import hemogram.db.pojos.Hemogram;
-import hemogram.db.pojos.Patient;
+import hemogram.db.pojos.*;
 
-public class SQLPatientManager implements PatientManager 
-{
+public class SQLPatientManager implements PatientManager {
 	private Connection c;
-	
-	
 
-	public SQLPatientManager(Connection c) 
-	{
+	public SQLPatientManager(Connection c) {
 		this.c = c;
 	}
-	
-	//INSERT
+
+	// INSERT
 	@Override
-	public void insertPatient (Patient patient) 
-	{
-		try
-		{
+	public void insertPatient(Patient patient) {
+		try {
 			// Insert new record
-			String sql = "INSERT INTO patients (name, surname, dob, dni) "
-						+ "VALUES (?,?,?,?)";
+			String sql = "INSERT INTO patients (name, surname, dob, dni) " + "VALUES (?,?,?,?)";
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setString(1, patient.getName());
 			prep.setString(2, patient.getSurname());
@@ -40,22 +30,18 @@ public class SQLPatientManager implements PatientManager
 			System.out.println("Records inserted.");
 			prep.executeUpdate();
 			prep.close();
-		
-		}catch (Exception e) 
-		{
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	//method to sign up patient without inserting doctor id
+
+	// method to sign up patient without inserting doctor id
 	@Override
-	public void signUpPatient (Patient patient) 
-	{
-		try
-		{
+	public void signUpPatient(Patient patient) {
+		try {
 			// Insert new record
-			String sql = "INSERT INTO patients (name, surname, dob, dni) "
-						+ "VALUES (?,?,?,?)";
+			String sql = "INSERT INTO patients (name, surname, dob, dni) " + "VALUES (?,?,?,?)";
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setString(1, patient.getName());
 			prep.setString(2, patient.getSurname());
@@ -64,18 +50,15 @@ public class SQLPatientManager implements PatientManager
 			System.out.println("Records inserted.");
 			prep.executeUpdate();
 			prep.close();
-		
-		}catch (Exception e) 
-		{
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public Patient logInPatient(String name, String dni) 
-	{
+
+	public Patient logInPatient(String name, String dni) {
 		Patient newPatient = null;
-		try 
-		{
+		try {
 			String sql = "SELECT * FROM patients WHERE name = ? AND dni = ?";
 			PreparedStatement s = c.prepareStatement(sql);
 			s.setString(1, name);
@@ -99,70 +82,59 @@ public class SQLPatientManager implements PatientManager
 		return newPatient;
 	}
 
-	//SELECT
+	// SELECT
 	@Override
-	public Patient getPatient(int patientId) 
-	{
+	public Patient getPatient(int patientId) {
 		Patient newPatient = null;
-		try 
-		{
+		try {
 			String sql = "SELECT * FROM patients WHERE id = ?";
 			PreparedStatement s = c.prepareStatement(sql);
 			s.setInt(1, patientId);
 			ResultSet rs = s.executeQuery();
 			rs.next();
-				int id = rs.getInt("id");
-				String name = rs.getString("name");
-				String surname = rs.getString("surname");
-				Date dob = rs.getDate("dob");
-				String dni = rs.getString("dni");
-				newPatient = new Patient(id, name, surname, dob, dni);
-			
-		} catch (Exception e) 
-		{
+			int id = rs.getInt("id");
+			String name = rs.getString("name");
+			String surname = rs.getString("surname");
+			Date dob = rs.getDate("dob");
+			String dni = rs.getString("dni");
+			newPatient = new Patient(id, name, surname, dob, dni);
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return newPatient;
 	}
-	
+
 	@Override
-	public Patient searchPatient(String dni) 
-	{
+	public Patient searchPatient(String dni) {
 		Patient newPatient = null;
-		try 
-		{
+		try {
 			String sql = "SELECT * FROM patients WHERE dni = ?";
 			PreparedStatement s = c.prepareStatement(sql);
 			s.setString(1, dni);
 			ResultSet rs = s.executeQuery();
 			rs.next();
-				int id = rs.getInt("id");
-				String name = rs.getString("name");
-				String surname = rs.getString("surname");
-				Date dob = rs.getDate("dob");
-				String newDni = rs.getString("dni");
-				newPatient = new Patient(id, name, surname, dob, newDni);
-			
-		} catch (Exception e) 
-		{
-			if(e.getMessage().contains("ResultSet closed"))
-			{
+			int id = rs.getInt("id");
+			String name = rs.getString("name");
+			String surname = rs.getString("surname");
+			Date dob = rs.getDate("dob");
+			String newDni = rs.getString("dni");
+			newPatient = new Patient(id, name, surname, dob, newDni);
+
+		} catch (Exception e) {
+			if (e.getMessage().contains("ResultSet closed")) {
 				newPatient = null;
-			}
-			else
-			{
+			} else {
 				e.printStackTrace();
 			}
 		}
 		return newPatient;
 	}
-	
+
 	@Override
-	public int getPatientId (Patient patient)
-	{
+	public int getPatientId(Patient patient) {
 		int patientId = 0;
-		try 
-		{
+		try {
 			String sql = "SELECT * FROM patients WHERE name = ? AND surname = ? AND dob = ? AND dni = ?";
 			PreparedStatement s = c.prepareStatement(sql);
 			s.setString(1, patient.getName());
@@ -171,10 +143,9 @@ public class SQLPatientManager implements PatientManager
 			s.setString(4, patient.getDni());
 			ResultSet rs = s.executeQuery();
 			rs.next();
-				 patientId = rs.getInt("id");
-			
-		} catch (Exception e) 
-		{
+			patientId = rs.getInt("id");
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return patientId;
@@ -183,15 +154,13 @@ public class SQLPatientManager implements PatientManager
 	@Override
 	public List<Patient> listPatients(int doctorId) {
 		List<Patient> patientsList = new ArrayList<Patient>();
-		try 
-		{
-			String sql = "SELECT * FROM patients AS  p JOIN patientsDoctors AS pd ON p.id = pd.patientId" 
-						+ " JOIN doctors AS d ON d.id = pd.doctorId" + " WHERE doctorId = ?";
+		try {
+			String sql = "SELECT * FROM patients AS  p JOIN patientsDoctors AS pd ON p.id = pd.patientId"
+					+ " JOIN doctors AS d ON d.id = pd.doctorId" + " WHERE doctorId = ?";
 			PreparedStatement s = c.prepareStatement(sql);
 			s.setInt(1, doctorId);
 			ResultSet rs = s.executeQuery();
-			while(rs.next()==true)
-			{
+			while (rs.next() == true) {
 				int id = rs.getInt(1);
 				String name = rs.getString(2);
 				String surname = rs.getString(3);
@@ -200,12 +169,11 @@ public class SQLPatientManager implements PatientManager
 				Patient newPatient = new Patient(id, name, surname, dob, dni);
 				patientsList.add(newPatient);
 			}
-			
-		} catch (Exception e) 
-		{
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return patientsList;
-		//otro commit
+		// otro commit
 	}
 }

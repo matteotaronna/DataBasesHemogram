@@ -21,30 +21,25 @@ import hemogram.db.pojos.users.Role;
 import hemogram.db.pojos.users.User;
 import hemogram.db.xml.utils.CustomErrorHandler;
 
-public class MenuAnalyzer 
-{
-	//hoksgd
+public class MenuAnalyzer {
+	// hoksgd
 	public static PatientManager patientManager;
 	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-	public static void analyzerMenu() 
-	{
-		try 
-		{
-			while (true) 
-			{
+	public static void analyzerMenu() {
+		try {
+			while (true) {
 				Analyzer analyzer = null;
 				int analyzerId = 0;
-				System.out.println("ANALYZER");
+				System.out.println("\nANALYZER\n");
 				System.out.println("1. Sign In");
 				System.out.println("2. Log In");
 				System.out.println("3. Go back");
-
+				System.out.print("Select an option: ");
 				int option = Integer.parseInt(reader.readLine());
 
-				switch (option) 
-				{
+				switch (option) {
 				case 1:
 					analyzer = signInAnalyzer();
 					analyzerId = Menu.dbManager.getLastId();
@@ -55,11 +50,10 @@ public class MenuAnalyzer
 					analyzer = logInAnalyzer();
 					do {
 						if (analyzer == null) {
-							System.out.println("Try again, the name or work-user doesn't exist");
 							analyzer = logInAnalyzer();
 						}
 					} while (analyzer == null);
-					
+
 					analyzerSubmenu(analyzer);
 					break;
 				case 3:
@@ -70,13 +64,12 @@ public class MenuAnalyzer
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		} 
+		}
 	}
 
-	public static Analyzer signInAnalyzer() throws Exception 
-	{
-		//add the new analyzer to the database
-		System.out.println("FILL IN YOUR INFO");
+	public static Analyzer signInAnalyzer() throws Exception {
+		// add the new analyzer to the database
+		System.out.println("\nFILL IN YOUR INFO");
 		System.out.print("Name (Username): ");
 		String analyzerName = reader.readLine();
 		System.out.print("Surname: ");
@@ -87,19 +80,18 @@ public class MenuAnalyzer
 		String analyzerHospital = reader.readLine();
 		Analyzer newAnalyzer = new Analyzer(analyzerName, analyzerSurname, analyzerWorkUser, analyzerHospital);
 		Menu.analyzerManager.insertAnalyzer(newAnalyzer);
-				
+
 		createAnalyzerUser(newAnalyzer);
-				
-		return newAnalyzer; //we return the analyzer to then link him to the hemogram
+
+		return newAnalyzer; // we return the analyzer to then link him to the hemogram
 	}
 
-	public static Analyzer logInAnalyzer() throws Exception 
-	{
+	public static Analyzer logInAnalyzer() throws Exception {
 		Analyzer analyzer = null;
-		System.out.println("LOG IN");
-		System.out.print("Username (name):");
+		System.out.println("\nLOG IN");
+		System.out.print("Username (name): ");
 		String username = reader.readLine();
-		System.out.print("Password (workUser):");
+		System.out.print("Password (workUser): ");
 		String password = reader.readLine();
 		User user = Menu.usersManager.checkPassword(username, password);
 		// We check if the user/password combination was OK
@@ -113,25 +105,21 @@ public class MenuAnalyzer
 		return analyzer;
 	}
 
-	public static void analyzerSubmenu(Analyzer analyzer) 
-	{
-		try 
-		{
-			while (true) 
-			{
+	public static void analyzerSubmenu(Analyzer analyzer) {
+		try {
+			while (true) {
 				Patient patient = null;
 				Doctor doctor = null;
 				int patientId = 0;
-				System.out.println("ANALYZER");
+				System.out.println("\nANALYZER\n");
 				System.out.println("1. Sign In a new patient");
 				System.out.println("2. Search for a patient");
 				System.out.println("3. Create patient and hemogram from XML");
 				System.out.println("4. Go back");
-
+				System.out.print("Select an option: ");
 				int option = Integer.parseInt(reader.readLine());
 
-				switch (option) 
-				{
+				switch (option) {
 				case 1:
 					patient = signInPatient();
 					patientId = Menu.dbManager.getLastId();
@@ -146,22 +134,18 @@ public class MenuAnalyzer
 					}
 				case 2:
 					patient = searchPatient();
-					do 
-					{
-						if (patient == null) 
-						{
+					do {
+						if (patient == null) {
 							System.out.println("Try again, there isn't a patient with that DNI.\n");
 							patient = searchPatient();
 						}
 					} while (patient == null);
 					doctor = searchDoctor(patient);
-					if (doctor != null) 
-					{
+					if (doctor != null) {
 						createHemogram(analyzer, patient, doctor);
 						break;
-					} else 
-					{
-						System.out.println("THE DOCTOR SHOULD BE REGISTERED, WAIT UNTILL HE REGISTERS!\n");
+					} else {
+						System.out.print("THE DOCTOR SHOULD BE REGISTERED, WAIT UNTILL HE REGISTERS!\n");
 						return;
 					}
 				case 3:
@@ -177,7 +161,7 @@ public class MenuAnalyzer
 			e.printStackTrace();
 		}
 	}
-	
+
 	private static void createFromXML() throws Exception {
 		// Create a JAXBContext
 		JAXBContext context = JAXBContext.newInstance(Patient.class);
@@ -187,7 +171,8 @@ public class MenuAnalyzer
 		File file = null;
 		boolean incorrectPatient = false;
 		do {
-			System.out.println("Type the filename for the XML document (expected in the xmls folder, probably named Input-Patient.xml):");
+			System.out.print(
+					"Type the filename for the XML document (expected in the xmls folder, probably named Input-Patient.xml): ");
 			String fileName = reader.readLine();
 			file = new File("./xmls/" + fileName);
 			try {
@@ -214,11 +199,10 @@ public class MenuAnalyzer
 				System.out.println(file + " was not accesible!");
 				incorrectPatient = true;
 			}
-			
+
 		} while (incorrectPatient);
 		// Unmarshall the Patient from a file
 		Patient patient = (Patient) unmarshal.unmarshal(file);
-		System.out.println("Added to the database: " + patient);
 		Menu.patientManager.signUpPatient(patient);
 		// Get the dogId from the database because the XML file doesn't have it
 		int patientId = Menu.dbManager.getLastId();
@@ -227,100 +211,94 @@ public class MenuAnalyzer
 		// For each hemogram of the patient
 		List<Hemogram> hemograms = patient.getHemograms();
 		for (Hemogram hemogram : hemograms) {
-			
+
 			hemogram.setPatient(patient);
-			//first insert doctor and analyzer
+			// first insert doctor and analyzer
 			Menu.doctorManager.insertDoctor(hemogram.getDoctor());
 			createDoctorUser(hemogram.getDoctor());
 			int doctorId = Menu.dbManager.getLastId();
 			hemogram.getDoctor().setId(doctorId);
 			Menu.analyzerManager.insertAnalyzer(hemogram.getAnalyzer());
 			createAnalyzerUser(hemogram.getAnalyzer());
-			int analyzerId =Menu.dbManager.getLastId();
+			int analyzerId = Menu.dbManager.getLastId();
 			hemogram.getAnalyzer().setId(analyzerId);
-			
+
 			Menu.hemogramManager.insertHemogram(hemogram);
-			int hemogramId = Menu.dbManager.getLastId();;
+			int hemogramId = Menu.dbManager.getLastId();
+			;
 			hemogram.setId(hemogramId);
 			Menu.analyzerManager.linkPatientDoctor(patient.getId(), doctorId);
-			
-			
-			List <FeatureValue> featureValues = hemogram.getFeatureValues();
-			for (FeatureValue featureValue : featureValues)
-			{
-				insertFeatureValue(featureValue,hemogram);
+
+			List<FeatureValue> featureValues = hemogram.getFeatureValues();
+			for (FeatureValue featureValue : featureValues) {
+				insertFeatureValue(featureValue, hemogram);
 			}
-			
+
 		}
-		System.out.println("records inserted");
+		System.out.println("Records inserted");
 	}
-	
-	public static void insertFeatureValue(FeatureValue featureValue, Hemogram hemogram)
-	{
+
+	public static void insertFeatureValue(FeatureValue featureValue, Hemogram hemogram) {
 		featureValue.setHemogram(hemogram);
 		Feature feature = Menu.featuresManager.getFeatureByName(featureValue.getFeature().getName());
 		featureValue.setFeature(feature);
 		boolean healthy = checkHealthy(feature, featureValue.getValue());
 		featureValue.setHealthy(healthy);
-		//System.out.println(feature);
-		//System.out.println(featureValue);
+		// System.out.println(feature);
+		// System.out.println(featureValue);
 		Menu.featureValueManager.insertFeatureValue(featureValue);
 	}
-	
-	public static void createPatientUser(Patient patient) throws Exception
-	{
-		//Create the user 
+
+	public static void createPatientUser(Patient patient) throws Exception {
+		// Create the user
 		String username = patient.getName();
 		String password = patient.getDni();
 		// Create the password's hash
 		MessageDigest md = MessageDigest.getInstance("MD5");
 		md.update(password.getBytes());
 		byte[] hash = md.digest();
-								
-		//get the role from the database (it is going to be a patient)
+
+		// get the role from the database (it is going to be a patient)
 		Role role = Menu.usersManager.getRoleByName("patient");
 		// Create the user and store it
 		User user = new User(username, hash, role);
 		Menu.usersManager.createUser(user);
 	}
-	
-	public static void createAnalyzerUser(Analyzer analyzer) throws Exception
-	{
-		//create the user 
+
+	public static void createAnalyzerUser(Analyzer analyzer) throws Exception {
+		// create the user
 		String username = analyzer.getName();
 		String password = analyzer.getWork_user();
 		// Create the password's hash
 		MessageDigest md = MessageDigest.getInstance("MD5");
 		md.update(password.getBytes());
 		byte[] hash = md.digest();
-							
-		//get the role from the database (it is going to be an analyzer)
+
+		// get the role from the database (it is going to be an analyzer)
 		Role role = Menu.usersManager.getRoleByName("analyzer");
-		//Create the user and store it
+		// Create the user and store it
 		User user = new User(username, hash, role);
 		Menu.usersManager.createUser(user);
 	}
-	
-	public static void createDoctorUser(Doctor doctor) throws Exception
-	{
-		//create the user 
+
+	public static void createDoctorUser(Doctor doctor) throws Exception {
+		// create the user
 		String username = doctor.getName();
 		String password = doctor.getWork_user();
 		// Create the password's hash
 		MessageDigest md = MessageDigest.getInstance("MD5");
 		md.update(password.getBytes());
 		byte[] hash = md.digest();
-							
-		//get the role from the database (it is going to be an analyzer)
+
+		// get the role from the database (it is going to be an analyzer)
 		Role role = Menu.usersManager.getRoleByName("analyzer");
-		//Create the user and store it
+		// Create the user and store it
 		User user = new User(username, hash, role);
 		Menu.usersManager.createUser(user);
 	}
 
-	public static Patient signInPatient() throws Exception 
-	{
-		System.out.println("FILL IN THE PATIENT'S INFO");
+	public static Patient signInPatient() throws Exception {
+		System.out.println("\nFILL IN THE PATIENT'S INFO");
 		System.out.print("Name: ");
 		String patientName = reader.readLine();
 		System.out.print("Surname: ");
@@ -333,15 +311,14 @@ public class MenuAnalyzer
 		Date dobDateP = Date.valueOf(dobDate);
 		Patient newPatient = new Patient(patientName, patientSurname, dobDateP, DNI);
 		Menu.patientManager.signUpPatient(newPatient);
-		
+
 		createPatientUser(newPatient);
-		
+
 		return newPatient;
 	}
 
-	public static Patient searchPatient() throws Exception 
-	{
-		System.out.println("INTRODUCE THE DNI OF THE PATIENT ");
+	public static Patient searchPatient() throws Exception {
+		System.out.println("\nINTRODUCE THE DNI OF THE PATIENT ");
 		System.out.print("Patient DNI: ");
 		String dni = reader.readLine();
 		Patient newPatient = Menu.patientManager.searchPatient(dni);
@@ -349,12 +326,11 @@ public class MenuAnalyzer
 		// if he enters a wrong DNI we have to catch the exception
 	}
 
-	public static Doctor searchDoctor(Patient patient) throws Exception 
-	{
+	public static Doctor searchDoctor(Patient patient) throws Exception {
 		List<Doctor> doctors = Menu.doctorManager.listDoctors();
-		for (Doctor doctor : doctors) 
-		{
-			System.out.println(doctor);
+		System.out.println("\nDoctors list:");
+		for (Doctor doctor : doctors) {
+			System.out.println("Doctor: " + doctor.getName() + " " + doctor.getSurname() + ", id: " + doctor.getId());
 		}
 		System.out.print("Insert the doctor id (if there isn't the doctor put 0): ");
 		int doctorId = Integer.parseInt(reader.readLine());
@@ -367,20 +343,19 @@ public class MenuAnalyzer
 			return null;
 	}
 
-	public static void createHemogram(Analyzer analyzer, Patient patient, Doctor doctor) throws Exception 
-	{
+	public static void createHemogram(Analyzer analyzer, Patient patient, Doctor doctor) throws Exception {
 		System.out.print("Insert the date of the hemogram (yyyy-MM-dd): ");
 		String date = reader.readLine();
 		LocalDate dateL = LocalDate.parse(date, formatter);
 		Date hemogramDate = Date.valueOf(dateL);
-		Hemogram hemogram = new Hemogram(hemogramDate,patient,doctor,analyzer);
+		Hemogram hemogram = new Hemogram(hemogramDate, patient, doctor, analyzer);
 		Menu.hemogramManager.insertHemogram(hemogram);
 		int hemogramId = Menu.dbManager.getLastId();
 		hemogram.setId(hemogramId);
 
 		// inert values
 		System.out.println("INSERT THE VALUES FOR THE HEMOGRAM");
-		
+
 		double value;
 		boolean healthy;
 		FeatureValue featureValue;
@@ -390,77 +365,75 @@ public class MenuAnalyzer
 		value = Double.parseDouble(reader.readLine());
 		feature = Menu.featuresManager.getFeatureByName("leukocytes");
 		healthy = checkHealthy(feature, value);
-		featureValue = new FeatureValue( value, feature, hemogram, healthy);
+		featureValue = new FeatureValue(value, feature, hemogram, healthy);
 		Menu.featureValueManager.insertFeatureValue(featureValue);
 
 		System.out.print("Erythrocytes: ");
 		value = Double.parseDouble(reader.readLine());
 		feature = Menu.featuresManager.getFeatureByName("erythrocytes");
 		healthy = checkHealthy(feature, value);
-		featureValue = new FeatureValue( value, feature, hemogram, healthy);
+		featureValue = new FeatureValue(value, feature, hemogram, healthy);
 		Menu.featureValueManager.insertFeatureValue(featureValue);
 
 		System.out.print("Hemoglobin: ");
 		value = Double.parseDouble(reader.readLine());
 		feature = Menu.featuresManager.getFeatureByName("hemoglobin");
 		healthy = checkHealthy(feature, value);
-		featureValue = new FeatureValue( value, feature, hemogram, healthy);
+		featureValue = new FeatureValue(value, feature, hemogram, healthy);
 		Menu.featureValueManager.insertFeatureValue(featureValue);
 
 		System.out.print("Hematocrit: ");
 		value = Double.parseDouble(reader.readLine());
 		feature = Menu.featuresManager.getFeatureByName("hematocrit");
 		healthy = checkHealthy(feature, value);
-		featureValue = new FeatureValue( value, feature, hemogram, healthy);
+		featureValue = new FeatureValue(value, feature, hemogram, healthy);
 		Menu.featureValueManager.insertFeatureValue(featureValue);
 
 		System.out.print("Platelets: ");
 		value = Double.parseDouble(reader.readLine());
 		feature = Menu.featuresManager.getFeatureByName("platelets");
 		healthy = checkHealthy(feature, value);
-		featureValue = new FeatureValue( value, feature, hemogram, healthy);
+		featureValue = new FeatureValue(value, feature, hemogram, healthy);
 		Menu.featureValueManager.insertFeatureValue(featureValue);
 
 		System.out.print("Cholesterol: ");
 		value = Double.parseDouble(reader.readLine());
 		feature = Menu.featuresManager.getFeatureByName("cholesterol");
 		healthy = checkHealthy(feature, value);
-		featureValue = new FeatureValue( value, feature, hemogram, healthy);
+		featureValue = new FeatureValue(value, feature, hemogram, healthy);
 		Menu.featureValueManager.insertFeatureValue(featureValue);
 
 		System.out.print("Cholesterol HDL: ");
 		value = Double.parseDouble(reader.readLine());
 		feature = Menu.featuresManager.getFeatureByName("cholesterolHDL");
 		healthy = checkHealthy(feature, value);
-		featureValue = new FeatureValue( value, feature, hemogram, healthy);
+		featureValue = new FeatureValue(value, feature, hemogram, healthy);
 		Menu.featureValueManager.insertFeatureValue(featureValue);
 
 		System.out.print("Triglycerides: ");
 		value = Double.parseDouble(reader.readLine());
 		feature = Menu.featuresManager.getFeatureByName("triglycerides");
 		healthy = checkHealthy(feature, value);
-		featureValue = new FeatureValue( value, feature, hemogram, healthy);
+		featureValue = new FeatureValue(value, feature, hemogram, healthy);
 		Menu.featureValueManager.insertFeatureValue(featureValue);
 
 		System.out.print("Cholesterol LDL: ");
 		value = Double.parseDouble(reader.readLine());
 		feature = Menu.featuresManager.getFeatureByName("cholesterolLDL");
 		healthy = checkHealthy(feature, value);
-		featureValue = new FeatureValue( value, feature, hemogram, healthy);
+		featureValue = new FeatureValue(value, feature, hemogram, healthy);
 		Menu.featureValueManager.insertFeatureValue(featureValue);
 
 		System.out.print("Glycemia: ");
 		value = Double.parseDouble(reader.readLine());
 		feature = Menu.featuresManager.getFeatureByName("glycemia");
 		healthy = checkHealthy(feature, value);
-		featureValue = new FeatureValue( value, feature, hemogram, healthy);
+		featureValue = new FeatureValue(value, feature, hemogram, healthy);
 		Menu.featureValueManager.insertFeatureValue(featureValue);
 	}
 
-	public static boolean checkHealthy(Feature feature, double value) 
-	{
-		if (value < feature.getMinimum() || value > feature.getMaximum()) 
-		{
+	public static boolean checkHealthy(Feature feature, double value) {
+		if (value < feature.getMinimum() || value > feature.getMaximum()) {
 			return false;
 
 		} else

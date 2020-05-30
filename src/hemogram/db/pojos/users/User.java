@@ -3,7 +3,6 @@ package hemogram.db.pojos.users;
 import java.io.Serializable;
 import java.util.Arrays;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -22,11 +21,10 @@ public class User implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 4356617393160006653L;
-	
+
 	@Id
-	@GeneratedValue(generator="users")
-	@TableGenerator(name="users", table="sqlite_sequence",
-	    pkColumnName="name", valueColumnName="seq", pkColumnValue="users")
+	@GeneratedValue(generator = "users")
+	@TableGenerator(name = "users", table = "sqlite_sequence", pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "users")
 	private Integer id;
 	private String username;
 	@Lob
@@ -34,11 +32,11 @@ public class User implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "role_id")
 	private Role role;
-	
+
 	public User() {
 		super();
 	}
-	
+
 	public User(String username, byte[] password, Role role) {
 		super();
 		this.username = username;
@@ -49,24 +47,31 @@ public class User implements Serializable {
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getUsername() {
 		return username;
 	}
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
 	public byte[] getPassword() {
 		return password;
 	}
+
 	public void setPassword(byte[] password) {
 		this.password = password;
 	}
+
 	public Role getRole() {
 		return role;
 	}
+
 	public void setRole(Role role) {
 		this.role = role;
 	}
@@ -101,5 +106,5 @@ public class User implements Serializable {
 		return "User [id=" + id + ", username=" + username + ", password=" + Arrays.toString(password) + ", role="
 				+ role + "]";
 	}
-	
+
 }

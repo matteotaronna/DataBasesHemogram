@@ -10,13 +10,12 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import hemogram.db.xml.utils.SQLDateAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name  = "hemogram")
-@XmlType(propOrder = {"dob", "comments","doctor","analyzer","featureValues"})
-public class Hemogram implements Serializable
-{
+@XmlRootElement(name = "hemogram")
+@XmlType(propOrder = { "dob", "comments", "doctor", "analyzer", "featureValues" })
+public class Hemogram implements Serializable {
 
 	private static final long serialVersionUID = -6292926181397696502L;
-	
+
 	@XmlTransient
 	private Integer id;
 	@XmlJavaTypeAdapter(SQLDateAdapter.class)
@@ -32,7 +31,7 @@ public class Hemogram implements Serializable
 	@XmlElement(name = "featureValue")
 	@XmlElementWrapper(name = "featureValues")
 	private List<FeatureValue> featureValues;
-	
+
 	public Hemogram() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -46,7 +45,6 @@ public class Hemogram implements Serializable
 		this.doctor = doctor;
 		this.analyzer = analyzer;
 	}
-	
 
 	public Hemogram(Integer id, Date dob, String comments, Patient patient, Doctor doctor, Analyzer analyzer) {
 		super();
@@ -57,7 +55,6 @@ public class Hemogram implements Serializable
 		this.doctor = doctor;
 		this.analyzer = analyzer;
 	}
-	
 
 	public Hemogram(Date dob, Patient patient, Doctor doctor, Analyzer analyzer) {
 		super();
@@ -153,6 +150,5 @@ public class Hemogram implements Serializable
 	public void setFeatureValues(List<FeatureValue> featureValues) {
 		this.featureValues = featureValues;
 	}
-	
-	
+
 }

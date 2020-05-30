@@ -9,13 +9,12 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import hemogram.db.xml.utils.SQLDateAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name  = "patient")
-@XmlType(propOrder = {"name", "surname", "dob", "dni","hemograms"})
-public class Patient implements Serializable
-{
+@XmlRootElement(name = "patient")
+@XmlType(propOrder = { "name", "surname", "dob", "dni", "hemograms" })
+public class Patient implements Serializable {
 	// <element attribute="value">text or other elements</element>
 	private static final long serialVersionUID = -3478632845146919461L;
-	
+
 	@XmlTransient
 	private Integer id;
 	@XmlAttribute
@@ -28,15 +27,15 @@ public class Patient implements Serializable
 	private String dni;
 	@XmlTransient
 	private List<Doctor> doctor;
-	
+
 	@XmlElement(name = "hemogram")
 	@XmlElementWrapper(name = "hemograms")
-	private List <Hemogram> hemograms;
-	
+	private List<Hemogram> hemograms;
+
 	public Patient() {
 		super();
 	}
-	
+
 	public Patient(Integer id, String name, String surname, Date dob, String dni) {
 		super();
 		this.id = id;
@@ -45,8 +44,7 @@ public class Patient implements Serializable
 		this.dob = dob;
 		this.dni = dni;
 	}
-	
-	
+
 	public Patient(Integer id, String name, String surname, Date dob, String dni, List<Doctor> doctor,
 			List<Hemogram> hemograms) {
 		super();
@@ -66,8 +64,7 @@ public class Patient implements Serializable
 		this.dob = dob;
 		this.dni = dni;
 	}
-	
-	
+
 	public Patient(Integer id, String name, String surname, Date dob, String dni, List<Doctor> doctor) {
 		super();
 		this.id = id;
@@ -81,6 +78,7 @@ public class Patient implements Serializable
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -88,6 +86,7 @@ public class Patient implements Serializable
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -95,6 +94,7 @@ public class Patient implements Serializable
 	public String getSurname() {
 		return surname;
 	}
+
 	public void setSurname(String surname) {
 		this.surname = surname;
 	}
@@ -102,6 +102,7 @@ public class Patient implements Serializable
 	public Date getDob() {
 		return dob;
 	}
+
 	public void setDob(Date dob) {
 		this.dob = dob;
 	}
@@ -109,10 +110,11 @@ public class Patient implements Serializable
 	public String getDni() {
 		return dni;
 	}
+
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
-	
+
 	public List<Doctor> getDoctor() {
 		return doctor;
 	}
@@ -153,10 +155,10 @@ public class Patient implements Serializable
 			return false;
 		return true;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Patient [id=" + id + ", name=" + name + ", surname=" + surname + ", dob=" + dob + ", dni=" + dni + "]";
 	}
-	
+
 }

@@ -12,12 +12,12 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name  = "doctor")
-@XmlType(propOrder = {"name", "surname", "work_user", "hospital","specialty"})
-public class Doctor implements Serializable{
+@XmlRootElement(name = "doctor")
+@XmlType(propOrder = { "name", "surname", "work_user", "hospital", "specialty" })
+public class Doctor implements Serializable {
 
 	private static final long serialVersionUID = -7594689062301279876L;
-	
+
 	@XmlTransient
 	private Integer id;
 	@XmlAttribute
@@ -32,7 +32,7 @@ public class Doctor implements Serializable{
 	private String specialty;
 	@XmlTransient
 	private List<Patient> patients;
-	
+
 	public Doctor() {
 		super();
 	}
@@ -46,7 +46,6 @@ public class Doctor implements Serializable{
 		this.hospital = hospital;
 		this.specialty = speciality;
 	}
-	
 
 	public Doctor(String name, String surname, String work_user, String hospital, String speciality) {
 		super();
@@ -154,7 +153,6 @@ public class Doctor implements Serializable{
 
 	public void setPatients(List<Patient> patients) {
 		this.patients = patients;
-	}	
+	}
 
-	
 }

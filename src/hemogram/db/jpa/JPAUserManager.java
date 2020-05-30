@@ -15,11 +15,10 @@ import hemogram.db.pojos.users.User;
 
 public class JPAUserManager implements UserManager {
 
-private EntityManager em;
-	
+	private EntityManager em;
+
 	@Override
-	public void connect() 
-	{
+	public void connect() {
 		em = Persistence.createEntityManagerFactory("HemogramDB-provider").createEntityManager();
 		em.getTransaction().begin();
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
@@ -27,35 +26,29 @@ private EntityManager em;
 	}
 
 	@Override
-	public void disconnect() 
-	{
+	public void disconnect() {
 		em.close();
 	}
 
 	@Override
-	public void createUser(User user) 
-	{
+	public void createUser(User user) {
 		em.getTransaction().begin();
 		em.persist(user);
 		em.getTransaction().commit();
 	}
 
 	@Override
-	public void createRole(Role role) 
-	{
+	public void createRole(Role role) {
 		Query q = em.createNativeQuery("SELECT * FROM roles", Role.class);
 		List<Role> roles = (List<Role>) q.getResultList();
 		boolean existRole = false;
-		for (Role role2 : roles) 
-		{
-			if(role.getRole().equalsIgnoreCase(role2.getRole()))
-			{
+		for (Role role2 : roles) {
+			if (role.getRole().equalsIgnoreCase(role2.getRole())) {
 				existRole = true;
 				break;
 			}
 		}
-		if(existRole == false)
-		{
+		if (existRole == false) {
 			em.getTransaction().begin();
 			em.persist(role);
 			em.getTransaction().commit();
@@ -63,8 +56,7 @@ private EntityManager em;
 	}
 
 	@Override
-	public Role getRole(int id) 
-	{
+	public Role getRole(int id) {
 		Query q = em.createNativeQuery("SELECT * FROM roles WHERE id = ?", Role.class);
 		q.setParameter(1, id);
 		Role role = (Role) q.getSingleResult();
@@ -72,23 +64,20 @@ private EntityManager em;
 	}
 
 	@Override
-	public List<Role> getRoles() 
-	{
+	public List<Role> getRoles() {
 		Query q = em.createNativeQuery("SELECT * FROM roles", Role.class);
 		List<Role> roles = (List<Role>) q.getResultList();
 		return roles;
 	}
-	
+
 	@Override
-	public Role getRoleByName (String roleName)
-	{
+	public Role getRoleByName(String roleName) {
 		Role role = null;
-		try
-		{
+		try {
 			Query q = em.createNativeQuery("SELECT * FROM roles WHERE role = ?", Role.class);
 			q.setParameter(1, roleName);
 			role = (Role) q.getSingleResult();
-			
+
 		} catch (NoResultException nre) {
 			// This is what happens when no result is retrieved
 			return null;
@@ -97,8 +86,7 @@ private EntityManager em;
 	}
 
 	@Override
-	public User checkPassword(String username, String password) 
-	{
+	public User checkPassword(String username, String password) {
 		User user = null;
 		try {
 			// Create a MessageDigest

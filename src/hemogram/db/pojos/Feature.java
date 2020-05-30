@@ -9,14 +9,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
-
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name  = "feature")
-@XmlType(propOrder = {"name"})
-public class Feature implements Serializable
-{
+@XmlRootElement(name = "feature")
+@XmlType(propOrder = { "name" })
+public class Feature implements Serializable {
 	private static final long serialVersionUID = 3698476214030959794L;
-	
+
 	@XmlTransient
 	private Integer id;
 	@XmlElement
@@ -25,15 +23,12 @@ public class Feature implements Serializable
 	private double minimum;
 	@XmlTransient
 	private double maximum;
-	
-	
-	
+
 	public Feature() {
 		super();
 	}
 
-	public Feature(String name, double minimum, double maximum) 
-	{
+	public Feature(String name, double minimum, double maximum) {
 		super();
 		this.name = name;
 		this.minimum = minimum;
@@ -48,10 +43,10 @@ public class Feature implements Serializable
 		this.maximum = maximum;
 	}
 
-
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -59,6 +54,7 @@ public class Feature implements Serializable
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -66,6 +62,7 @@ public class Feature implements Serializable
 	public double getMaximum() {
 		return maximum;
 	}
+
 	public void setMaximum(float maximum) {
 		this.maximum = maximum;
 	}
@@ -73,10 +70,11 @@ public class Feature implements Serializable
 	public double getMinimum() {
 		return minimum;
 	}
+
 	public void setMinimum(float minimum) {
 		this.minimum = minimum;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

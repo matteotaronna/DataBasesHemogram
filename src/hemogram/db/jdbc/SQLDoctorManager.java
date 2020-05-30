@@ -11,23 +11,18 @@ import java.util.List;
 import hemogram.db.interfaces.DoctorManager;
 import hemogram.db.pojos.Doctor;
 
-public class SQLDoctorManager implements DoctorManager 
-{
+public class SQLDoctorManager implements DoctorManager {
 	private Connection c;
 
-	public SQLDoctorManager(Connection c) 
-	{
+	public SQLDoctorManager(Connection c) {
 		this.c = c;
 	}
 
-	//INSERT
+	// INSERT
 	@Override
-	public void insertDoctor (Doctor doctor) 
-	{
-		try
-		{
-			String sql = "INSERT INTO doctors (name, surname, work_user, hospital, specialty) "
-						+ "VALUES (?,?,?,?,?)";
+	public void insertDoctor(Doctor doctor) {
+		try {
+			String sql = "INSERT INTO doctors (name, surname, work_user, hospital, specialty) " + "VALUES (?,?,?,?,?)";
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setString(1, doctor.getName());
 			prep.setString(2, doctor.getSurname());
@@ -37,96 +32,84 @@ public class SQLDoctorManager implements DoctorManager
 			prep.executeUpdate();
 			prep.close();
 			System.out.println("Records inserted.");
-		
-		}catch (Exception e) 
-		{
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	//SELECT
+	// SELECT
 	@Override
-	public Doctor getDoctor(int doctorId) 
-	{
+	public Doctor getDoctor(int doctorId) {
 		Doctor newDoctor = null;
-		try 
-		{
+		try {
 			String sql = "SELECT * FROM doctors WHERE id = ?";
 			PreparedStatement s = c.prepareStatement(sql);
 			s.setInt(1, doctorId);
 			ResultSet rs = s.executeQuery();
 			rs.next();
-				int id = rs.getInt("id");
-				String name = rs.getString("name");
-				String surname = rs.getString("surname");
-				String work_user = rs.getString("work_user");
-				String hospital = rs.getString("hospital");
-				String specialty = rs.getString("specialty");
-				newDoctor = new Doctor(id, name, surname, work_user, hospital,specialty);
+			int id = rs.getInt("id");
+			String name = rs.getString("name");
+			String surname = rs.getString("surname");
+			String work_user = rs.getString("work_user");
+			String hospital = rs.getString("hospital");
+			String specialty = rs.getString("specialty");
+			newDoctor = new Doctor(id, name, surname, work_user, hospital, specialty);
 			rs.close();
 			s.close();
-			
-		} catch (Exception e) 
-		{
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return newDoctor;
 	}
 
-
 	@Override
-	public List<Doctor> listDoctors() 
-	{
+	public List<Doctor> listDoctors() {
 		List<Doctor> doctors = new ArrayList<Doctor>();
-		try 
-		{
+		try {
 			Statement stmt = c.createStatement();
 			String sql = "SELECT * FROM doctors";
-			ResultSet rs =  stmt.executeQuery(sql);
-			while(rs.next())
-			{
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
 				int id = rs.getInt("id");
 				String name = rs.getString("name");
 				String surname = rs.getString("surname");
 				String work_user = rs.getString("work_user");
 				String hospital = rs.getString("hospital");
 				String specialty = rs.getString("specialty");
-				Doctor doctor = new Doctor(id, name, surname, work_user, hospital,specialty);
+				Doctor doctor = new Doctor(id, name, surname, work_user, hospital, specialty);
 				doctors.add(doctor);
 			}
 			rs.close();
 			stmt.close();
-		} catch (SQLException e) 
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return doctors;
 	}
+
 	@Override
-	public Doctor logInDoctor (String name, String work_user)
-	{
+	public Doctor logInDoctor(String name, String work_user) {
 		Doctor newDoctor = null;
-		try 
-		{
+		try {
 			String sql = "SELECT * FROM doctors WHERE name = ? AND work_user = ?";
 			PreparedStatement s = c.prepareStatement(sql);
 			s.setString(1, name);
 			s.setString(2, work_user);
 			ResultSet rs = s.executeQuery();
-			while(rs.next()==true)
-			{
+			while (rs.next() == true) {
 				int id = rs.getInt("id");
 				String Dname = rs.getString("name");
 				String surname = rs.getString("surname");
 				String Dwork_user = rs.getString("work_user");
 				String hospital = rs.getString("hospital");
-				String specialty =rs.getString("specialty");
+				String specialty = rs.getString("specialty");
 				newDoctor = new Doctor(id, Dname, surname, Dwork_user, hospital, specialty);
 			}
 			rs.close();
 			s.close();
-		} catch (Exception e) 
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return newDoctor;

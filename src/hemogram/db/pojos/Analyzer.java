@@ -11,12 +11,12 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name  = "analyzer")
-@XmlType(propOrder = {"name", "surname", "work_user", "hospital"})
-public class Analyzer implements Serializable{
+@XmlRootElement(name = "analyzer")
+@XmlType(propOrder = { "name", "surname", "work_user", "hospital" })
+public class Analyzer implements Serializable {
 
 	private static final long serialVersionUID = 2533734397872268521L;
-	
+
 	@XmlTransient
 	private Integer id;
 	@XmlAttribute
@@ -27,7 +27,7 @@ public class Analyzer implements Serializable{
 	private String work_user;
 	@XmlElement
 	private String hospital;
-	
+
 	public Analyzer() {
 		super();
 	}
@@ -119,7 +119,5 @@ public class Analyzer implements Serializable{
 	public void setHospital(String hospital) {
 		this.hospital = hospital;
 	}
-	
-	
 
 }
