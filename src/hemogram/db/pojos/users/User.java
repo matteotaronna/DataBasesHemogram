@@ -3,6 +3,7 @@ package hemogram.db.pojos.users;
 import java.io.Serializable;
 import java.util.Arrays;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
