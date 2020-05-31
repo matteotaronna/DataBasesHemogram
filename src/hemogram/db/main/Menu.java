@@ -42,16 +42,25 @@ public class Menu {
 			usersManager.createRole(role3);
 
 			while (true) {
-				// starts program
-				// THE DOCTOR SHOULD BE CREATED BEFORE CREATING THE HEMOGRAM
-				System.out.println("\nWho are you?");
-				System.out.println("1. Analyzer");
-				System.out.println("2. Doctor");
-				System.out.println("3. Patient");
-				System.out.println("0. Exit");
-				System.out.print("Select an option: ");
+				int option = 4;
+				boolean correctOption = false;
+				do {
+					// starts program
+					// THE DOCTOR SHOULD BE CREATED BEFORE CREATING THE HEMOGRAM
+					System.out.println("\nWho are you?");
+					System.out.println("1. Analyzer");
+					System.out.println("2. Doctor");
+					System.out.println("3. Patient");
+					System.out.println("0. Exit");
+					System.out.print("Select an option: ");
 
-				int option = Integer.parseInt(reader.readLine());
+					try {
+						option = Integer.parseInt(reader.readLine());
+						correctOption = true;
+					} catch (NumberFormatException e) {
+						System.out.println("Insert an integer please;");
+					}
+				} while (correctOption == false);
 
 				switch (option) {
 				case 1:

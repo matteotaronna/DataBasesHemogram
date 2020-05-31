@@ -11,6 +11,7 @@ import hemogram.db.pojos.FeatureValue;
 import hemogram.db.pojos.Hemogram;
 import hemogram.db.pojos.Patient;
 import hemogram.db.pojos.users.User;
+import hemogram.db.xml.reports.Xml2Html;
 
 public class MenuPatient {
 
@@ -20,12 +21,21 @@ public class MenuPatient {
 	public static void patientMenu() {
 		try {
 			while (true) {
-				System.out.println("\nPATIENT\n");
-				System.out.println("1. LogIn");
-				System.out.println("2. Go back");
-				System.out.print("Select an option: ");
+				int option = 0;
+				boolean correctOption = false;
+				do {
+					System.out.println("\nPATIENT\n");
+					System.out.println("1. LogIn");
+					System.out.println("2. Go back");
+					System.out.print("Select an option: ");
 
-				int option = Integer.parseInt(reader.readLine());
+					try {
+						option = Integer.parseInt(reader.readLine());
+						correctOption = true;
+					} catch (NumberFormatException e) {
+						System.out.println("Insert an integer please;");
+					}
+				} while (correctOption == false);
 
 				switch (option) {
 				case 1:
@@ -50,13 +60,22 @@ public class MenuPatient {
 			while (true) {
 				List<Hemogram> hemogramList = new ArrayList<Hemogram>();
 				List<FeatureValue> featureValueList = new ArrayList<FeatureValue>();
-				System.out.println("\nPATIENT\n");
-				System.out.println("1. List all Hemograms");
-				System.out.println("2. Generate XML");
-				System.out.println("3. Go back");
-				System.out.print("Select an option: ");
+				int option = 0;
+				boolean correctOption = false;
+				do {
+					System.out.println("\nPATIENT\n");
+					System.out.println("1. List all Hemograms");
+					System.out.println("2. Generate XML");
+					System.out.println("3. Go back");
+					System.out.print("Select an option: ");
 
-				int option = Integer.parseInt(reader.readLine());
+					try {
+						option = Integer.parseInt(reader.readLine());
+						correctOption = true;
+					} catch (NumberFormatException e) {
+						System.out.println("Insert an integer please;");
+					}
+				} while (correctOption == false);
 
 				switch (option) {
 				case 1:
@@ -90,13 +109,15 @@ public class MenuPatient {
 							}
 						}
 					} else {
-						System.out.println("The hemogram introduced do not exist");
+						System.out.println("The hemogram introduced doesn't exist");
 						break;
 					}
 
 					break;
 				case 2:
 					generateXML(patient.getId());
+					System.out.println(
+							"XML successfully created, to see the html please go to the xmls folder and open the Patien.html");
 				case 3:
 					return;
 				default:
@@ -126,6 +147,8 @@ public class MenuPatient {
 		marshal.marshal(patient, file);
 		// Marshall the dog to the screen
 		marshal.marshal(patient, System.out);
+
+		Xml2Html.simpleTransform("./xmls/Output-Patient.xml", "./xmls/PatientStyle.xslt", "./xmls/Patient.html");
 	}
 
 	public static Patient logInPatient() throws Exception {

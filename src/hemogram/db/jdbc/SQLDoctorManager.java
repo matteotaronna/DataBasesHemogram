@@ -31,7 +31,6 @@ public class SQLDoctorManager implements DoctorManager {
 			prep.setString(5, doctor.getSpecialty());
 			prep.executeUpdate();
 			prep.close();
-			System.out.println("Records inserted.");
 
 		} catch (Exception e) {
 			e.printStackTrace();

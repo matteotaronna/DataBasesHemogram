@@ -27,7 +27,6 @@ public class SQLPatientManager implements PatientManager {
 			prep.setString(2, patient.getSurname());
 			prep.setDate(3, patient.getDob());
 			prep.setString(4, patient.getDni());
-			System.out.println("Records inserted.");
 			prep.executeUpdate();
 			prep.close();
 
@@ -47,7 +46,6 @@ public class SQLPatientManager implements PatientManager {
 			prep.setString(2, patient.getSurname());
 			prep.setDate(3, patient.getDob());
 			prep.setString(4, patient.getDni());
-			System.out.println("Records inserted.");
 			prep.executeUpdate();
 			prep.close();
 

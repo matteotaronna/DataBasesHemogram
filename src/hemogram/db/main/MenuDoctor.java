@@ -14,6 +14,7 @@ import hemogram.db.pojos.FeatureValue;
 import hemogram.db.pojos.Patient;
 import hemogram.db.pojos.users.Role;
 import hemogram.db.pojos.users.User;
+import hemogram.db.xml.reports.Xml2Html;
 import hemogram.db.pojos.Hemogram;
 
 public class MenuDoctor {
@@ -25,13 +26,22 @@ public class MenuDoctor {
 			while (true) {
 				Doctor doctor = null;
 				int doctorId = 0;
-				System.out.println("\nDOCTOR\n");
-				System.out.println("1. New Doctor");
-				System.out.println("2. Already signed up");
-				System.out.println("3. Go back");
-				System.out.print("Select an option: ");
+				int option = 0;
+				boolean correctOption = false;
+				do {
+					System.out.println("\nDOCTOR\n");
+					System.out.println("1. New Doctor");
+					System.out.println("2. Already signed up");
+					System.out.println("3. Go back");
+					System.out.print("Select an option: ");
 
-				int option = Integer.parseInt(reader.readLine());
+					try {
+						option = Integer.parseInt(reader.readLine());
+						correctOption = true;
+					} catch (NumberFormatException e) {
+						System.out.println("Insert an integer please;");
+					}
+				} while (correctOption == false);
 
 				switch (option) {
 				case 1:
@@ -91,6 +101,9 @@ public class MenuDoctor {
 		// Create the user and store it
 		User user = new User(username, hash, role);
 		Menu.usersManager.createUser(user);
+
+		System.out.println("Records inserted.");
+
 		return newDoctor;
 	}
 
@@ -116,13 +129,22 @@ public class MenuDoctor {
 			while (true) {
 				Patient patient = null;
 				List<Patient> doctorpatientList = new ArrayList<Patient>();
-				System.out.println("\nDOCTOR\n");
-				System.out.println("1. List all your patients");
-				System.out.println("2. Search for a patient");
-				System.out.println("3. Go back");
-				System.out.print("Select an option: ");
+				int option = 0;
+				boolean correctOption = false;
+				do {
+					System.out.println("\nDOCTOR\n");
+					System.out.println("1. List all your patients");
+					System.out.println("2. Search for a patient");
+					System.out.println("3. Go back");
+					System.out.print("Select an option: ");
 
-				int option = Integer.parseInt(reader.readLine());
+					try {
+						option = Integer.parseInt(reader.readLine());
+						correctOption = true;
+					} catch (NumberFormatException e) {
+						System.out.println("Insert an integer please;");
+					}
+				} while (correctOption == false);
 
 				switch (option) {
 				case 1:
@@ -140,8 +162,7 @@ public class MenuDoctor {
 					}
 					break;
 				case 2:
-					patient = searchPatient(); // debe buscarlo solo dentro de sus pacientes (igual hay que crear otra
-												// funcion)
+					patient = searchPatient();
 					do {
 						if (patient == null) {
 							System.out.println("Try again, doesn't exist any of your patients with that DNI");
@@ -150,7 +171,6 @@ public class MenuDoctor {
 						}
 					} while (patient == null);
 					doctorsubmenu_patient(doctor, patient);
-					// nos lleva al menu donde vemos que quiere hacer el doctor con ese paciente
 
 					break;
 
@@ -179,13 +199,22 @@ public class MenuDoctor {
 			while (true) {
 				List<Hemogram> hemogramList = new ArrayList<Hemogram>();
 				List<FeatureValue> featureValueList = new ArrayList<FeatureValue>();
-				System.out.println("\nDOCTOR\n");
-				System.out.println("1. Show his hemograms normally");
-				System.out.println("2. Generate XML");
-				System.out.println("3. Go back");
-				System.out.print("Select an option: ");
+				int option = 0;
+				boolean correctOption = false;
+				do {
+					System.out.println("\nDOCTOR\n");
+					System.out.println("1. Show his hemograms normally");
+					System.out.println("2. Generate XML");
+					System.out.println("3. Go back");
+					System.out.print("Select an option: ");
 
-				int option = Integer.parseInt(reader.readLine());
+					try {
+						option = Integer.parseInt(reader.readLine());
+						correctOption = true;
+					} catch (NumberFormatException e) {
+						System.out.println("Insert an integer please;");
+					}
+				} while (correctOption == false);
 
 				switch (option) {
 				case 1:
@@ -244,6 +273,8 @@ public class MenuDoctor {
 
 				case 2:
 					generateXML(patient.getId());
+					System.out.println(
+							"XML successfully created, to see the html please go to the xmls folder and open the Patien.html");
 					break;
 
 				case 3:
@@ -272,11 +303,12 @@ public class MenuDoctor {
 		Marshaller marshall = context.createMarshaller();
 		// Pretty formatting
 		marshall.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		// Marshall the dog to a file
+		// Marshall the patient to a file
 		File file = new File("./xmls/Output-Patient.xml");
 		marshall.marshal(patient, file);
-		// Marshall the dog to the screen
+		// Marshall the patient to the screen
 		marshall.marshal(patient, System.out);
-	}
 
+		Xml2Html.simpleTransform("./xmls/Output-Patient.xml", "./xmls/PatientStyle.xslt", "./xmls/Patient.html");
+	}
 }

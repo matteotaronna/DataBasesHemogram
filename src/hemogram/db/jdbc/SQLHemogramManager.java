@@ -42,8 +42,6 @@ public class SQLHemogramManager implements HemogramManager {
 			prep.setInt(2, hemogram.getDoctor().getId());
 			prep.setInt(3, hemogram.getPatient().getId());
 			prep.setInt(4, hemogram.getAnalyzer().getId());
-
-			System.out.println("Records inserted.");
 			prep.executeUpdate();
 			prep.close();
 

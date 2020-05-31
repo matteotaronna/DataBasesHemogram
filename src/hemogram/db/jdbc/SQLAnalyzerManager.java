@@ -27,8 +27,6 @@ public class SQLAnalyzerManager implements AnalyzerManager {
 			prep.executeUpdate();
 			prep.close();
 
-			System.out.println("Records inserted.");
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

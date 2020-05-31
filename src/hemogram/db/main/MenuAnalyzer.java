@@ -32,12 +32,22 @@ public class MenuAnalyzer {
 			while (true) {
 				Analyzer analyzer = null;
 				int analyzerId = 0;
-				System.out.println("\nANALYZER\n");
-				System.out.println("1. Sign In");
-				System.out.println("2. Log In");
-				System.out.println("3. Go back");
-				System.out.print("Select an option: ");
-				int option = Integer.parseInt(reader.readLine());
+				int option = 0;
+				boolean correctOption = false;
+				do {
+					System.out.println("\nANALYZER\n");
+					System.out.println("1. Sign In");
+					System.out.println("2. Log In");
+					System.out.println("3. Go back");
+					System.out.print("Select an option: ");
+
+					try {
+						option = Integer.parseInt(reader.readLine());
+						correctOption = true;
+					} catch (NumberFormatException e) {
+						System.out.println("Insert an integer please;");
+					}
+				} while (correctOption == false);
 
 				switch (option) {
 				case 1:
@@ -69,6 +79,7 @@ public class MenuAnalyzer {
 
 	public static Analyzer signInAnalyzer() throws Exception {
 		// add the new analyzer to the database
+
 		System.out.println("\nFILL IN YOUR INFO");
 		System.out.print("Name (Username): ");
 		String analyzerName = reader.readLine();
@@ -82,6 +93,7 @@ public class MenuAnalyzer {
 		Menu.analyzerManager.insertAnalyzer(newAnalyzer);
 
 		createAnalyzerUser(newAnalyzer);
+		System.out.println("Records inserted.");
 
 		return newAnalyzer; // we return the analyzer to then link him to the hemogram
 	}
@@ -111,13 +123,23 @@ public class MenuAnalyzer {
 				Patient patient = null;
 				Doctor doctor = null;
 				int patientId = 0;
-				System.out.println("\nANALYZER\n");
-				System.out.println("1. Sign In a new patient");
-				System.out.println("2. Search for a patient");
-				System.out.println("3. Create patient and hemogram from XML");
-				System.out.println("4. Go back");
-				System.out.print("Select an option: ");
-				int option = Integer.parseInt(reader.readLine());
+				int option = 0;
+				boolean correctOption = false;
+				do {
+					System.out.println("\nANALYZER\n");
+					System.out.println("1. Sign In a new patient");
+					System.out.println("2. Search for a patient");
+					System.out.println("3. Create patient and hemogram from XML");
+					System.out.println("4. Go back");
+					System.out.print("Select an option: ");
+
+					try {
+						option = Integer.parseInt(reader.readLine());
+						correctOption = true;
+					} catch (NumberFormatException e) {
+						System.out.println("Insert an integer please;");
+					}
+				} while (correctOption == false);
 
 				switch (option) {
 				case 1:
@@ -204,7 +226,7 @@ public class MenuAnalyzer {
 		// Unmarshall the Patient from a file
 		Patient patient = (Patient) unmarshal.unmarshal(file);
 		Menu.patientManager.signUpPatient(patient);
-		// Get the dogId from the database because the XML file doesn't have it
+		// Get the patientId from the database because the XML file doesn't have it
 		int patientId = Menu.dbManager.getLastId();
 		patient.setId(patientId);
 		createPatientUser(patient);
@@ -235,7 +257,7 @@ public class MenuAnalyzer {
 			}
 
 		}
-		System.out.println("Records inserted");
+		System.out.println("Records inserted.");
 	}
 
 	public static void insertFeatureValue(FeatureValue featureValue, Hemogram hemogram) {
@@ -313,6 +335,7 @@ public class MenuAnalyzer {
 		Menu.patientManager.signUpPatient(newPatient);
 
 		createPatientUser(newPatient);
+		System.out.println("Records inserted.");
 
 		return newPatient;
 	}
@@ -344,7 +367,7 @@ public class MenuAnalyzer {
 	}
 
 	public static void createHemogram(Analyzer analyzer, Patient patient, Doctor doctor) throws Exception {
-		System.out.print("Insert the date of the hemogram (yyyy-MM-dd): ");
+		System.out.print("\nInsert the date of the hemogram (yyyy-MM-dd): ");
 		String date = reader.readLine();
 		LocalDate dateL = LocalDate.parse(date, formatter);
 		Date hemogramDate = Date.valueOf(dateL);
@@ -430,6 +453,8 @@ public class MenuAnalyzer {
 		healthy = checkHealthy(feature, value);
 		featureValue = new FeatureValue(value, feature, hemogram, healthy);
 		Menu.featureValueManager.insertFeatureValue(featureValue);
+
+		System.out.println("Hemogram successfully created.");
 	}
 
 	public static boolean checkHealthy(Feature feature, double value) {

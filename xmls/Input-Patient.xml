@@ -41,27 +41,63 @@
             </analyzer>
  			<featureValues>
             	<featureValue>
-            		<value>2.2</value>
+            		<value>6.02</value>
             		<feature>
             			<name>Leukocytes</name>
             		</feature>
             	</featureValue>
             	<featureValue>
-            		<value>2.3</value>
+            		<value>3.80</value>
             		<feature>
             			<name>Erythrocytes</name>
             		</feature>
             	</featureValue>
             	<featureValue>
-            		<value>2.4</value>
+            		<value>13.50</value>
             		<feature>
             			<name>Hemoglobin</name>
             		</feature>
             	</featureValue>
             	<featureValue>
-            		<value>2</value>
+            		<value>50</value>
             		<feature>
             			<name>Hematocrit</name>
+            		</feature>
+            	</featureValue>
+            	<featureValue>
+            		<value>346.20</value>
+            		<feature>
+            			<name>Platelets</name>
+            		</feature>
+            	</featureValue>
+            	<featureValue>
+            		<value>139</value>
+            		<feature>
+            			<name>Cholesterol</name>
+            		</feature>
+            	</featureValue>
+            	<featureValue>
+            		<value>43.54</value>
+            		<feature>
+            			<name>CholesterolHDL</name>
+            		</feature>
+            	</featureValue>
+            	<featureValue>
+            		<value>98.64</value>
+            		<feature>
+            			<name>Triglycerides</name>
+            		</feature>
+            	</featureValue>
+            	<featureValue>
+            		<value>74.32</value>
+            		<feature>
+            			<name>CholesterolLDL</name>
+            		</feature>
+            	</featureValue>
+            	<featureValue>
+            		<value>69.50</value>
+            		<feature>
+            			<name>Glycemia</name>
             		</feature>
             	</featureValue>
             </featureValues>
