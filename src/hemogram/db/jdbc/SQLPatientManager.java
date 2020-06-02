@@ -172,6 +172,5 @@ public class SQLPatientManager implements PatientManager {
 			e.printStackTrace();
 		}
 		return patientsList;
-		// otro commit
 	}
 }

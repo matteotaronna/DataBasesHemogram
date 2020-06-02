@@ -22,7 +22,7 @@ import hemogram.db.pojos.users.User;
 import hemogram.db.xml.utils.CustomErrorHandler;
 
 public class MenuAnalyzer {
-	// hoksgd
+	
 	public static PatientManager patientManager;
 	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -223,6 +223,7 @@ public class MenuAnalyzer {
 			}
 
 		} while (incorrectPatient);
+		
 		// Unmarshall the Patient from a file
 		Patient patient = (Patient) unmarshal.unmarshal(file);
 		Menu.patientManager.signUpPatient(patient);
@@ -346,7 +347,6 @@ public class MenuAnalyzer {
 		String dni = reader.readLine();
 		Patient newPatient = Menu.patientManager.searchPatient(dni);
 		return newPatient;
-		// if he enters a wrong DNI we have to catch the exception
 	}
 
 	public static Doctor searchDoctor(Patient patient) throws Exception {

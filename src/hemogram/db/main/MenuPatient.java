@@ -116,8 +116,7 @@ public class MenuPatient {
 					break;
 				case 2:
 					generateXML(patient.getId());
-					System.out.println(
-							"XML successfully created, to see the html please go to the xmls folder and open the Patien.html");
+					System.out.println("XML successfully created, to see the html please go to the xmls folder and open the Patien.html");
 				case 3:
 					return;
 				default:
@@ -148,6 +147,7 @@ public class MenuPatient {
 		// Marshall the dog to the screen
 		marshal.marshal(patient, System.out);
 
+		//Generate the html
 		Xml2Html.simpleTransform("./xmls/Output-Patient.xml", "./xmls/PatientStyle.xslt", "./xmls/Patient.html");
 	}
 

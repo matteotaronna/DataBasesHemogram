@@ -309,6 +309,7 @@ public class MenuDoctor {
 		// Marshall the patient to the screen
 		marshall.marshal(patient, System.out);
 
+		// Generate the HTML
 		Xml2Html.simpleTransform("./xmls/Output-Patient.xml", "./xmls/PatientStyle.xslt", "./xmls/Patient.html");
 	}
 }
